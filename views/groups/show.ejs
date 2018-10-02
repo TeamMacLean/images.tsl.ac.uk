@@ -1,0 +1,51 @@
+<% include ../head.ejs %>
+<div class="container">
+
+    <!--<nav class="breadcrumb" aria-label="breadcrumbs">-->
+        <!--<ul>-->
+            <!--<li><a href="/browse/<%- group.safeName %>"><%- group.name %></a></li>-->
+            <!--<li class="is-active"><a href="#" aria-current="page">New Project</a></li>-->
+        <!--</ul>-->
+    <!--</nav>-->
+
+    <h1 class="title has-text-centered"><%- group.name %></h1>
+
+    <h2 class="title has-text-centered is-4">Projects</h2>
+
+
+    <div class="columns">
+        <% group.projects.map((project, projectIndex)=>{ %>
+
+            <% if (projectIndex !== 0 && projectIndex % 3 == 0){ %>
+                <%- '</div>' %>
+                <%- '<div class= "columns" >' %>
+            <% } %>
+
+            <div class="column is-one-third">
+                <div class="card is-rounded">
+                    <div class="card-content">
+
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4"><%- project.name %></p>
+                                <p class="subtitle is-6"><%-locals.config.rootPath%>/<%-group.safeName%>/<%- project.safeName %></p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <a class="button is-primary" href="/browse/<%- group.safeName %>/<%- project.safeName %>">View
+                                Experiments</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        <% }) %>
+    </div>
+
+    <a href="/browse/<%- group.safeName %>/new" class="button is-primary">New Project</a>
+
+
+</div>
+<% include ../foot.ejs %>

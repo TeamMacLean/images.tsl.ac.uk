@@ -1,0 +1,43 @@
+<% include ../head.ejs %>
+
+<div class="container">
+    <div class="columns is-centered" style="margin-top: 32px;">
+        <article class="card is-rounded" style="min-width:512px">
+            <div class="card-content has-text-centered">
+                <h1 class="title">Sign in </h1>
+                <!--<div class="field">-->
+                <!--<p class="control has-icons-left">-->
+                <!--<input class="input" type="email" placeholder="Email">-->
+                <!--<span class="icon is-small is-left">-->
+                <!--<i class="fa fa-envelope"></i>-->
+                <!--</span>-->
+                <!--</p>-->
+                <!--</div>-->
+                <form method="post" action="/signin">
+                    <div class="field has-addons">
+                        <p class="control" style="width:100%">
+                            <input class="input" type="text" placeholder="Username" name="username">
+                        </p>
+                        <p class="control">
+                            <a class="button is-static">
+                                @nbi.ac.uk
+                            </a>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="password" placeholder="Password" name="password">
+                        </p>
+                    </div>
+                    <p class="control">
+                        <button class="button is-primary is-medium is-fullwidth">
+                            Sign in
+                        </button>
+                    </p>
+
+                </form>
+            </div>
+        </article>
+    </div>
+</div>
+<% include ../foot.ejs %>

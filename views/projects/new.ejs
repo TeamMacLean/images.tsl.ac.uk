@@ -1,0 +1,28 @@
+<% include ../head.ejs %>
+<div class="container">
+
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/browse/<%- group.safeName %>"><%- group.name %></a></li>
+            <li class="is-active"><a href="#" aria-current="page">New Project</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="title has-text-centered">New Project</h1>
+
+    <form method="post" action="/browse/<%- group.safeName %>/new">
+
+        <div class="field">
+            <label class="label">Project Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="My new project" name="name">
+            </div>
+            <!--<p class="help">This is a help text</p>-->
+        </div>
+        <div class="control">
+            <button class="button is-primary">Submit</button>
+        </div>
+    </form>
+
+</div>
+<% include ../foot.ejs %>

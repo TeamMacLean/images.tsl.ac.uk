@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TSL Image Data</title>
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
+</head>
+
+<body>
+
+<!-- START NAV -->
+<nav class="navbar is-white">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item brand-text" href="/">
+                <!--<img src="/img/logo.png">-->
+                <!--<img src="/img/logo2.png">-->
+                TSL Image Data
+            </a>
+            <div class="navbar-burger burger" data-target="navMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/">
+                    Home
+                </a>
+                <a class="navbar-item" href="/groups">
+                    Groups
+                </a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Help
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                            Elements
+                        </a>
+                        <a class="navbar-item">
+                            Components
+                        </a>
+                        <a class="navbar-item" href="#">
+                            Contact us
+                        </a>
+                        <hr class="navbar-divider">
+                        <div class="navbar-item">
+                            Version 0.7.1
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-end">
+                <% if(locals.signedInUser){ %>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            <%- locals.signedInUser.name %>
+                        </a>
+
+                        <div class="navbar-dropdown">
+
+                            <% if(locals.signedInUser.isAdmin){ %>
+                                <a class="navbar-item" href="/admin">
+                                    Admin
+                                </a>
+                            <% } %>
+
+                            <a class="navbar-item">
+                                My Images
+                            </a>
+                            <a class="navbar-item">
+                                My Group
+                            </a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item" href="#">
+                                Sign out
+                            </a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="navbar-item">
+                        <div class="field is-grouped is-grouped-multiline">
+                            <p class="control">
+                                <a class="button is-info"
+                                   href="/signin">
+                                    <strong>Sign in</strong>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+
+        </div>
+    </div>
+</nav>
+<!-- END NAV -->
