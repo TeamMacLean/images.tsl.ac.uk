@@ -1,17 +1,18 @@
+<% locals.breadcrumbs = [
+    {name: 'Home', link: '/'},
+    {name: group.name, active: true}
+]; %>
 <% include ../head.ejs %>
 <div class="container">
 
-    <!--<nav class="breadcrumb" aria-label="breadcrumbs">-->
-        <!--<ul>-->
-            <!--<li><a href="/browse/<%- group.safeName %>"><%- group.name %></a></li>-->
-            <!--<li class="is-active"><a href="#" aria-current="page">New Project</a></li>-->
-        <!--</ul>-->
-    <!--</nav>-->
-
     <h1 class="title has-text-centered"><%- group.name %></h1>
-
+    <p class="subtitle has-text-centered"><%- `${locals.config.rootPath}/${group.safeName}` %></p>
+    <br>
     <h2 class="title has-text-centered is-4">Projects</h2>
 
+    <div class="section">
+        <a href="/browse/<%- group.safeName %>/new" class="button is-success is-medium">New Project</a>
+    </div>
 
     <div class="columns">
         <% group.projects.map((project, projectIndex)=>{ %>
@@ -28,13 +29,12 @@
                         <div class="media">
                             <div class="media-content">
                                 <p class="title is-4"><%- project.name %></p>
-                                <p class="subtitle is-6"><%-locals.config.rootPath%>/<%-group.safeName%>/<%- project.safeName %></p>
                             </div>
                         </div>
 
                         <div class="content">
-                            <a class="button is-primary" href="/browse/<%- group.safeName %>/<%- project.safeName %>">View
-                                Experiments</a>
+                            <a class="button is-link"
+                               href="/browse/<%- group.safeName %>/<%- project.safeName %>">View Project</a>
                         </div>
 
                     </div>
@@ -44,8 +44,7 @@
         <% }) %>
     </div>
 
-    <a href="/browse/<%- group.safeName %>/new" class="button is-primary">New Project</a>
-
 
 </div>
+
 <% include ../foot.ejs %>

@@ -1,0 +1,52 @@
+<% locals.breadcrumbs = [
+    {name: 'Home', link: '/'},
+    {name: project.group.name, link: `/browse/${project.group.safeName}`},
+    {name: project.name, active: true}
+]; %>
+<% include ../head.ejs %>
+<div class="container">
+
+    <h1 class="title has-text-centered"><%- project.name %></h1>
+    <p class="subtitle has-text-centered"><%- `${locals.config.rootPath}/${project.group.safeName}/${project.safeName}` %></p>
+    <br>
+    <h2 class="title has-text-centered is-4">Experiments</h2>
+
+    <div class="section">
+        <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new" class="button is-success is-medium">New
+            Experiment</a>
+    </div>
+
+
+    <div class="columns">
+        <% project.experiments.map((experiment, experimentIndex)=>{ %>
+
+            <% if (experimentIndex !== 0 && experimentIndex % 3 == 0){ %>
+                <%- '</div>' %>
+                <%- '<div class= "columns" >' %>
+            <% } %>
+
+            <div class="column is-one-third">
+                <div class="card is-rounded">
+                    <div class="card-content">
+
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4"><%- experiment.name %></p>
+
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a class="button is-link"
+                               href="/browse/<%- project.group.safeName %>/<%- experiment.safeName %>/<%- experiment.safeName %>">View
+                                Experiment</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        <% }) %>
+    </div>
+
+</div>
+<% include ../foot.ejs %>

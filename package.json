@@ -3,10 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node server.js",
+    "build": "node_modules/.bin/parcel build public/js/src/*.js -d public/js",
+    "watch": "node_modules/.bin/parcel watch public/js/src/*.js -d public/js"
   },
   "dependencies": {
+    "@uppy/core": "^0.27.3",
+    "@uppy/dashboard": "^0.27.5",
+    "@uppy/thumbnail-generator": "^0.27.4",
+    "@uppy/tus": "^0.27.5",
     "bulma": "^0.7.1",
+    "clipboard": "^2.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
@@ -16,9 +23,11 @@
     "less-middleware": "~2.2.1",
     "morgan": "~1.9.0",
     "node-sass-middleware": "^0.11.0",
+    "node-thumbnail": "^0.14.0",
     "passport": "^0.4.0",
     "passport-ldapauth": "^2.1.0",
     "session-rethinkdb": "^2.0.1",
-    "thinky": "^2.3.9"
+    "thinky": "^2.3.9",
+    "tus-node-server": "^0.3.2"
   }
 }

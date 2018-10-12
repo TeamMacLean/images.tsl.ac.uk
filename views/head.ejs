@@ -31,30 +31,30 @@
                 <a class="navbar-item" href="/">
                     Home
                 </a>
-                <a class="navbar-item" href="/groups">
-                    Groups
-                </a>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        Help
-                    </a>
+                <!--<a class="navbar-item" href="/groups">-->
+                <!--Groups-->
+                <!--</a>-->
+                <!--<div class="navbar-item has-dropdown is-hoverable">-->
+                <!--<a class="navbar-link">-->
+                <!--Help-->
+                <!--</a>-->
 
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            Elements
-                        </a>
-                        <a class="navbar-item">
-                            Components
-                        </a>
-                        <a class="navbar-item" href="#">
-                            Contact us
-                        </a>
-                        <hr class="navbar-divider">
-                        <div class="navbar-item">
-                            Version 0.7.1
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="navbar-dropdown">-->
+                <!--<a class="navbar-item">-->
+                <!--Elements-->
+                <!--</a>-->
+                <!--<a class="navbar-item">-->
+                <!--Components-->
+                <!--</a>-->
+                <!--<a class="navbar-item" href="#">-->
+                <!--Contact us-->
+                <!--</a>-->
+                <!--<hr class="navbar-divider">-->
+                <!--<div class="navbar-item">-->
+                <!--Version 0.7.1-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
             </div>
             <div class="navbar-end">
                 <% if(locals.signedInUser){ %>
@@ -65,20 +65,20 @@
 
                         <div class="navbar-dropdown">
 
-                            <% if(locals.signedInUser.isAdmin){ %>
-                                <a class="navbar-item" href="/admin">
-                                    Admin
-                                </a>
-                            <% } %>
+                            <!--<% if(locals.signedInUser.isAdmin){ %>-->
+                            <!--<a class="navbar-item" href="/admin">-->
+                            <!--Admin-->
+                            <!--</a>-->
+                            <!--<% } %>-->
 
-                            <a class="navbar-item">
-                                My Images
-                            </a>
-                            <a class="navbar-item">
-                                My Group
-                            </a>
-                            <hr class="navbar-divider">
-                            <a class="navbar-item" href="#">
+                            <!--<a class="navbar-item">-->
+                            <!--My Images-->
+                            <!--</a>-->
+                            <!--<a class="navbar-item">-->
+                            <!--My Group-->
+                            <!--</a>-->
+                            <!--<hr class="navbar-divider">-->
+                            <a class="navbar-item" href="/signout">
                                 Sign out
                             </a>
                         </div>
@@ -100,4 +100,24 @@
         </div>
     </div>
 </nav>
+
+<% if(locals.breadcrumbs){ %>
+    <div class="is-grey">
+        <div class="container">
+            <nav class="breadcrumb " aria-label="breadcrumbs">
+                <ul>
+                    <% locals.breadcrumbs.map(breadcrumb=>{ %>
+
+                        <% if(breadcrumb.active){ %>
+                            <li class="is-active"><a href="#" aria-current="page"><%- breadcrumb.name %></a></li>
+                        <% } else { %>
+                            <li><a href="<%- breadcrumb.link %>"><%- breadcrumb.name %></a></li>
+                        <% } %>
+                    <% }) %>
+                </ul>
+            </nav>
+        </div>
+    </div>
+<% } %>
+<div style="width:100%; height:0;margin-bottom:32px;"></div>
 <!-- END NAV -->

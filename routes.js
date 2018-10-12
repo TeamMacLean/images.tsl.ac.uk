@@ -5,12 +5,15 @@ const Auth = require('./controllers/auth');
 const Groups = require('./controllers/groups');
 const Projects = require('./controllers/projects');
 const Admin = require('./controllers/admin');
-const config = require('./config');
+const Experiments = require('./controllers/experiments');
+// const config = require('./config');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    res.render('index');
-});
+router
+    .all(isAuthenticated)
+    .get('/', function (req, res, next) {
+        res.redirect('/groups');
+    });
 
 
 router.route('/signin')
@@ -33,9 +36,20 @@ router.route('/admin')
     .get(Admin.index);
 
 router.route('/browse/:group/new')
-    .all(isAuthenticated)
+    .all([isAuthenticated, isInGroup])
     .get(Projects.new)
     .post(Projects.newPost);
+router.route('/browse/:group/:project')
+    .all([isAuthenticated, isInGroup])
+    .get(Projects.show);
+
+router.route('/browse/:group/:project/new')
+    .all([isAuthenticated, isInGroup])
+    .get(Experiments.new)
+    .post(Experiments.newPost);
+router.route('/browse/:group/:project/:experiment')
+    .all([isAuthenticated, isInGroup])
+    .get(Experiments.show);
 
 
 module.exports = router;

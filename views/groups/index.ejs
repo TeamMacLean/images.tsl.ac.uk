@@ -1,5 +1,6 @@
 <% include ../head.ejs %>
 <div class="container">
+
     <h1 class="title has-text-centered">Groups</h1>
 
     <% if(groups && groups.length){ %>
@@ -30,7 +31,7 @@
                             </div>
 
                             <div class="content">
-                                <a class="button is-primary" href="/browse/<%- group.safeName %>">View Projects</a>
+                                <a class="button is-link" href="/browse/<%- group.safeName %>">View Projects</a>
                             </div>
                         </div>
                     </div>

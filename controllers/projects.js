@@ -4,26 +4,27 @@ const renderError = require('../lib/renderError');
 module.exports = {
     new: (req, res, next) => {
 
-        const group = req.params.group;
+        const groupName = req.params.group;
 
-        Group.filter({safeName: group})
+        Group.filter({safeName: groupName})
             .run()
             .then(groups => {
                 if (groups && groups.length) {
                     return res.render('projects/new', {group: groups[0]});
                 } else {
-                    renderError(res, new Error('Group does not exist'));
+                    next();
+                    // renderError(res, new Error('Group does not exist'));
                 }
             });
 
 
     },
     newPost: (req, res, next) => {
-        const group = req.params.group;
+        const groupName = req.params.group;
         const projectName = req.body.name;
 
 
-        Group.filter({safeName: group})
+        Group.filter({safeName: groupName})
             .run()
             .then(groups => {
                 if (groups && groups.length) {
@@ -35,27 +36,33 @@ module.exports = {
                         })
                         .catch(err => renderError(res, err));
                 } else {
-                    renderError(res, new Error('Group does not exist'));
+                    next();
+                    // renderError(res, new Error('Group does not exist'));
                 }
+            })
+            .catch(err=>{
+                next();
+            })
+
+    },
+    show: (req, res, next) => {
+
+        const projectName = req.params.project;
+
+        Project.filter({safeName: projectName})
+            .getJoin({group: true, experiments: true})
+            .then(projects => {
+                if (projects && projects.length) {
+                    return res.render('projects/show', {project: projects[0]});
+                } else {
+                    next();
+                    // return renderError(res, new Error('Group not found'));
+                }
+            })
+            .catch(err => {
+                next();
+                // return renderError(res, err);
             });
 
     }
-    // show: (req, res, next) => {
-    //
-    //     const groupName = req.body.group;
-    //
-    //     Group.filter({safeName: groupName})
-    //         .getJoin({projects:true})
-    //         .then(groups => {
-    //             if (groups && groups.length) {
-    //                 return res.render('groups/show', {group: groups[0]});
-    //             } else {
-    //                 return renderError(res, new Error('Group not found'));
-    //             }
-    //         })
-    //         .catch(err => {
-    //             return renderError(res, err);
-    //         });
-    //
-    // }
 };

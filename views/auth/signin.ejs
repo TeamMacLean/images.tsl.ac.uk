@@ -1,43 +1,86 @@
 <% include ../head.ejs %>
+<style>
+    /*.hero.is-success {*/
+    /*background: #F2F6FA;*/
+    /*}*/
 
-<div class="container">
-    <div class="columns is-centered" style="margin-top: 32px;">
-        <article class="card is-rounded" style="min-width:512px">
-            <div class="card-content has-text-centered">
-                <h1 class="title">Sign in </h1>
-                <!--<div class="field">-->
-                <!--<p class="control has-icons-left">-->
-                <!--<input class="input" type="email" placeholder="Email">-->
-                <!--<span class="icon is-small is-left">-->
-                <!--<i class="fa fa-envelope"></i>-->
-                <!--</span>-->
+    .hero .nav, .hero.is-success .nav {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .box {
+        margin-top: 5rem;
+    }
+
+    .avatar {
+        margin-top: -70px;
+        padding-bottom: 20px;
+    }
+
+    .avatar img {
+        padding: 5px;
+        background: #fff;
+        border-radius: 50%;
+        -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+        box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+    }
+
+    input {
+        font-weight: 300;
+    }
+
+    p {
+        font-weight: 700;
+    }
+
+    p.subtitle {
+        padding-top: 1rem;
+    }
+</style>
+<section class="hero">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="column is-4 is-offset-4">
+                <h3 class="title has-text-grey">Login</h3>
+                <p class="subtitle has-text-grey">Please login to proceed.</p>
+                <div class="box">
+                    <figure class="avatar">
+                        <img src="https://placehold.it/128x128">
+                    </figure>
+                    <form method="post" action="/signin">
+                        <div class="field has-addons">
+                            <p class="control" style="width:100%">
+                                <input class="input is-large" type="text" placeholder="Username" name="username">
+                            </p>
+                            <p class="control">
+                                <a class="button is-static is-large">
+                                    @nbi.ac.uk
+                                </a>
+                            </p>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-large" type="password" placeholder="Your Password" name="password">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                                Remember me
+                            </label>
+                        </div>
+                        <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                    </form>
+                </div>
+                <!--<p class="has-text-grey">-->
+                <!--<a href="../">Sign Up</a> &nbsp;·&nbsp;-->
+                <!--<a href="../">Forgot Password</a> &nbsp;·&nbsp;-->
+                <!--<a href="../">Need Help?</a>-->
                 <!--</p>-->
-                <!--</div>-->
-                <form method="post" action="/signin">
-                    <div class="field has-addons">
-                        <p class="control" style="width:100%">
-                            <input class="input" type="text" placeholder="Username" name="username">
-                        </p>
-                        <p class="control">
-                            <a class="button is-static">
-                                @nbi.ac.uk
-                            </a>
-                        </p>
-                    </div>
-                    <div class="field">
-                        <p class="control">
-                            <input class="input" type="password" placeholder="Password" name="password">
-                        </p>
-                    </div>
-                    <p class="control">
-                        <button class="button is-primary is-medium is-fullwidth">
-                            Sign in
-                        </button>
-                    </p>
-
-                </form>
             </div>
-        </article>
+        </div>
     </div>
-</div>
+</section>
 <% include ../foot.ejs %>

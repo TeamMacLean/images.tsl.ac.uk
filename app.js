@@ -7,8 +7,19 @@ const logger = require('morgan');
 const passport = require('passport');
 const LdapStrategy = require('passport-ldapauth');
 
+const uploadFile = require('./lib/uploadFIle');
+
 const session = require('express-session');
 const rethinkSession = require('session-rethinkdb')(session);
+
+const tus = require('tus-node-server');
+const tusServer = new tus.Server();
+tusServer.datastore = new tus.FileStore({
+    path: '/files'
+});
+tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, (event) => {
+    uploadFile.create(event);
+});
 
 const router = require('./routes');
 const config = require('./config');
@@ -24,6 +35,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 // app.use(lessMiddleware(path.join(__dirname, 'public')));
+
+app.all(['/files', '/files/*', '/files/*.*'], tusServer.handle.bind(tusServer));
 
 app.use(sassMiddleware({
     /* Options */
@@ -62,7 +75,7 @@ app.use(function (req, res, next) {
             res.locals.signedInUser.isAdmin = true;
         }
 
-        res.locals.config = {rootPath:config.rootPath};
+        res.locals.config = {rootPath: config.rootPath};
     }
     next(null, req, res);
 });

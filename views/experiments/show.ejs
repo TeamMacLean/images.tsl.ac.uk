@@ -1,0 +1,61 @@
+<% locals.breadcrumbs = [
+    {name: 'Home', link: '/'},
+    {name: experiment.project.group.name, link: `/browse/${experiment.project.group.safeName}`},
+    {
+        name: experiment.project.name,
+        link: `/browse/${experiment.project.group.safeName}/${experiment.project.safeName}`
+    },
+    {name: experiment.name, active: true}
+]; %>
+<% include ../head.ejs %>
+<div class="container">
+
+    <h1 class="title has-text-centered"><%- experiment.name %></h1>
+    <p class="subtitle has-text-centered"><%- `${locals.config.rootPath}/${experiment.project.group.safeName}/${experiment.project.safeName}/${experiment.safeName}` %></p>
+    <hr>
+    <h2 class="title has-text-centered is-4">Files</h2>
+
+
+    <div class="section">
+        <% include ../_uploadFile.ejs %>
+    </div>
+
+    <div class="columns">
+        <% experiment.files.map((file, fileIndex)=>{ %>
+
+            <% if (fileIndex !== 0 && fileIndex % 3 == 0){ %>
+                <%- '</div>' %>
+                <%- '<div class= "columns" >' %>
+            <% } %>
+
+            <div class="column is-one-third">
+                <div class="card is-rounded">
+                    <div class="card-content">
+
+                        <div class="media ">
+                            <div class="media-content">
+
+                                <p class="title is-6"><%- file.parsedName() %></p>
+                                <div class="tags has-addons">
+                                    <span class="tag">Type</span>
+                                    <span class="tag is-primary"><%- file.type %></span>
+                                </div>
+                                <% if(file.description){ %>
+                                    <p><%- file.description %></p>
+                                <% } %>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <a class="button is-link"
+                               href="/browse/<%- experiment.project.group.safeName %>/<%- experiment.safeName %>/<%- experiment.safeName %>/<%- file.name %> %>">Download</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        <% }) %>
+    </div>
+</div>
+<% include ../foot.ejs %>

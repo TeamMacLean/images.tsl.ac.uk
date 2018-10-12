@@ -31,7 +31,7 @@ module.exports = {
     },
     show: (req, res, next) => {
 
-        const groupName = req.body.group;
+        const groupName = req.params.group;
 
         Group.filter({safeName: groupName})
             .getJoin({projects: true})
@@ -39,11 +39,13 @@ module.exports = {
                 if (groups && groups.length) {
                     return res.render('groups/show', {group: groups[0]});
                 } else {
-                    return renderError(res, new Error('Group not found'));
+                    next();
+                    // return renderError(res, new Error('Group not found'));
                 }
             })
             .catch(err => {
-                return renderError(res, err);
+                next();
+                // return renderError(res, err);
             });
 
     }
