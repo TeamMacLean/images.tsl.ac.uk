@@ -12,12 +12,7 @@
 
     <h1 class="title has-text-centered"><%- sample.name %></h1>
     <% const HPCPath = `${locals.config.HPCRoot}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}` %>
-    <p class="subtitle has-text-centered"><%- HPCPath %>
-        <button class="button is-small is-link is-outlined clipboard" data-clipboard-text="<%- HPCPath %>">
-            Copy to clipboard
-        </button>
-    </p>
-
+    <% include ../_hpc_path.ejs %>
     <hr>
     <h2 class="subtitle has-text-centered is-4">Experiments</h2>
 

@@ -16,11 +16,7 @@
 
     <h1 class="title has-text-centered"><%- experiment.name %></h1>
     <% const HPCPath = `${locals.config.HPCRoot}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}` %>
-
-    <p class="subtitle has-text-centered clipboard-button" data-balloon="Click to Copy Path"
-       data-balloon-pos="down" data-clipboard-text="<%- HPCPath %>"><%- HPCPath %>
-    </p>
-
+    <% include ../_hpc_path.ejs %>
     <hr>
     <h2 class="subtitle has-text-centered is-4">Captures</h2>
 
