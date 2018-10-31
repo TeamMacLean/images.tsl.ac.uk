@@ -1,0 +1,64 @@
+<% locals.breadcrumbs = [
+    {name: 'Home', link: '/'},
+    {name: sample.project.group.name, link: `/browse/${sample.project.group.safeName}`},
+    {
+        name: sample.project.name,
+        link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}`
+    },
+    {name: sample.name, active: true}
+]; %>
+<% include ../head.ejs %>
+<div class="container">
+
+    <h1 class="title has-text-centered"><%- sample.name %></h1>
+    <% const HPCPath = `${locals.config.HPCRoot}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}` %>
+    <p class="subtitle has-text-centered"><%- HPCPath %>
+        <button class="button is-small is-link is-outlined clipboard" data-clipboard-text="<%- HPCPath %>">
+            Copy to clipboard
+        </button>
+    </p>
+
+    <hr>
+    <h2 class="subtitle has-text-centered is-4">Experiments</h2>
+
+    <div class="section">
+        <a href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new"
+           class="button is-success">New Experiment</a>
+    </div>
+
+    <% if(sample.experiments){ %>
+        <div class="columns">
+            <% sample.experiments.map((experiment, experimentIndex)=>{ %>
+
+                <% if (experimentIndex !== 0 && experimentIndex % 3 == 0){ %>
+                    <%- '</div>' %>
+                    <%- '<div class= "columns" >' %>
+                <% } %>
+
+                <div class="column is-one-third">
+                    <div class="card is-rounded">
+                        <div class="card-content">
+
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4"><%- experiment.name %></p>
+
+                                </div>
+                            </div>
+                            <div class="content">
+                                <p><%- experiment.safeName %></p>
+                                <a class="button is-link is-outlined"
+                                   href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/<%- experiment.safeName %>">View
+                                    Experiment</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            <% }) %>
+        </div>
+    <% } %>
+
+</div>
+<% include ../foot.ejs %>

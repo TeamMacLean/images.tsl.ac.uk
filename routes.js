@@ -6,6 +6,8 @@ const Groups = require('./controllers/groups');
 const Projects = require('./controllers/projects');
 const Admin = require('./controllers/admin');
 const Experiments = require('./controllers/experiments');
+const Captures = require('./controllers/captures');
+const Samples = require('./controllers/samples');
 // const config = require('./config');
 
 /* GET home page. */
@@ -31,9 +33,9 @@ router.route('/browse/:group')
     .all([isAuthenticated, isInGroup])
     .get(Groups.show);
 
-router.route('/admin')
-    .all([isAuthenticated, isAdmin])
-    .get(Admin.index);
+// router.route('/admin')
+//     .all([isAuthenticated, isAdmin])
+//     .get(Admin.index);
 
 router.route('/browse/:group/new')
     .all([isAuthenticated, isInGroup])
@@ -45,11 +47,26 @@ router.route('/browse/:group/:project')
 
 router.route('/browse/:group/:project/new')
     .all([isAuthenticated, isInGroup])
+    .get(Samples.new)
+    .post(Samples.newPost);
+router.route('/browse/:group/:project/:sample')
+    .all([isAuthenticated, isInGroup])
+    .get(Samples.show);
+
+router.route('/browse/:group/:project/:sample/new')
+    .all([isAuthenticated, isInGroup])
     .get(Experiments.new)
     .post(Experiments.newPost);
-router.route('/browse/:group/:project/:experiment')
+router.route('/browse/:group/:project/:sample/:experiment')
     .all([isAuthenticated, isInGroup])
     .get(Experiments.show);
+
+router.route('/browse/:group/:project/:sample/:experiment/new')
+    .all([isAuthenticated, isInGroup])
+    .get(Captures.new);
+router.route('/browse/:group/:project/:sample/:experiment/:capture')
+    .all([isAuthenticated, isInGroup])
+    .get(Captures.show);
 
 
 module.exports = router;
@@ -64,13 +81,13 @@ function isAuthenticated(req, res, next) {
     }
 }
 
-function isAdmin(req, res, next) {
-    if (req.user && req.user.isAdmin) {
-        return next();
-    } else {
-        return res.status(401).send('Admins only.');
-    }
-}
+// function isAdmin(req, res, next) {
+//     if (req.user && req.user.isAdmin) {
+//         return next();
+//     } else {
+//         return res.status(401).send('Admins only.');
+//     }
+// }
 
 function isInGroup(req, res, next) {
 

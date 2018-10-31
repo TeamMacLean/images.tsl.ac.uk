@@ -1,9 +1,13 @@
 <% locals.breadcrumbs = [
     {name: 'Home', link: '/'},
-    {name: experiment.project.group.name, link: `/browse/${experiment.project.group.safeName}`},
+    {name: experiment.sample.project.group.name, link: `/browse/${experiment.sample.project.group.safeName}`},
     {
-        name: experiment.project.name,
-        link: `/browse/${experiment.project.group.safeName}/${experiment.project.safeName}`
+        name: experiment.sample.project.name,
+        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`
+    },
+    {
+        name: experiment.sample.name,
+        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`
     },
     {name: experiment.name, active: true}
 ]; %>
@@ -11,51 +15,54 @@
 <div class="container">
 
     <h1 class="title has-text-centered"><%- experiment.name %></h1>
-    <p class="subtitle has-text-centered"><%- `${locals.config.rootPath}/${experiment.project.group.safeName}/${experiment.project.safeName}/${experiment.safeName}` %></p>
-    <hr>
-    <h2 class="title has-text-centered is-4">Files</h2>
+    <% const HPCPath = `${locals.config.HPCRoot}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}` %>
 
+    <p class="subtitle has-text-centered clipboard-button" data-balloon="Click to Copy Path"
+       data-balloon-pos="down" data-clipboard-text="<%- HPCPath %>"><%- HPCPath %>
+    </p>
+
+    <hr>
+    <h2 class="subtitle has-text-centered is-4">Captures</h2>
 
     <div class="section">
-        <% include ../_uploadFile.ejs %>
+        <a href="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new"
+           class="button is-success">New
+            Capture</a>
     </div>
 
-    <div class="columns">
-        <% experiment.files.map((file, fileIndex)=>{ %>
+    <% if(experiment.captures){ %>
+        <div class="columns">
+            <% experiment.captures.map((capture, captureIndex)=>{ %>
 
-            <% if (fileIndex !== 0 && fileIndex % 3 == 0){ %>
-                <%- '</div>' %>
-                <%- '<div class= "columns" >' %>
-            <% } %>
+                <% if (captureIndex !== 0 && captureIndex % 3 == 0){ %>
+                    <%- '</div>' %>
+                    <%- '<div class= "columns" >' %>
+                <% } %>
 
-            <div class="column is-one-third">
-                <div class="card is-rounded">
-                    <div class="card-content">
+                <div class="column is-one-third">
+                    <div class="card is-rounded">
+                        <div class="card-content">
 
-                        <div class="media ">
-                            <div class="media-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4"><%- capture.name %></p>
 
-                                <p class="title is-6"><%- file.parsedName() %></p>
-                                <div class="tags has-addons">
-                                    <span class="tag">Type</span>
-                                    <span class="tag is-primary"><%- file.type %></span>
                                 </div>
-                                <% if(file.description){ %>
-                                    <p><%- file.description %></p>
-                                <% } %>
                             </div>
-                        </div>
+                            <div class="content">
+                                <p><%- capture.safeName %></p>
+                                <a class="button is-link is-outlined"
+                                   href="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/<%- capture.safeName %>">View
+                                    Capture</a>
+                            </div>
 
-                        <div class="content">
-                            <a class="button is-link"
-                               href="/browse/<%- experiment.project.group.safeName %>/<%- experiment.safeName %>/<%- experiment.safeName %>/<%- file.name %> %>">Download</a>
                         </div>
-
                     </div>
                 </div>
-            </div>
 
-        <% }) %>
-    </div>
+            <% }) %>
+        </div>
+    <% } %>
+
 </div>
 <% include ../foot.ejs %>

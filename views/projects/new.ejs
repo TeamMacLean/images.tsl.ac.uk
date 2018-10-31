@@ -10,13 +10,37 @@
 
     <form method="post" action="/browse/<%- group.safeName %>/new">
 
-        <div class="field">
-            <label class="label">Project Name</label>
-            <div class="control">
-                <input class="input is-large" type="text" placeholder="New project name" name="name">
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">Project Name</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="New project name" name="name" required>
+                    </div>
+                    <p class="help">This is a help text</p>
+                </div>
             </div>
-            <!--<p class="help">This is a help text</p>-->
+            <div class="column">
+                <div class="field">
+                    <label class="label">Short Description</label>
+                    <div class="control">
+                <textarea class="input" placeholder="Short description" name="shortDescription"
+                          required></textarea>
+                    </div>
+                    <p class="help">This is a help text</p>
+                </div>
+            </div>
         </div>
+
+
+        <div class="field">
+            <label class="label">Long Description</label>
+            <div class="control">
+                <textarea class="input" placeholder="Long description" name="longDescription"></textarea>
+            </div>
+            <p class="help">This is a help text</p>
+        </div>
+
         <div class="control">
             <button class="button is-success">Create</button>
         </div>

@@ -1,22 +1,24 @@
-const Project = require('../models/project');
+const Sample = require('../models/sample');
 // const Group = require('../models/group');
 const Experiment = require('../models/experiment');
 const renderError = require('../lib/renderError');
 module.exports = {
     new: (req, res, next) => {
 
+        const sampleName = req.params.sample;
         const projectName = req.params.project;
         const groupName = req.params.group;
 
-        Project.filter({safeName: projectName})
-            .getJoin({group: true})
+        Sample.filter({safeName: sampleName})
+            .getJoin({project: {group: true}})
             .run()
-            .then(projects => {
-                const projectsFiltered = projects.filter(p => p.group.safeName === groupName);
-                if (projectsFiltered && projectsFiltered.length) {
-                    return res.render('experiments/new', {project: projects[0]});
+            .then(samples => {
+                const samplesFiltered = samples.filter(p => p.project.group.safeName === groupName
+                    && p.project.safeName === projectName);
+                if (samplesFiltered && samplesFiltered.length) {
+                    return res.render('experiments/new', {sample: samples[0]});
                 } else {
-                    next();
+                    return next();
                     // renderError(res, new Error('Project does not exist'));
                 }
             });
@@ -26,70 +28,50 @@ module.exports = {
     newPost: (req, res, next) => {
         const groupName = req.params.group;
         const projectName = req.params.project;
+        const sampleName = req.params.sample;
         const experimentName = req.body.name;
 
-        Project.filter({safeName: projectName})
-            .getJoin({group: true})
+        Sample.filter({safeName: sampleName})
+            .getJoin({sample: {project: {group: true}}})
             .run()
-            .then(projects => {
-                const projectsFiltered = projects.filter(p => p.group.safeName === groupName);
+            .then(samples => {
+                const samplesFiltered = samples.filter((p => p.project.group.safeName === groupName
+                    && p.project.safeName === projectName));
 
-                if (projectsFiltered && projectsFiltered.length) {
-                    new Experiment({projectID: projectsFiltered[0].id, name: experimentName})
+                if (samplesFiltered && samplesFiltered.length) {
+                    new Experiment({sampleID: samplesFiltered[0].id, name: experimentName})
                         .save()
                         .then(savedExperiment => {
-                            return res.redirect(`/browse/${projectsFiltered[0].safeName}/${projectsFiltered[0].safeName}/${savedExperiment.safeName}`)
+                            return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
                         })
                         .catch(err => renderError(res, err));
                 } else {
-                    next();
-                    // renderError(res, new Error('Project does not exist'));
+                    return next();
                 }
             });
-
-        // Group.filter({safeName: groupName})
-        //     .getJoin({projects: true})
-        //     .run()
-        //     .then(groups => {
-        //         if (groups && groups.length) {
-        //             const group = groups[0];
-        //
-        //             const projects = group.projects.filter(p => p.safeName === projectName);
-        //             if (projects && projects.length) {
-        //                 new Experiment({projectID: projects[0].id, name: experimentName})
-        //                     .save()
-        //                     .then(savedExperiment => {
-        //                         return res.redirect(`/browse/${group.safeName}/${projects[0].safeName}/${savedExperiment.safeName}`)
-        //                     })
-        //                     .catch(err => renderError(res, err));
-        //             } else {
-        //
-        //             }
-        //
-        //
-        //         } else {
-        //             renderError(res, new Error('Group does not exist'));
-        //         }
-        //     });
-
     },
     show: (req, res, next) => {
 
         const experimentName = req.params.experiment;
+        const groupName = req.params.group;
+        const projectName = req.params.project;
+        const sampleName = req.params.sample;
 
         Experiment.filter({safeName: experimentName})
-            .getJoin({project: {group: true}, files: true})
+            .getJoin({sample: {project: {group: true}, files: true}})
             .then(experiments => {
-                if (experiments && experiments.length) {
-                    return res.render('experiments/show', {experiment: experiments[0]});
+                const samplesExperiments = experiments.filter(e => e.sample.project.group.safeName === groupName
+                    && e.sample.project.safeName === projectName
+                    && e.sample.safeName === sampleName);
+
+                if (samplesExperiments && samplesExperiments.length) {
+                    return res.render('experiments/show', {experiment: samplesExperiments[0]});
                 } else {
-                    next();
-                    // return renderError(res, new Error('Group not found'));
+                    return next();
                 }
             })
             .catch(err => {
-                next();
-                // return renderError(res, err);
+                return next();
             });
 
     }

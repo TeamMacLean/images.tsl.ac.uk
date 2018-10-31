@@ -5,43 +5,52 @@
 <% include ../head.ejs %>
 <div class="container">
 
-    <h1 class="title has-text-centered"><%- group.name %></h1>
-    <p class="subtitle has-text-centered"><%- `${locals.config.rootPath}/${group.safeName}` %></p>
+    <h1 class="title has-text-centered "><%- group.name %></h1>
+    <% const HPCPath = `${locals.config.HPCRoot}/${group.safeName}` %>
+
+    <p class="subtitle has-text-centered"><%- HPCPath %>
+        <button class="button is-small is-link is-outlined clipboard" data-clipboard-text="<%- HPCPath %>">
+            Copy to clipboard
+        </button>
+    </p>
     <br>
-    <h2 class="title has-text-centered is-4">Projects</h2>
+    <h2 class="subtitle has-text-centered is-4">Projects</h2>
 
     <div class="section">
-        <a href="/browse/<%- group.safeName %>/new" class="button is-success is-medium">New Project</a>
+        <a href="/browse/<%- group.safeName %>/new" class="button is-success">New Project</a>
     </div>
 
     <div class="columns">
-        <% group.projects.map((project, projectIndex)=>{ %>
+        <% if(group.projects){ %>
+            <% group.projects.map((project, projectIndex)=>{ %>
 
-            <% if (projectIndex !== 0 && projectIndex % 3 == 0){ %>
-                <%- '</div>' %>
-                <%- '<div class= "columns" >' %>
-            <% } %>
+                <% if (projectIndex !== 0 && projectIndex % 3 == 0){ %>
+                    <%- '</div>' %>
+                    <%- '<div class= "columns" >' %>
+                <% } %>
 
-            <div class="column is-one-third">
-                <div class="card is-rounded">
-                    <div class="card-content">
+                <div class="column is-one-third">
+                    <div class="card is-rounded">
+                        <div class="card-content">
 
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="title is-4"><%- project.name %></p>
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4"><%- project.name %></p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="content">
-                            <a class="button is-link"
-                               href="/browse/<%- group.safeName %>/<%- project.safeName %>">View Project</a>
-                        </div>
+                            <div class="content">
+                                <p><%- project.shortDescription.substring(0, 64) %><%- project.shortDescription.length > 64 ? '...' : '' %></p>
+                                <a class="button is-link is-outlined"
+                                   href="/browse/<%- group.safeName %>/<%- project.safeName %>">View Project</a>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        <% }) %>
+            <% }) %>
+        <% } %>
     </div>
 
 

@@ -1,7 +1,8 @@
 <% locals.breadcrumbs = [
     {name: 'Home', link: '/'},
-    {name: project.group.name, link: `/browse/${project.group.safeName}`},
-    {name: project.name, link: `/browse/${project.group.safeName}/${project.safeName}`},
+    {name: sample.project.group.name, link: `/browse/${sample.project.group.safeName}`},
+    {name: sample.project.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}`},
+    {name: sample.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}`},
     {name: 'New Experiment', active: true}
 ]; %>
 <% include ../head.ejs %>
@@ -10,18 +11,22 @@
 
     <h1 class="title has-text-centered">New Experiment</h1>
 
-    <form method="post" action="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new">
+    <form method="post"
+          action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
 
-        <div class="field">
-            <label class="label">Experiment Name</label>
-            <div class="control">
-                <input class="input is-large" type="text" placeholder="New experiment name" name="name">
+        <div class="columns">
+            <div class="column is-6">
+                <div class="field">
+                    <label class="label">Experiment Name</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="New experiment name" name="name">
+                    </div>
+                    <!--<p class="help">This is a help text</p>-->
+                </div>
+                <div class="control">
+                    <button class="button is-success">Create</button>
+                </div>
             </div>
-            <!--<p class="help">This is a help text</p>-->
-        </div>
-        <div class="control">
-            <button class="button is-success">Create</button>
-        </div>
     </form>
 
 </div>

@@ -42,6 +42,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
       }
 
       localRequire.resolve = resolve;
+      localRequire.cache = {};
 
       var module = cache[name] = new newRequire.Module(name);
 
@@ -103,7 +104,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({31:[function(require,module,exports) {
+})({"../../../node_modules/@uppy/utils/lib/Translator.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -231,7 +232,7 @@ module.exports = function () {
 
   return Translator;
 }();
-},{}],55:[function(require,module,exports) {
+},{}],"../../../node_modules/namespace-emitter/index.js":[function(require,module,exports) {
 /**
 * Create an event emitter with namespaces
 * @name createNamespaceEmitter
@@ -369,13 +370,13 @@ module.exports = function createNamespaceEmitter () {
   return emitter
 }
 
-},{}],81:[function(require,module,exports) {
+},{}],"../../../node_modules/cuid/lib/pad.js":[function(require,module,exports) {
 module.exports = function pad (num, size) {
   var s = '000000000' + num;
   return s.substr(s.length - size);
 };
 
-},{}],80:[function(require,module,exports) {
+},{}],"../../../node_modules/cuid/lib/fingerprint.browser.js":[function(require,module,exports) {
 var pad = require('./pad.js');
 
 var env = typeof window === 'object' ? window : self;
@@ -389,7 +390,7 @@ module.exports = function fingerprint () {
   return clientId;
 };
 
-},{"./pad.js":81}],54:[function(require,module,exports) {
+},{"./pad.js":"../../../node_modules/cuid/lib/pad.js"}],"../../../node_modules/cuid/index.js":[function(require,module,exports) {
 /**
  * cuid.js
  * Collision-resistant UID generator for browsers and node.
@@ -474,7 +475,7 @@ cuid.fingerprint = fingerprint;
 
 module.exports = cuid;
 
-},{"./lib/fingerprint.js":80,"./lib/pad.js":81}],39:[function(require,module,exports) {
+},{"./lib/fingerprint.js":"../../../node_modules/cuid/lib/fingerprint.browser.js","./lib/pad.js":"../../../node_modules/cuid/lib/pad.js"}],"../../../node_modules/prettier-bytes/index.js":[function(require,module,exports) {
 module.exports = prettierBytes
 
 function prettierBytes (num) {
@@ -506,7 +507,7 @@ function prettierBytes (num) {
   }
 }
 
-},{}],79:[function(require,module,exports) {
+},{}],"../../../node_modules/wildcard/index.js":[function(require,module,exports) {
 /* jshint node: true */
 'use strict';
 
@@ -601,7 +602,7 @@ module.exports = function(text, test, separator) {
   return matcher;
 };
 
-},{}],56:[function(require,module,exports) {
+},{}],"../../../node_modules/mime-match/index.js":[function(require,module,exports) {
 var wildcard = require('wildcard');
 var reMimePartSplit = /[\/\+\.]/;
 
@@ -627,7 +628,7 @@ module.exports = function(target, pattern) {
   return pattern ? test(pattern.split(';')[0]) : test;
 };
 
-},{"wildcard":79}],57:[function(require,module,exports) {
+},{"wildcard":"../../../node_modules/wildcard/index.js"}],"../../../node_modules/@uppy/store-default/lib/index.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -681,7 +682,7 @@ var DefaultStore = function () {
 module.exports = function defaultStore() {
   return new DefaultStore();
 };
-},{}],49:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/getFileNameAndExtension.js":[function(require,module,exports) {
 /**
 * Takes a full filename string and returns an object {name, extension}
 *
@@ -697,7 +698,7 @@ module.exports = function getFileNameAndExtension(fullFileName) {
     extension: fileExt
   };
 };
-},{}],85:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/mimeTypes.js":[function(require,module,exports) {
 module.exports = {
   'md': 'text/markdown',
   'markdown': 'text/markdown',
@@ -734,7 +735,7 @@ module.exports = {
   'xltx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
   'xlw': 'application/vnd.ms-excel'
 };
-},{}],48:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/getFileType.js":[function(require,module,exports) {
 var getFileNameAndExtension = require('./getFileNameAndExtension');
 var mimeTypes = require('./mimeTypes');
 
@@ -759,7 +760,7 @@ module.exports = function getFileType(file) {
   // if all fails, fall back to a generic byte stream type
   return 'application/octet-stream';
 };
-},{"./getFileNameAndExtension":49,"./mimeTypes":85}],50:[function(require,module,exports) {
+},{"./getFileNameAndExtension":"../../../node_modules/@uppy/utils/lib/getFileNameAndExtension.js","./mimeTypes":"../../../node_modules/@uppy/utils/lib/mimeTypes.js"}],"../../../node_modules/@uppy/utils/lib/generateFileID.js":[function(require,module,exports) {
 /**
  * Takes a file object and turns it into fileID, by converting file.name to lowercase,
  * removing extra characters and adding type, size and lastModified
@@ -774,7 +775,7 @@ module.exports = function generateFileID(file) {
     return val;
   }).join('-');
 };
-},{}],51:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/isObjectURL.js":[function(require,module,exports) {
 /**
  * Check if a URL string is an object URL from `URL.createObjectURL`.
  *
@@ -784,7 +785,7 @@ module.exports = function generateFileID(file) {
 module.exports = function isObjectURL(url) {
   return url.indexOf('blob:') === 0;
 };
-},{}],52:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/getTimeStamp.js":[function(require,module,exports) {
 /**
  * Returns a timestamp in the format of `hours:minutes:seconds`
 */
@@ -802,734 +803,733 @@ module.exports = function getTimeStamp() {
 function pad(str) {
   return str.length !== 2 ? 0 + str : str;
 }
-},{}],86:[function(require,module,exports) {
-'use strict';
+},{}],"../../../node_modules/preact/dist/preact.mjs":[function(require,module,exports) {
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.createElement = exports.h = h;
+exports.cloneElement = cloneElement;
+exports.Component = Component;
+exports.render = render;
+exports.rerender = rerender;
+exports.options = exports.default = void 0;
+
 var VNode = function VNode() {};
 
 var options = {};
-
+exports.options = options;
 var stack = [];
-
 var EMPTY_CHILDREN = [];
 
 function h(nodeName, attributes) {
-	var children = EMPTY_CHILDREN,
-	    lastSimple,
-	    child,
-	    simple,
-	    i;
-	for (i = arguments.length; i-- > 2;) {
-		stack.push(arguments[i]);
-	}
-	if (attributes && attributes.children != null) {
-		if (!stack.length) stack.push(attributes.children);
-		delete attributes.children;
-	}
-	while (stack.length) {
-		if ((child = stack.pop()) && child.pop !== undefined) {
-			for (i = child.length; i--;) {
-				stack.push(child[i]);
-			}
-		} else {
-			if (typeof child === 'boolean') child = null;
+  var children = EMPTY_CHILDREN,
+      lastSimple,
+      child,
+      simple,
+      i;
 
-			if (simple = typeof nodeName !== 'function') {
-				if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
-			}
+  for (i = arguments.length; i-- > 2;) {
+    stack.push(arguments[i]);
+  }
 
-			if (simple && lastSimple) {
-				children[children.length - 1] += child;
-			} else if (children === EMPTY_CHILDREN) {
-				children = [child];
-			} else {
-				children.push(child);
-			}
+  if (attributes && attributes.children != null) {
+    if (!stack.length) stack.push(attributes.children);
+    delete attributes.children;
+  }
 
-			lastSimple = simple;
-		}
-	}
+  while (stack.length) {
+    if ((child = stack.pop()) && child.pop !== undefined) {
+      for (i = child.length; i--;) {
+        stack.push(child[i]);
+      }
+    } else {
+      if (typeof child === 'boolean') child = null;
 
-	var p = new VNode();
-	p.nodeName = nodeName;
-	p.children = children;
-	p.attributes = attributes == null ? undefined : attributes;
-	p.key = attributes == null ? undefined : attributes.key;
+      if (simple = typeof nodeName !== 'function') {
+        if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+      }
 
-	if (options.vnode !== undefined) options.vnode(p);
+      if (simple && lastSimple) {
+        children[children.length - 1] += child;
+      } else if (children === EMPTY_CHILDREN) {
+        children = [child];
+      } else {
+        children.push(child);
+      }
 
-	return p;
+      lastSimple = simple;
+    }
+  }
+
+  var p = new VNode();
+  p.nodeName = nodeName;
+  p.children = children;
+  p.attributes = attributes == null ? undefined : attributes;
+  p.key = attributes == null ? undefined : attributes.key;
+  if (options.vnode !== undefined) options.vnode(p);
+  return p;
 }
 
 function extend(obj, props) {
-	for (var i in props) {
-		obj[i] = props[i];
-	}return obj;
+  for (var i in props) {
+    obj[i] = props[i];
+  }
+
+  return obj;
 }
 
 var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
 function cloneElement(vnode, props) {
-	return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
+  return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
 }
 
 var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
-
 var items = [];
 
 function enqueueRender(component) {
-	if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
-		(options.debounceRendering || defer)(rerender);
-	}
+  if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
+    (options.debounceRendering || defer)(rerender);
+  }
 }
 
 function rerender() {
-	var p,
-	    list = items;
-	items = [];
-	while (p = list.pop()) {
-		if (p._dirty) renderComponent(p);
-	}
+  var p,
+      list = items;
+  items = [];
+
+  while (p = list.pop()) {
+    if (p._dirty) renderComponent(p);
+  }
 }
 
 function isSameNodeType(node, vnode, hydrating) {
-	if (typeof vnode === 'string' || typeof vnode === 'number') {
-		return node.splitText !== undefined;
-	}
-	if (typeof vnode.nodeName === 'string') {
-		return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
-	}
-	return hydrating || node._componentConstructor === vnode.nodeName;
+  if (typeof vnode === 'string' || typeof vnode === 'number') {
+    return node.splitText !== undefined;
+  }
+
+  if (typeof vnode.nodeName === 'string') {
+    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+  }
+
+  return hydrating || node._componentConstructor === vnode.nodeName;
 }
 
 function isNamedNode(node, nodeName) {
-	return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+  return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
 }
 
 function getNodeProps(vnode) {
-	var props = extend({}, vnode.attributes);
-	props.children = vnode.children;
+  var props = extend({}, vnode.attributes);
+  props.children = vnode.children;
+  var defaultProps = vnode.nodeName.defaultProps;
 
-	var defaultProps = vnode.nodeName.defaultProps;
-	if (defaultProps !== undefined) {
-		for (var i in defaultProps) {
-			if (props[i] === undefined) {
-				props[i] = defaultProps[i];
-			}
-		}
-	}
+  if (defaultProps !== undefined) {
+    for (var i in defaultProps) {
+      if (props[i] === undefined) {
+        props[i] = defaultProps[i];
+      }
+    }
+  }
 
-	return props;
+  return props;
 }
 
 function createNode(nodeName, isSvg) {
-	var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
-	node.normalizedNodeName = nodeName;
-	return node;
+  var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+  node.normalizedNodeName = nodeName;
+  return node;
 }
 
 function removeNode(node) {
-	var parentNode = node.parentNode;
-	if (parentNode) parentNode.removeChild(node);
+  var parentNode = node.parentNode;
+  if (parentNode) parentNode.removeChild(node);
 }
 
 function setAccessor(node, name, old, value, isSvg) {
-	if (name === 'className') name = 'class';
+  if (name === 'className') name = 'class';
 
-	if (name === 'key') {} else if (name === 'ref') {
-		if (old) old(null);
-		if (value) value(node);
-	} else if (name === 'class' && !isSvg) {
-		node.className = value || '';
-	} else if (name === 'style') {
-		if (!value || typeof value === 'string' || typeof old === 'string') {
-			node.style.cssText = value || '';
-		}
-		if (value && typeof value === 'object') {
-			if (typeof old !== 'string') {
-				for (var i in old) {
-					if (!(i in value)) node.style[i] = '';
-				}
-			}
-			for (var i in value) {
-				node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
-			}
-		}
-	} else if (name === 'dangerouslySetInnerHTML') {
-		if (value) node.innerHTML = value.__html || '';
-	} else if (name[0] == 'o' && name[1] == 'n') {
-		var useCapture = name !== (name = name.replace(/Capture$/, ''));
-		name = name.toLowerCase().substring(2);
-		if (value) {
-			if (!old) node.addEventListener(name, eventProxy, useCapture);
-		} else {
-			node.removeEventListener(name, eventProxy, useCapture);
-		}
-		(node._listeners || (node._listeners = {}))[name] = value;
-	} else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
-		try {
-			node[name] = value == null ? '' : value;
-		} catch (e) {}
-		if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
-	} else {
-		var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+  if (name === 'key') {} else if (name === 'ref') {
+    if (old) old(null);
+    if (value) value(node);
+  } else if (name === 'class' && !isSvg) {
+    node.className = value || '';
+  } else if (name === 'style') {
+    if (!value || typeof value === 'string' || typeof old === 'string') {
+      node.style.cssText = value || '';
+    }
 
-		if (value == null || value === false) {
-			if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
-		} else if (typeof value !== 'function') {
-			if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);else node.setAttribute(name, value);
-		}
-	}
+    if (value && typeof value === 'object') {
+      if (typeof old !== 'string') {
+        for (var i in old) {
+          if (!(i in value)) node.style[i] = '';
+        }
+      }
+
+      for (var i in value) {
+        node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+      }
+    }
+  } else if (name === 'dangerouslySetInnerHTML') {
+    if (value) node.innerHTML = value.__html || '';
+  } else if (name[0] == 'o' && name[1] == 'n') {
+    var useCapture = name !== (name = name.replace(/Capture$/, ''));
+    name = name.toLowerCase().substring(2);
+
+    if (value) {
+      if (!old) node.addEventListener(name, eventProxy, useCapture);
+    } else {
+      node.removeEventListener(name, eventProxy, useCapture);
+    }
+
+    (node._listeners || (node._listeners = {}))[name] = value;
+  } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
+    try {
+      node[name] = value == null ? '' : value;
+    } catch (e) {}
+
+    if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
+  } else {
+    var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+
+    if (value == null || value === false) {
+      if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
+    } else if (typeof value !== 'function') {
+      if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);else node.setAttribute(name, value);
+    }
+  }
 }
 
 function eventProxy(e) {
-	return this._listeners[e.type](options.event && options.event(e) || e);
+  return this._listeners[e.type](options.event && options.event(e) || e);
 }
 
 var mounts = [];
-
 var diffLevel = 0;
-
 var isSvgMode = false;
-
 var hydrating = false;
 
 function flushMounts() {
-	var c;
-	while (c = mounts.pop()) {
-		if (options.afterMount) options.afterMount(c);
-		if (c.componentDidMount) c.componentDidMount();
-	}
+  var c;
+
+  while (c = mounts.pop()) {
+    if (options.afterMount) options.afterMount(c);
+    if (c.componentDidMount) c.componentDidMount();
+  }
 }
 
 function diff(dom, vnode, context, mountAll, parent, componentRoot) {
-	if (!diffLevel++) {
-		isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
+  if (!diffLevel++) {
+    isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
+    hydrating = dom != null && !('__preactattr_' in dom);
+  }
 
-		hydrating = dom != null && !('__preactattr_' in dom);
-	}
+  var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+  if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
-	var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+  if (! --diffLevel) {
+    hydrating = false;
+    if (!componentRoot) flushMounts();
+  }
 
-	if (parent && ret.parentNode !== parent) parent.appendChild(ret);
-
-	if (! --diffLevel) {
-		hydrating = false;
-
-		if (!componentRoot) flushMounts();
-	}
-
-	return ret;
+  return ret;
 }
 
 function idiff(dom, vnode, context, mountAll, componentRoot) {
-	var out = dom,
-	    prevSvgMode = isSvgMode;
+  var out = dom,
+      prevSvgMode = isSvgMode;
+  if (vnode == null || typeof vnode === 'boolean') vnode = '';
 
-	if (vnode == null || typeof vnode === 'boolean') vnode = '';
+  if (typeof vnode === 'string' || typeof vnode === 'number') {
+    if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
+      if (dom.nodeValue != vnode) {
+        dom.nodeValue = vnode;
+      }
+    } else {
+      out = document.createTextNode(vnode);
 
-	if (typeof vnode === 'string' || typeof vnode === 'number') {
-		if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
-			if (dom.nodeValue != vnode) {
-				dom.nodeValue = vnode;
-			}
-		} else {
-			out = document.createTextNode(vnode);
-			if (dom) {
-				if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
-				recollectNodeTree(dom, true);
-			}
-		}
+      if (dom) {
+        if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+        recollectNodeTree(dom, true);
+      }
+    }
 
-		out['__preactattr_'] = true;
+    out['__preactattr_'] = true;
+    return out;
+  }
 
-		return out;
-	}
+  var vnodeName = vnode.nodeName;
 
-	var vnodeName = vnode.nodeName;
-	if (typeof vnodeName === 'function') {
-		return buildComponentFromVNode(dom, vnode, context, mountAll);
-	}
+  if (typeof vnodeName === 'function') {
+    return buildComponentFromVNode(dom, vnode, context, mountAll);
+  }
 
-	isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
+  isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
+  vnodeName = String(vnodeName);
 
-	vnodeName = String(vnodeName);
-	if (!dom || !isNamedNode(dom, vnodeName)) {
-		out = createNode(vnodeName, isSvgMode);
+  if (!dom || !isNamedNode(dom, vnodeName)) {
+    out = createNode(vnodeName, isSvgMode);
 
-		if (dom) {
-			while (dom.firstChild) {
-				out.appendChild(dom.firstChild);
-			}
-			if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+    if (dom) {
+      while (dom.firstChild) {
+        out.appendChild(dom.firstChild);
+      }
 
-			recollectNodeTree(dom, true);
-		}
-	}
+      if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+      recollectNodeTree(dom, true);
+    }
+  }
 
-	var fc = out.firstChild,
-	    props = out['__preactattr_'],
-	    vchildren = vnode.children;
+  var fc = out.firstChild,
+      props = out['__preactattr_'],
+      vchildren = vnode.children;
 
-	if (props == null) {
-		props = out['__preactattr_'] = {};
-		for (var a = out.attributes, i = a.length; i--;) {
-			props[a[i].name] = a[i].value;
-		}
-	}
+  if (props == null) {
+    props = out['__preactattr_'] = {};
 
-	if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
-		if (fc.nodeValue != vchildren[0]) {
-			fc.nodeValue = vchildren[0];
-		}
-	} else if (vchildren && vchildren.length || fc != null) {
-		innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
-	}
+    for (var a = out.attributes, i = a.length; i--;) {
+      props[a[i].name] = a[i].value;
+    }
+  }
 
-	diffAttributes(out, vnode.attributes, props);
+  if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
+    if (fc.nodeValue != vchildren[0]) {
+      fc.nodeValue = vchildren[0];
+    }
+  } else if (vchildren && vchildren.length || fc != null) {
+    innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+  }
 
-	isSvgMode = prevSvgMode;
-
-	return out;
+  diffAttributes(out, vnode.attributes, props);
+  isSvgMode = prevSvgMode;
+  return out;
 }
 
 function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
-	var originalChildren = dom.childNodes,
-	    children = [],
-	    keyed = {},
-	    keyedLen = 0,
-	    min = 0,
-	    len = originalChildren.length,
-	    childrenLen = 0,
-	    vlen = vchildren ? vchildren.length : 0,
-	    j,
-	    c,
-	    f,
-	    vchild,
-	    child;
+  var originalChildren = dom.childNodes,
+      children = [],
+      keyed = {},
+      keyedLen = 0,
+      min = 0,
+      len = originalChildren.length,
+      childrenLen = 0,
+      vlen = vchildren ? vchildren.length : 0,
+      j,
+      c,
+      f,
+      vchild,
+      child;
 
-	if (len !== 0) {
-		for (var i = 0; i < len; i++) {
-			var _child = originalChildren[i],
-			    props = _child['__preactattr_'],
-			    key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
-			if (key != null) {
-				keyedLen++;
-				keyed[key] = _child;
-			} else if (props || (_child.splitText !== undefined ? isHydrating ? _child.nodeValue.trim() : true : isHydrating)) {
-				children[childrenLen++] = _child;
-			}
-		}
-	}
+  if (len !== 0) {
+    for (var i = 0; i < len; i++) {
+      var _child = originalChildren[i],
+          props = _child['__preactattr_'],
+          key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
 
-	if (vlen !== 0) {
-		for (var i = 0; i < vlen; i++) {
-			vchild = vchildren[i];
-			child = null;
+      if (key != null) {
+        keyedLen++;
+        keyed[key] = _child;
+      } else if (props || (_child.splitText !== undefined ? isHydrating ? _child.nodeValue.trim() : true : isHydrating)) {
+        children[childrenLen++] = _child;
+      }
+    }
+  }
 
-			var key = vchild.key;
-			if (key != null) {
-				if (keyedLen && keyed[key] !== undefined) {
-					child = keyed[key];
-					keyed[key] = undefined;
-					keyedLen--;
-				}
-			} else if (min < childrenLen) {
-				for (j = min; j < childrenLen; j++) {
-					if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
-						child = c;
-						children[j] = undefined;
-						if (j === childrenLen - 1) childrenLen--;
-						if (j === min) min++;
-						break;
-					}
-				}
-			}
+  if (vlen !== 0) {
+    for (var i = 0; i < vlen; i++) {
+      vchild = vchildren[i];
+      child = null;
+      var key = vchild.key;
 
-			child = idiff(child, vchild, context, mountAll);
+      if (key != null) {
+        if (keyedLen && keyed[key] !== undefined) {
+          child = keyed[key];
+          keyed[key] = undefined;
+          keyedLen--;
+        }
+      } else if (min < childrenLen) {
+        for (j = min; j < childrenLen; j++) {
+          if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+            child = c;
+            children[j] = undefined;
+            if (j === childrenLen - 1) childrenLen--;
+            if (j === min) min++;
+            break;
+          }
+        }
+      }
 
-			f = originalChildren[i];
-			if (child && child !== dom && child !== f) {
-				if (f == null) {
-					dom.appendChild(child);
-				} else if (child === f.nextSibling) {
-					removeNode(f);
-				} else {
-					dom.insertBefore(child, f);
-				}
-			}
-		}
-	}
+      child = idiff(child, vchild, context, mountAll);
+      f = originalChildren[i];
 
-	if (keyedLen) {
-		for (var i in keyed) {
-			if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
-		}
-	}
+      if (child && child !== dom && child !== f) {
+        if (f == null) {
+          dom.appendChild(child);
+        } else if (child === f.nextSibling) {
+          removeNode(f);
+        } else {
+          dom.insertBefore(child, f);
+        }
+      }
+    }
+  }
 
-	while (min <= childrenLen) {
-		if ((child = children[childrenLen--]) !== undefined) recollectNodeTree(child, false);
-	}
+  if (keyedLen) {
+    for (var i in keyed) {
+      if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+    }
+  }
+
+  while (min <= childrenLen) {
+    if ((child = children[childrenLen--]) !== undefined) recollectNodeTree(child, false);
+  }
 }
 
 function recollectNodeTree(node, unmountOnly) {
-	var component = node._component;
-	if (component) {
-		unmountComponent(component);
-	} else {
-		if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
+  var component = node._component;
 
-		if (unmountOnly === false || node['__preactattr_'] == null) {
-			removeNode(node);
-		}
+  if (component) {
+    unmountComponent(component);
+  } else {
+    if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
 
-		removeChildren(node);
-	}
+    if (unmountOnly === false || node['__preactattr_'] == null) {
+      removeNode(node);
+    }
+
+    removeChildren(node);
+  }
 }
 
 function removeChildren(node) {
-	node = node.lastChild;
-	while (node) {
-		var next = node.previousSibling;
-		recollectNodeTree(node, true);
-		node = next;
-	}
+  node = node.lastChild;
+
+  while (node) {
+    var next = node.previousSibling;
+    recollectNodeTree(node, true);
+    node = next;
+  }
 }
 
 function diffAttributes(dom, attrs, old) {
-	var name;
+  var name;
 
-	for (name in old) {
-		if (!(attrs && attrs[name] != null) && old[name] != null) {
-			setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
-		}
-	}
+  for (name in old) {
+    if (!(attrs && attrs[name] != null) && old[name] != null) {
+      setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+    }
+  }
 
-	for (name in attrs) {
-		if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
-			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
-		}
-	}
+  for (name in attrs) {
+    if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+      setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+    }
+  }
 }
 
 var recyclerComponents = [];
 
 function createComponent(Ctor, props, context) {
-	var inst,
-	    i = recyclerComponents.length;
+  var inst,
+      i = recyclerComponents.length;
 
-	if (Ctor.prototype && Ctor.prototype.render) {
-		inst = new Ctor(props, context);
-		Component.call(inst, props, context);
-	} else {
-		inst = new Component(props, context);
-		inst.constructor = Ctor;
-		inst.render = doRender;
-	}
+  if (Ctor.prototype && Ctor.prototype.render) {
+    inst = new Ctor(props, context);
+    Component.call(inst, props, context);
+  } else {
+    inst = new Component(props, context);
+    inst.constructor = Ctor;
+    inst.render = doRender;
+  }
 
-	while (i--) {
-		if (recyclerComponents[i].constructor === Ctor) {
-			inst.nextBase = recyclerComponents[i].nextBase;
-			recyclerComponents.splice(i, 1);
-			return inst;
-		}
-	}
+  while (i--) {
+    if (recyclerComponents[i].constructor === Ctor) {
+      inst.nextBase = recyclerComponents[i].nextBase;
+      recyclerComponents.splice(i, 1);
+      return inst;
+    }
+  }
 
-	return inst;
+  return inst;
 }
 
 function doRender(props, state, context) {
-	return this.constructor(props, context);
+  return this.constructor(props, context);
 }
 
 function setComponentProps(component, props, renderMode, context, mountAll) {
-	if (component._disable) return;
-	component._disable = true;
+  if (component._disable) return;
+  component._disable = true;
+  component.__ref = props.ref;
+  component.__key = props.key;
+  delete props.ref;
+  delete props.key;
 
-	component.__ref = props.ref;
-	component.__key = props.key;
-	delete props.ref;
-	delete props.key;
+  if (typeof component.constructor.getDerivedStateFromProps === 'undefined') {
+    if (!component.base || mountAll) {
+      if (component.componentWillMount) component.componentWillMount();
+    } else if (component.componentWillReceiveProps) {
+      component.componentWillReceiveProps(props, context);
+    }
+  }
 
-	if (typeof component.constructor.getDerivedStateFromProps === 'undefined') {
-		if (!component.base || mountAll) {
-			if (component.componentWillMount) component.componentWillMount();
-		} else if (component.componentWillReceiveProps) {
-			component.componentWillReceiveProps(props, context);
-		}
-	}
+  if (context && context !== component.context) {
+    if (!component.prevContext) component.prevContext = component.context;
+    component.context = context;
+  }
 
-	if (context && context !== component.context) {
-		if (!component.prevContext) component.prevContext = component.context;
-		component.context = context;
-	}
+  if (!component.prevProps) component.prevProps = component.props;
+  component.props = props;
+  component._disable = false;
 
-	if (!component.prevProps) component.prevProps = component.props;
-	component.props = props;
+  if (renderMode !== 0) {
+    if (renderMode === 1 || options.syncComponentUpdates !== false || !component.base) {
+      renderComponent(component, 1, mountAll);
+    } else {
+      enqueueRender(component);
+    }
+  }
 
-	component._disable = false;
-
-	if (renderMode !== 0) {
-		if (renderMode === 1 || options.syncComponentUpdates !== false || !component.base) {
-			renderComponent(component, 1, mountAll);
-		} else {
-			enqueueRender(component);
-		}
-	}
-
-	if (component.__ref) component.__ref(component);
+  if (component.__ref) component.__ref(component);
 }
 
 function renderComponent(component, renderMode, mountAll, isChild) {
-	if (component._disable) return;
+  if (component._disable) return;
+  var props = component.props,
+      state = component.state,
+      context = component.context,
+      previousProps = component.prevProps || props,
+      previousState = component.prevState || state,
+      previousContext = component.prevContext || context,
+      isUpdate = component.base,
+      nextBase = component.nextBase,
+      initialBase = isUpdate || nextBase,
+      initialChildComponent = component._component,
+      skip = false,
+      snapshot = previousContext,
+      rendered,
+      inst,
+      cbase;
 
-	var props = component.props,
-	    state = component.state,
-	    context = component.context,
-	    previousProps = component.prevProps || props,
-	    previousState = component.prevState || state,
-	    previousContext = component.prevContext || context,
-	    isUpdate = component.base,
-	    nextBase = component.nextBase,
-	    initialBase = isUpdate || nextBase,
-	    initialChildComponent = component._component,
-	    skip = false,
-	    snapshot = previousContext,
-	    rendered,
-	    inst,
-	    cbase;
+  if (component.constructor.getDerivedStateFromProps) {
+    state = extend(extend({}, state), component.constructor.getDerivedStateFromProps(props, state));
+    component.state = state;
+  }
 
-	if (component.constructor.getDerivedStateFromProps) {
-		state = extend(extend({}, state), component.constructor.getDerivedStateFromProps(props, state));
-		component.state = state;
-	}
+  if (isUpdate) {
+    component.props = previousProps;
+    component.state = previousState;
+    component.context = previousContext;
 
-	if (isUpdate) {
-		component.props = previousProps;
-		component.state = previousState;
-		component.context = previousContext;
-		if (renderMode !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
-			skip = true;
-		} else if (component.componentWillUpdate) {
-			component.componentWillUpdate(props, state, context);
-		}
-		component.props = props;
-		component.state = state;
-		component.context = context;
-	}
+    if (renderMode !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
+      skip = true;
+    } else if (component.componentWillUpdate) {
+      component.componentWillUpdate(props, state, context);
+    }
 
-	component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
-	component._dirty = false;
+    component.props = props;
+    component.state = state;
+    component.context = context;
+  }
 
-	if (!skip) {
-		rendered = component.render(props, state, context);
+  component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
+  component._dirty = false;
 
-		if (component.getChildContext) {
-			context = extend(extend({}, context), component.getChildContext());
-		}
+  if (!skip) {
+    rendered = component.render(props, state, context);
 
-		if (isUpdate && component.getSnapshotBeforeUpdate) {
-			snapshot = component.getSnapshotBeforeUpdate(previousProps, previousState);
-		}
+    if (component.getChildContext) {
+      context = extend(extend({}, context), component.getChildContext());
+    }
 
-		var childComponent = rendered && rendered.nodeName,
-		    toUnmount,
-		    base;
+    if (isUpdate && component.getSnapshotBeforeUpdate) {
+      snapshot = component.getSnapshotBeforeUpdate(previousProps, previousState);
+    }
 
-		if (typeof childComponent === 'function') {
+    var childComponent = rendered && rendered.nodeName,
+        toUnmount,
+        base;
 
-			var childProps = getNodeProps(rendered);
-			inst = initialChildComponent;
+    if (typeof childComponent === 'function') {
+      var childProps = getNodeProps(rendered);
+      inst = initialChildComponent;
 
-			if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
-				setComponentProps(inst, childProps, 1, context, false);
-			} else {
-				toUnmount = inst;
+      if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
+        setComponentProps(inst, childProps, 1, context, false);
+      } else {
+        toUnmount = inst;
+        component._component = inst = createComponent(childComponent, childProps, context);
+        inst.nextBase = inst.nextBase || nextBase;
+        inst._parentComponent = component;
+        setComponentProps(inst, childProps, 0, context, false);
+        renderComponent(inst, 1, mountAll, true);
+      }
 
-				component._component = inst = createComponent(childComponent, childProps, context);
-				inst.nextBase = inst.nextBase || nextBase;
-				inst._parentComponent = component;
-				setComponentProps(inst, childProps, 0, context, false);
-				renderComponent(inst, 1, mountAll, true);
-			}
+      base = inst.base;
+    } else {
+      cbase = initialBase;
+      toUnmount = initialChildComponent;
 
-			base = inst.base;
-		} else {
-			cbase = initialBase;
+      if (toUnmount) {
+        cbase = component._component = null;
+      }
 
-			toUnmount = initialChildComponent;
-			if (toUnmount) {
-				cbase = component._component = null;
-			}
+      if (initialBase || renderMode === 1) {
+        if (cbase) cbase._component = null;
+        base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
+      }
+    }
 
-			if (initialBase || renderMode === 1) {
-				if (cbase) cbase._component = null;
-				base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
-			}
-		}
+    if (initialBase && base !== initialBase && inst !== initialChildComponent) {
+      var baseParent = initialBase.parentNode;
 
-		if (initialBase && base !== initialBase && inst !== initialChildComponent) {
-			var baseParent = initialBase.parentNode;
-			if (baseParent && base !== baseParent) {
-				baseParent.replaceChild(base, initialBase);
+      if (baseParent && base !== baseParent) {
+        baseParent.replaceChild(base, initialBase);
 
-				if (!toUnmount) {
-					initialBase._component = null;
-					recollectNodeTree(initialBase, false);
-				}
-			}
-		}
+        if (!toUnmount) {
+          initialBase._component = null;
+          recollectNodeTree(initialBase, false);
+        }
+      }
+    }
 
-		if (toUnmount) {
-			unmountComponent(toUnmount);
-		}
+    if (toUnmount) {
+      unmountComponent(toUnmount);
+    }
 
-		component.base = base;
-		if (base && !isChild) {
-			var componentRef = component,
-			    t = component;
-			while (t = t._parentComponent) {
-				(componentRef = t).base = base;
-			}
-			base._component = componentRef;
-			base._componentConstructor = componentRef.constructor;
-		}
-	}
+    component.base = base;
 
-	if (!isUpdate || mountAll) {
-		mounts.unshift(component);
-	} else if (!skip) {
+    if (base && !isChild) {
+      var componentRef = component,
+          t = component;
 
-		if (component.componentDidUpdate) {
-			component.componentDidUpdate(previousProps, previousState, snapshot);
-		}
-		if (options.afterUpdate) options.afterUpdate(component);
-	}
+      while (t = t._parentComponent) {
+        (componentRef = t).base = base;
+      }
 
-	while (component._renderCallbacks.length) {
-		component._renderCallbacks.pop().call(component);
-	}if (!diffLevel && !isChild) flushMounts();
+      base._component = componentRef;
+      base._componentConstructor = componentRef.constructor;
+    }
+  }
+
+  if (!isUpdate || mountAll) {
+    mounts.unshift(component);
+  } else if (!skip) {
+    if (component.componentDidUpdate) {
+      component.componentDidUpdate(previousProps, previousState, snapshot);
+    }
+
+    if (options.afterUpdate) options.afterUpdate(component);
+  }
+
+  while (component._renderCallbacks.length) {
+    component._renderCallbacks.pop().call(component);
+  }
+
+  if (!diffLevel && !isChild) flushMounts();
 }
 
 function buildComponentFromVNode(dom, vnode, context, mountAll) {
-	var c = dom && dom._component,
-	    originalComponent = c,
-	    oldDom = dom,
-	    isDirectOwner = c && dom._componentConstructor === vnode.nodeName,
-	    isOwner = isDirectOwner,
-	    props = getNodeProps(vnode);
-	while (c && !isOwner && (c = c._parentComponent)) {
-		isOwner = c.constructor === vnode.nodeName;
-	}
+  var c = dom && dom._component,
+      originalComponent = c,
+      oldDom = dom,
+      isDirectOwner = c && dom._componentConstructor === vnode.nodeName,
+      isOwner = isDirectOwner,
+      props = getNodeProps(vnode);
 
-	if (c && isOwner && (!mountAll || c._component)) {
-		setComponentProps(c, props, 3, context, mountAll);
-		dom = c.base;
-	} else {
-		if (originalComponent && !isDirectOwner) {
-			unmountComponent(originalComponent);
-			dom = oldDom = null;
-		}
+  while (c && !isOwner && (c = c._parentComponent)) {
+    isOwner = c.constructor === vnode.nodeName;
+  }
 
-		c = createComponent(vnode.nodeName, props, context);
-		if (dom && !c.nextBase) {
-			c.nextBase = dom;
+  if (c && isOwner && (!mountAll || c._component)) {
+    setComponentProps(c, props, 3, context, mountAll);
+    dom = c.base;
+  } else {
+    if (originalComponent && !isDirectOwner) {
+      unmountComponent(originalComponent);
+      dom = oldDom = null;
+    }
 
-			oldDom = null;
-		}
-		setComponentProps(c, props, 1, context, mountAll);
-		dom = c.base;
+    c = createComponent(vnode.nodeName, props, context);
 
-		if (oldDom && dom !== oldDom) {
-			oldDom._component = null;
-			recollectNodeTree(oldDom, false);
-		}
-	}
+    if (dom && !c.nextBase) {
+      c.nextBase = dom;
+      oldDom = null;
+    }
 
-	return dom;
+    setComponentProps(c, props, 1, context, mountAll);
+    dom = c.base;
+
+    if (oldDom && dom !== oldDom) {
+      oldDom._component = null;
+      recollectNodeTree(oldDom, false);
+    }
+  }
+
+  return dom;
 }
 
 function unmountComponent(component) {
-	if (options.beforeUnmount) options.beforeUnmount(component);
+  if (options.beforeUnmount) options.beforeUnmount(component);
+  var base = component.base;
+  component._disable = true;
+  if (component.componentWillUnmount) component.componentWillUnmount();
+  component.base = null;
+  var inner = component._component;
 
-	var base = component.base;
+  if (inner) {
+    unmountComponent(inner);
+  } else if (base) {
+    if (base['__preactattr_'] && base['__preactattr_'].ref) base['__preactattr_'].ref(null);
+    component.nextBase = base;
+    removeNode(base);
+    recyclerComponents.push(component);
+    removeChildren(base);
+  }
 
-	component._disable = true;
-
-	if (component.componentWillUnmount) component.componentWillUnmount();
-
-	component.base = null;
-
-	var inner = component._component;
-	if (inner) {
-		unmountComponent(inner);
-	} else if (base) {
-		if (base['__preactattr_'] && base['__preactattr_'].ref) base['__preactattr_'].ref(null);
-
-		component.nextBase = base;
-
-		removeNode(base);
-		recyclerComponents.push(component);
-
-		removeChildren(base);
-	}
-
-	if (component.__ref) component.__ref(null);
+  if (component.__ref) component.__ref(null);
 }
 
 function Component(props, context) {
-	this._dirty = true;
-
-	this.context = context;
-
-	this.props = props;
-
-	this.state = this.state || {};
-
-	this._renderCallbacks = [];
+  this._dirty = true;
+  this.context = context;
+  this.props = props;
+  this.state = this.state || {};
+  this._renderCallbacks = [];
 }
 
 extend(Component.prototype, {
-	setState: function setState(state, callback) {
-		if (!this.prevState) this.prevState = this.state;
-		this.state = extend(extend({}, this.state), typeof state === 'function' ? state(this.state, this.props) : state);
-		if (callback) this._renderCallbacks.push(callback);
-		enqueueRender(this);
-	},
-	forceUpdate: function forceUpdate(callback) {
-		if (callback) this._renderCallbacks.push(callback);
-		renderComponent(this, 2);
-	},
-	render: function render() {}
+  setState: function setState(state, callback) {
+    if (!this.prevState) this.prevState = this.state;
+    this.state = extend(extend({}, this.state), typeof state === 'function' ? state(this.state, this.props) : state);
+    if (callback) this._renderCallbacks.push(callback);
+    enqueueRender(this);
+  },
+  forceUpdate: function forceUpdate(callback) {
+    if (callback) this._renderCallbacks.push(callback);
+    renderComponent(this, 2);
+  },
+  render: function render() {}
 });
 
 function render(vnode, parent, merge) {
-	return diff(merge, vnode, {}, false, parent, false);
+  return diff(merge, vnode, {}, false, parent, false);
 }
 
 var preact = {
-	h: h,
-	createElement: h,
-	cloneElement: cloneElement,
-	Component: Component,
-	render: render,
-	rerender: rerender,
-	options: options
+  h: h,
+  createElement: h,
+  cloneElement: cloneElement,
+  Component: Component,
+  render: render,
+  rerender: rerender,
+  options: options
 };
-
-exports.default = preact;
-exports.h = h;
-exports.createElement = h;
-exports.cloneElement = cloneElement;
-exports.Component = Component;
-exports.render = render;
-exports.rerender = rerender;
-exports.options = options;
-//# sourceMappingURL=preact.mjs.map
-},{}],82:[function(require,module,exports) {
+var _default = preact;
+exports.default = _default;
+},{}],"../../../node_modules/@uppy/utils/lib/isDOMElement.js":[function(require,module,exports) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
@@ -1540,7 +1540,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 module.exports = function isDOMElement(obj) {
   return obj && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' && obj.nodeType === Node.ELEMENT_NODE;
 };
-},{}],90:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/findDOMElement.js":[function(require,module,exports) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var isDOMElement = require('./isDOMElement');
@@ -1560,7 +1560,7 @@ module.exports = function findDOMElement(element) {
     return element;
   }
 };
-},{"./isDOMElement":82}],43:[function(require,module,exports) {
+},{"./isDOMElement":"../../../node_modules/@uppy/utils/lib/isDOMElement.js"}],"../../../node_modules/@uppy/core/lib/Plugin.js":[function(require,module,exports) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1750,7 +1750,7 @@ module.exports = function () {
 
   return Plugin;
 }();
-},{"preact":86,"@uppy/utils/lib/findDOMElement":90}],7:[function(require,module,exports) {
+},{"preact":"../../../node_modules/preact/dist/preact.mjs","@uppy/utils/lib/findDOMElement":"../../../node_modules/@uppy/utils/lib/findDOMElement.js"}],"../../../node_modules/@uppy/core/lib/index.js":[function(require,module,exports) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -3074,7 +3074,7 @@ module.exports = function (opts) {
 // Expose class constructor.
 module.exports.Uppy = Uppy;
 module.exports.Plugin = Plugin;
-},{"@uppy/utils/lib/Translator":31,"namespace-emitter":55,"cuid":54,"prettier-bytes":39,"mime-match":56,"@uppy/store-default":57,"@uppy/utils/lib/getFileType":48,"@uppy/utils/lib/getFileNameAndExtension":49,"@uppy/utils/lib/generateFileID":50,"@uppy/utils/lib/isObjectURL":51,"@uppy/utils/lib/getTimeStamp":52,"./Plugin":43}],73:[function(require,module,exports) {
+},{"@uppy/utils/lib/Translator":"../../../node_modules/@uppy/utils/lib/Translator.js","namespace-emitter":"../../../node_modules/namespace-emitter/index.js","cuid":"../../../node_modules/cuid/index.js","prettier-bytes":"../../../node_modules/prettier-bytes/index.js","mime-match":"../../../node_modules/mime-match/index.js","@uppy/store-default":"../../../node_modules/@uppy/store-default/lib/index.js","@uppy/utils/lib/getFileType":"../../../node_modules/@uppy/utils/lib/getFileType.js","@uppy/utils/lib/getFileNameAndExtension":"../../../node_modules/@uppy/utils/lib/getFileNameAndExtension.js","@uppy/utils/lib/generateFileID":"../../../node_modules/@uppy/utils/lib/generateFileID.js","@uppy/utils/lib/isObjectURL":"../../../node_modules/@uppy/utils/lib/isObjectURL.js","@uppy/utils/lib/getTimeStamp":"../../../node_modules/@uppy/utils/lib/getTimeStamp.js","./Plugin":"../../../node_modules/@uppy/core/lib/Plugin.js"}],"../../../node_modules/flatten/index.js":[function(require,module,exports) {
 module.exports = function flatten(list, depth) {
   depth = (typeof depth == 'number') ? depth : Infinity;
 
@@ -3099,12 +3099,10 @@ module.exports = function flatten(list, depth) {
   }
 };
 
-},{}],100:[function(require,module,exports) {
+},{}],"../../../node_modules/node-libs-browser/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
+var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
 // don't break things.  But we need to wrap it in a try catch in case it is
 // wrapped in strict mode code which doesn't define any globals.  It's inside a
 // function because try/catches deoptimize in certain engines.
@@ -3113,148 +3111,171 @@ var cachedSetTimeout;
 var cachedClearTimeout;
 
 function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
+  throw new Error('setTimeout has not been defined');
 }
+
 function defaultClearTimeout() {
-    throw new Error('clearTimeout has not been defined');
+  throw new Error('clearTimeout has not been defined');
 }
+
 (function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
+  try {
+    if (typeof setTimeout === 'function') {
+      cachedSetTimeout = setTimeout;
+    } else {
+      cachedSetTimeout = defaultSetTimout;
     }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
+  } catch (e) {
+    cachedSetTimeout = defaultSetTimout;
+  }
+
+  try {
+    if (typeof clearTimeout === 'function') {
+      cachedClearTimeout = clearTimeout;
+    } else {
+      cachedClearTimeout = defaultClearTimeout;
     }
+  } catch (e) {
+    cachedClearTimeout = defaultClearTimeout;
+  }
 })();
+
 function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
+  if (cachedSetTimeout === setTimeout) {
+    //normal enviroments in sane situations
+    return setTimeout(fun, 0);
+  } // if setTimeout wasn't available but was latter defined
+
+
+  if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+    cachedSetTimeout = setTimeout;
+    return setTimeout(fun, 0);
+  }
+
+  try {
+    // when when somebody has screwed with setTimeout but no I.E. maddness
+    return cachedSetTimeout(fun, 0);
+  } catch (e) {
     try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
+      // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+      return cachedSetTimeout.call(null, fun, 0);
     } catch (e) {
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch (e) {
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
+      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+      return cachedSetTimeout.call(this, fun, 0);
     }
+  }
 }
+
 function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
+  if (cachedClearTimeout === clearTimeout) {
+    //normal enviroments in sane situations
+    return clearTimeout(marker);
+  } // if clearTimeout wasn't available but was latter defined
+
+
+  if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+    cachedClearTimeout = clearTimeout;
+    return clearTimeout(marker);
+  }
+
+  try {
+    // when when somebody has screwed with setTimeout but no I.E. maddness
+    return cachedClearTimeout(marker);
+  } catch (e) {
     try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
+      // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+      return cachedClearTimeout.call(null, marker);
     } catch (e) {
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e) {
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
+      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+      // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+      return cachedClearTimeout.call(this, marker);
     }
+  }
 }
+
 var queue = [];
 var draining = false;
 var currentQueue;
 var queueIndex = -1;
 
 function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
+  if (!draining || !currentQueue) {
+    return;
+  }
+
+  draining = false;
+
+  if (currentQueue.length) {
+    queue = currentQueue.concat(queue);
+  } else {
+    queueIndex = -1;
+  }
+
+  if (queue.length) {
+    drainQueue();
+  }
 }
 
 function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
+  if (draining) {
+    return;
+  }
 
-    var len = queue.length;
-    while (len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
+  var timeout = runTimeout(cleanUpNextTick);
+  draining = true;
+  var len = queue.length;
+
+  while (len) {
+    currentQueue = queue;
+    queue = [];
+
+    while (++queueIndex < len) {
+      if (currentQueue) {
+        currentQueue[queueIndex].run();
+      }
     }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
+
+    queueIndex = -1;
+    len = queue.length;
+  }
+
+  currentQueue = null;
+  draining = false;
+  runClearTimeout(timeout);
 }
 
 process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
+  var args = new Array(arguments.length - 1);
+
+  if (arguments.length > 1) {
+    for (var i = 1; i < arguments.length; i++) {
+      args[i - 1] = arguments[i];
     }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
+  }
+
+  queue.push(new Item(fun, args));
+
+  if (queue.length === 1 && !draining) {
+    runTimeout(drainQueue);
+  }
+}; // v8 likes predictible objects
+
+
+function Item(fun, array) {
+  this.fun = fun;
+  this.array = array;
+}
+
+Item.prototype.run = function () {
+  this.fun.apply(null, this.array);
 };
 
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
 process.title = 'browser';
 process.browser = true;
 process.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
+
 process.versions = {};
 
 function noop() {}
@@ -3270,23 +3291,25 @@ process.prependListener = noop;
 process.prependOnceListener = noop;
 
 process.listeners = function (name) {
-    return [];
+  return [];
 };
 
 process.binding = function (name) {
-    throw new Error('process.binding is not supported');
+  throw new Error('process.binding is not supported');
 };
 
 process.cwd = function () {
-    return '/';
+  return '/';
 };
+
 process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
+  throw new Error('process.chdir is not supported');
 };
+
 process.umask = function () {
-    return 0;
+  return 0;
 };
-},{}],74:[function(require,module,exports) {
+},{}],"../../../node_modules/run-parallel/index.js":[function(require,module,exports) {
 var process = require("process");
 module.exports = runParallel
 
@@ -3337,7 +3360,7 @@ function runParallel (tasks, cb) {
   isSync = false
 }
 
-},{"process":100}],37:[function(require,module,exports) {
+},{"process":"../../../node_modules/node-libs-browser/node_modules/process/browser.js"}],"../../../node_modules/drag-drop/index.js":[function(require,module,exports) {
 module.exports = dragDrop
 
 var flatten = require('flatten')
@@ -3531,7 +3554,7 @@ function toArray (list) {
   return Array.prototype.slice.call(list || [], 0)
 }
 
-},{"flatten":73,"run-parallel":74}],114:[function(require,module,exports) {
+},{"flatten":"../../../node_modules/flatten/index.js","run-parallel":"../../../node_modules/run-parallel/index.js"}],"../../../node_modules/@uppy/dashboard/lib/utils/truncateString.js":[function(require,module,exports) {
 module.exports = function truncateString(str, length) {
   if (str.length > length) {
     return str.substr(0, length / 2) + '...' + str.substr(str.length - length / 4, str.length);
@@ -3541,7 +3564,7 @@ module.exports = function truncateString(str, length) {
   // more precise version if needed
   // http://stackoverflow.com/a/831583
 };
-},{}],115:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/dashboard/lib/utils/copyToClipboard.js":[function(require,module,exports) {
 /**
  * Copies text to clipboard by creating an almost invisible textarea,
  * adding text there, then running execCommand('copy').
@@ -3593,7 +3616,7 @@ module.exports = function copyToClipboard(textToCopy, fallbackString) {
     }
   });
 };
-},{}],116:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/dashboard/lib/components/FileItemProgress.js":[function(require,module,exports) {
 var _require = require('preact'),
     h = _require.h;
 
@@ -3636,7 +3659,7 @@ module.exports = function (props) {
     h("polygon", { "class": "check", transform: "translate(2, 3)", points: "14 22.5 7 15.2457065 8.99985857 13.1732815 14 18.3547104 22.9729883 9 25 11.1005634" })
   );
 };
-},{"preact":86}],30:[function(require,module,exports) {
+},{"preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/dashboard/lib/components/icons.js":[function(require,module,exports) {
 var _require = require('preact'),
     h = _require.h;
 
@@ -3763,7 +3786,7 @@ module.exports = {
   iconFile: iconFile,
   iconText: iconText
 };
-},{"preact":86}],109:[function(require,module,exports) {
+},{"preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/dashboard/lib/utils/getFileTypeIcon.js":[function(require,module,exports) {
 var _require = require('../components/icons'),
     iconText = _require.iconText,
     iconAudio = _require.iconAudio,
@@ -3818,7 +3841,7 @@ module.exports = function getIconByMime(fileType) {
 
   return defaultChoice;
 };
-},{"../components/icons":30}],110:[function(require,module,exports) {
+},{"../components/icons":"../../../node_modules/@uppy/dashboard/lib/components/icons.js"}],"../../../node_modules/@uppy/dashboard/lib/components/FilePreview.js":[function(require,module,exports) {
 var getFileTypeIcon = require('../utils/getFileTypeIcon');
 
 var _require = require('preact'),
@@ -3857,7 +3880,7 @@ module.exports = function FilePreview(props) {
 };
 
 // <span class="uppy-DashboardItem-previewType">{file.extension && file.extension.length < 5 ? file.extension : null}</span>
-},{"../utils/getFileTypeIcon":109,"preact":86}],98:[function(require,module,exports) {
+},{"../utils/getFileTypeIcon":"../../../node_modules/@uppy/dashboard/lib/utils/getFileTypeIcon.js","preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/classnames/index.js":[function(require,module,exports) {
 var define;
 /*!
   Copyright (c) 2017 Jed Watson.
@@ -3912,7 +3935,7 @@ var define;
 	}
 }());
 
-},{}],107:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/dashboard/lib/components/FileItem.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var getFileNameAndExtension = require('@uppy/utils/lib/getFileNameAndExtension');
@@ -4125,7 +4148,7 @@ module.exports = function fileItem(props) {
     )
   );
 };
-},{"@uppy/utils/lib/getFileNameAndExtension":49,"../utils/truncateString":114,"../utils/copyToClipboard":115,"prettier-bytes":39,"./FileItemProgress":116,"../utils/getFileTypeIcon":109,"./FilePreview":110,"./icons":30,"classnames":98,"preact":86}],92:[function(require,module,exports) {
+},{"@uppy/utils/lib/getFileNameAndExtension":"../../../node_modules/@uppy/utils/lib/getFileNameAndExtension.js","../utils/truncateString":"../../../node_modules/@uppy/dashboard/lib/utils/truncateString.js","../utils/copyToClipboard":"../../../node_modules/@uppy/dashboard/lib/utils/copyToClipboard.js","prettier-bytes":"../../../node_modules/prettier-bytes/index.js","./FileItemProgress":"../../../node_modules/@uppy/dashboard/lib/components/FileItemProgress.js","../utils/getFileTypeIcon":"../../../node_modules/@uppy/dashboard/lib/utils/getFileTypeIcon.js","./FilePreview":"../../../node_modules/@uppy/dashboard/lib/components/FilePreview.js","./icons":"../../../node_modules/@uppy/dashboard/lib/components/icons.js","classnames":"../../../node_modules/classnames/index.js","preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/dashboard/lib/components/FileList.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var FileItem = require('./FileItem');
@@ -4149,7 +4172,7 @@ module.exports = function (props) {
     })
   );
 };
-},{"./FileItem":107,"classnames":98,"preact":86}],112:[function(require,module,exports) {
+},{"./FileItem":"../../../node_modules/@uppy/dashboard/lib/components/FileItem.js","classnames":"../../../node_modules/classnames/index.js","preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/dashboard/lib/components/ActionBrowseTagline.js":[function(require,module,exports) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -4212,7 +4235,7 @@ var ActionBrowseTagline = function (_Component) {
 }(Component);
 
 module.exports = ActionBrowseTagline;
-},{"preact":86}],91:[function(require,module,exports) {
+},{"preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/dashboard/lib/components/AddFiles.js":[function(require,module,exports) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -4391,7 +4414,7 @@ var AddFiles = function (_Component) {
 }(Component);
 
 module.exports = AddFiles;
-},{"./ActionBrowseTagline":112,"./icons":30,"preact":86}],94:[function(require,module,exports) {
+},{"./ActionBrowseTagline":"../../../node_modules/@uppy/dashboard/lib/components/ActionBrowseTagline.js","./icons":"../../../node_modules/@uppy/dashboard/lib/components/icons.js","preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/dashboard/lib/components/AddFilesPanel.js":[function(require,module,exports) {
 var _require = require('preact'),
     h = _require.h;
 
@@ -4425,7 +4448,7 @@ var AddFilesPanel = function AddFilesPanel(props) {
 };
 
 module.exports = AddFilesPanel;
-},{"preact":86,"./AddFiles":91}],108:[function(require,module,exports) {
+},{"preact":"../../../node_modules/preact/dist/preact.mjs","./AddFiles":"../../../node_modules/@uppy/dashboard/lib/components/AddFiles.js"}],"../../../node_modules/@uppy/dashboard/lib/utils/ignoreEvent.js":[function(require,module,exports) {
 // ignore drop/paste events if they are not in input or textarea —
 // otherwise when Url plugin adds drop/paste listeners to this.el,
 // draging UI elements or pasting anything into any field triggers those events —
@@ -4442,7 +4465,7 @@ function ignoreEvent(ev) {
 }
 
 module.exports = ignoreEvent;
-},{}],93:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/dashboard/lib/components/PanelContent.js":[function(require,module,exports) {
 var _require = require('preact'),
     h = _require.h;
 
@@ -4483,7 +4506,7 @@ function PanelContent(props) {
 }
 
 module.exports = PanelContent;
-},{"preact":86,"../utils/ignoreEvent.js":108}],96:[function(require,module,exports) {
+},{"preact":"../../../node_modules/preact/dist/preact.mjs","../utils/ignoreEvent.js":"../../../node_modules/@uppy/dashboard/lib/utils/ignoreEvent.js"}],"../../../node_modules/@uppy/dashboard/lib/components/PanelTopBar.js":[function(require,module,exports) {
 var _require = require('preact'),
     h = _require.h;
 
@@ -4530,7 +4553,7 @@ function PanelTopBar(props) {
 }
 
 module.exports = PanelTopBar;
-},{"preact":86}],95:[function(require,module,exports) {
+},{"preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/dashboard/lib/components/FileCard.js":[function(require,module,exports) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -4694,12 +4717,12 @@ var FileCard = function (_Component) {
 }(Component);
 
 module.exports = FileCard;
-},{"../utils/getFileTypeIcon":109,"./FilePreview":110,"../utils/ignoreEvent.js":108,"preact":86}],97:[function(require,module,exports) {
+},{"../utils/getFileTypeIcon":"../../../node_modules/@uppy/dashboard/lib/utils/getFileTypeIcon.js","./FilePreview":"../../../node_modules/@uppy/dashboard/lib/components/FilePreview.js","../utils/ignoreEvent.js":"../../../node_modules/@uppy/dashboard/lib/utils/ignoreEvent.js","preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/utils/lib/isTouchDevice.js":[function(require,module,exports) {
 module.exports = function isTouchDevice() {
   return 'ontouchstart' in window || // works on most browsers
   navigator.maxTouchPoints; // works on IE10/11 and Surface
 };
-},{}],99:[function(require,module,exports) {
+},{}],"../../../node_modules/preact-css-transition-group/dist/preact-css-transition-group.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 (function (global, factory) {
@@ -5258,9 +5281,9 @@ CSSTransitionGroup.defaultProps = {
 return CSSTransitionGroup;
 
 })));
-//# sourceMappingURL=preact-css-transition-group.js.map
 
-},{"preact":86}],28:[function(require,module,exports) {
+
+},{"preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/dashboard/lib/components/Dashboard.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var FileList = require('./FileList');
@@ -5358,7 +5381,7 @@ module.exports = function Dashboard(props) {
     )
   );
 };
-},{"./FileList":92,"./AddFiles":91,"./AddFilesPanel":94,"./PanelContent":93,"./PanelTopBar":96,"./FileCard":95,"classnames":98,"@uppy/utils/lib/isTouchDevice":97,"preact":86,"preact-css-transition-group":99}],78:[function(require,module,exports) {
+},{"./FileList":"../../../node_modules/@uppy/dashboard/lib/components/FileList.js","./AddFiles":"../../../node_modules/@uppy/dashboard/lib/components/AddFiles.js","./AddFilesPanel":"../../../node_modules/@uppy/dashboard/lib/components/AddFilesPanel.js","./PanelContent":"../../../node_modules/@uppy/dashboard/lib/components/PanelContent.js","./PanelTopBar":"../../../node_modules/@uppy/dashboard/lib/components/PanelTopBar.js","./FileCard":"../../../node_modules/@uppy/dashboard/lib/components/FileCard.js","classnames":"../../../node_modules/classnames/index.js","@uppy/utils/lib/isTouchDevice":"../../../node_modules/@uppy/utils/lib/isTouchDevice.js","preact":"../../../node_modules/preact/dist/preact.mjs","preact-css-transition-group":"../../../node_modules/preact-css-transition-group/dist/preact-css-transition-group.js"}],"../../../node_modules/lodash.throttle/index.js":[function(require,module,exports) {
 var global = arguments[3];
 /**
  * lodash (Custom Build) <https://lodash.com/>
@@ -5800,7 +5823,7 @@ function toNumber(value) {
 
 module.exports = throttle;
 
-},{}],84:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/status-bar/lib/StatusBarStates.js":[function(require,module,exports) {
 module.exports = {
   'STATE_ERROR': 'error',
   'STATE_WAITING': 'waiting',
@@ -5809,7 +5832,7 @@ module.exports = {
   'STATE_POSTPROCESSING': 'postprocessing',
   'STATE_COMPLETE': 'complete'
 };
-},{}],83:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/status-bar/lib/StatusBar.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var throttle = require('lodash.throttle');
@@ -6080,7 +6103,7 @@ var ProgressBarError = function ProgressBarError(_ref2) {
     )
   );
 };
-},{"lodash.throttle":78,"classnames":98,"./StatusBarStates":84,"preact":86}],87:[function(require,module,exports) {
+},{"lodash.throttle":"../../../node_modules/lodash.throttle/index.js","classnames":"../../../node_modules/classnames/index.js","./StatusBarStates":"../../../node_modules/@uppy/status-bar/lib/StatusBarStates.js","preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/utils/lib/getSpeed.js":[function(require,module,exports) {
 module.exports = function getSpeed(fileProgress) {
   if (!fileProgress.bytesUploaded) return 0;
 
@@ -6088,11 +6111,11 @@ module.exports = function getSpeed(fileProgress) {
   var uploadSpeed = fileProgress.bytesUploaded / (timeElapsed / 1000);
   return uploadSpeed;
 };
-},{}],88:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/getBytesRemaining.js":[function(require,module,exports) {
 module.exports = function getBytesRemaining(fileProgress) {
   return fileProgress.bytesTotal - fileProgress.bytesUploaded;
 };
-},{}],111:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/secondsToTime.js":[function(require,module,exports) {
 module.exports = function secondsToTime(rawSeconds) {
   var hours = Math.floor(rawSeconds / 3600) % 24;
   var minutes = Math.floor(rawSeconds / 60) % 60;
@@ -6100,7 +6123,7 @@ module.exports = function secondsToTime(rawSeconds) {
 
   return { hours: hours, minutes: minutes, seconds: seconds };
 };
-},{}],89:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/prettyETA.js":[function(require,module,exports) {
 var secondsToTime = require('./secondsToTime');
 
 module.exports = function prettyETA(seconds) {
@@ -6117,7 +6140,7 @@ module.exports = function prettyETA(seconds) {
 
   return '' + hoursStr + minutesStr + secondsStr;
 };
-},{"./secondsToTime":111}],36:[function(require,module,exports) {
+},{"./secondsToTime":"../../../node_modules/@uppy/utils/lib/secondsToTime.js"}],"../../../node_modules/@uppy/status-bar/lib/index.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6368,7 +6391,7 @@ module.exports = function (_Plugin) {
 
   return StatusBar;
 }(Plugin);
-},{"@uppy/core":7,"@uppy/utils/lib/Translator":31,"./StatusBar":83,"./StatusBarStates":84,"@uppy/utils/lib/getSpeed":87,"@uppy/utils/lib/getBytesRemaining":88,"@uppy/utils/lib/prettyETA":89,"prettier-bytes":39}],38:[function(require,module,exports) {
+},{"@uppy/core":"../../../node_modules/@uppy/core/lib/index.js","@uppy/utils/lib/Translator":"../../../node_modules/@uppy/utils/lib/Translator.js","./StatusBar":"../../../node_modules/@uppy/status-bar/lib/StatusBar.js","./StatusBarStates":"../../../node_modules/@uppy/status-bar/lib/StatusBarStates.js","@uppy/utils/lib/getSpeed":"../../../node_modules/@uppy/utils/lib/getSpeed.js","@uppy/utils/lib/getBytesRemaining":"../../../node_modules/@uppy/utils/lib/getBytesRemaining.js","@uppy/utils/lib/prettyETA":"../../../node_modules/@uppy/utils/lib/prettyETA.js","prettier-bytes":"../../../node_modules/prettier-bytes/index.js"}],"../../../node_modules/@uppy/informer/lib/index.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6473,7 +6496,7 @@ module.exports = function (_Plugin) {
 
   return Informer;
 }(Plugin);
-},{"@uppy/core":7,"preact":86}],16:[function(require,module,exports) {
+},{"@uppy/core":"../../../node_modules/@uppy/core/lib/index.js","preact":"../../../node_modules/preact/dist/preact.mjs"}],"../../../node_modules/@uppy/utils/lib/dataURItoBlob.js":[function(require,module,exports) {
 module.exports = function dataURItoBlob(dataURI, opts, toFile) {
   // get the base64 data
   var data = dataURI.split(',')[1];
@@ -6499,7 +6522,7 @@ module.exports = function dataURItoBlob(dataURI, opts, toFile) {
 
   return new Blob([new Uint8Array(array)], { type: mimeType });
 };
-},{}],15:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/isPreviewSupported.js":[function(require,module,exports) {
 module.exports = function isPreviewSupported(fileType) {
   if (!fileType) return false;
   var fileTypeSpecific = fileType.split('/')[1];
@@ -6509,7 +6532,7 @@ module.exports = function isPreviewSupported(fileType) {
   }
   return false;
 };
-},{}],10:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/thumbnail-generator/lib/index.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6758,7 +6781,7 @@ module.exports = function (_Plugin) {
 
   return ThumbnailGenerator;
 }(Plugin);
-},{"@uppy/core":7,"@uppy/utils/lib/dataURItoBlob":16,"@uppy/utils/lib/isPreviewSupported":15}],32:[function(require,module,exports) {
+},{"@uppy/core":"../../../node_modules/@uppy/core/lib/index.js","@uppy/utils/lib/dataURItoBlob":"../../../node_modules/@uppy/utils/lib/dataURItoBlob.js","@uppy/utils/lib/isPreviewSupported":"../../../node_modules/@uppy/utils/lib/isPreviewSupported.js"}],"../../../node_modules/@uppy/utils/lib/findAllDOMElements.js":[function(require,module,exports) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var isDOMElement = require('./isDOMElement');
@@ -6779,192 +6802,200 @@ module.exports = function findAllDOMElements(element) {
     return [element];
   }
 };
-},{"./isDOMElement":82}],33:[function(require,module,exports) {
+},{"./isDOMElement":"../../../node_modules/@uppy/utils/lib/isDOMElement.js"}],"../../../node_modules/@uppy/utils/lib/toArray.js":[function(require,module,exports) {
 /**
  * Converts list into array
 */
 module.exports = function toArray(list) {
   return Array.prototype.slice.call(list || [], 0);
 };
-},{}],40:[function(require,module,exports) {
+},{}],"../../../node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js":[function(require,module,exports) {
 var global = arguments[3];
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
+exports.default = void 0;
+
 /**
  * A collection of shims that provide minimal functionality of the ES6 collections.
  *
  * These implementations are not meant to be used outside of the ResizeObserver
  * modules as they cover only a limited range of use cases.
  */
+
 /* eslint-disable require-jsdoc, valid-jsdoc */
 var MapShim = function () {
-    if (typeof Map !== 'undefined') {
-        return Map;
+  if (typeof Map !== 'undefined') {
+    return Map;
+  }
+  /**
+   * Returns index in provided array that matches the specified key.
+   *
+   * @param {Array<Array>} arr
+   * @param {*} key
+   * @returns {number}
+   */
+
+
+  function getIndex(arr, key) {
+    var result = -1;
+    arr.some(function (entry, index) {
+      if (entry[0] === key) {
+        result = index;
+        return true;
+      }
+
+      return false;
+    });
+    return result;
+  }
+
+  return function () {
+    function anonymous() {
+      this.__entries__ = [];
     }
 
+    var prototypeAccessors = {
+      size: {
+        configurable: true
+      }
+    };
     /**
-     * Returns index in provided array that matches the specified key.
-     *
-     * @param {Array<Array>} arr
-     * @param {*} key
-     * @returns {number}
+     * @returns {boolean}
      */
-    function getIndex(arr, key) {
-        var result = -1;
 
-        arr.some(function (entry, index) {
-            if (entry[0] === key) {
-                result = index;
+    prototypeAccessors.size.get = function () {
+      return this.__entries__.length;
+    };
+    /**
+     * @param {*} key
+     * @returns {*}
+     */
 
-                return true;
-            }
 
-            return false;
-        });
+    anonymous.prototype.get = function (key) {
+      var index = getIndex(this.__entries__, key);
+      var entry = this.__entries__[index];
+      return entry && entry[1];
+    };
+    /**
+     * @param {*} key
+     * @param {*} value
+     * @returns {void}
+     */
 
-        return result;
-    }
 
-    return function () {
-        function anonymous() {
-            this.__entries__ = [];
-        }
+    anonymous.prototype.set = function (key, value) {
+      var index = getIndex(this.__entries__, key);
 
-        var prototypeAccessors = { size: { configurable: true } };
+      if (~index) {
+        this.__entries__[index][1] = value;
+      } else {
+        this.__entries__.push([key, value]);
+      }
+    };
+    /**
+     * @param {*} key
+     * @returns {void}
+     */
 
-        /**
-         * @returns {boolean}
-         */
-        prototypeAccessors.size.get = function () {
-            return this.__entries__.length;
-        };
 
-        /**
-         * @param {*} key
-         * @returns {*}
-         */
-        anonymous.prototype.get = function (key) {
-            var index = getIndex(this.__entries__, key);
-            var entry = this.__entries__[index];
+    anonymous.prototype.delete = function (key) {
+      var entries = this.__entries__;
+      var index = getIndex(entries, key);
 
-            return entry && entry[1];
-        };
+      if (~index) {
+        entries.splice(index, 1);
+      }
+    };
+    /**
+     * @param {*} key
+     * @returns {void}
+     */
 
-        /**
-         * @param {*} key
-         * @param {*} value
-         * @returns {void}
-         */
-        anonymous.prototype.set = function (key, value) {
-            var index = getIndex(this.__entries__, key);
 
-            if (~index) {
-                this.__entries__[index][1] = value;
-            } else {
-                this.__entries__.push([key, value]);
-            }
-        };
+    anonymous.prototype.has = function (key) {
+      return !!~getIndex(this.__entries__, key);
+    };
+    /**
+     * @returns {void}
+     */
 
-        /**
-         * @param {*} key
-         * @returns {void}
-         */
-        anonymous.prototype.delete = function (key) {
-            var entries = this.__entries__;
-            var index = getIndex(entries, key);
 
-            if (~index) {
-                entries.splice(index, 1);
-            }
-        };
+    anonymous.prototype.clear = function () {
+      this.__entries__.splice(0);
+    };
+    /**
+     * @param {Function} callback
+     * @param {*} [ctx=null]
+     * @returns {void}
+     */
 
-        /**
-         * @param {*} key
-         * @returns {void}
-         */
-        anonymous.prototype.has = function (key) {
-            return !!~getIndex(this.__entries__, key);
-        };
 
-        /**
-         * @returns {void}
-         */
-        anonymous.prototype.clear = function () {
-            this.__entries__.splice(0);
-        };
+    anonymous.prototype.forEach = function (callback, ctx) {
+      var this$1 = this;
+      if (ctx === void 0) ctx = null;
 
-        /**
-         * @param {Function} callback
-         * @param {*} [ctx=null]
-         * @returns {void}
-         */
-        anonymous.prototype.forEach = function (callback, ctx) {
-            var this$1 = this;
-            if (ctx === void 0) ctx = null;
+      for (var i = 0, list = this$1.__entries__; i < list.length; i += 1) {
+        var entry = list[i];
+        callback.call(ctx, entry[1], entry[0]);
+      }
+    };
 
-            for (var i = 0, list = this$1.__entries__; i < list.length; i += 1) {
-                var entry = list[i];
-
-                callback.call(ctx, entry[1], entry[0]);
-            }
-        };
-
-        Object.defineProperties(anonymous.prototype, prototypeAccessors);
-
-        return anonymous;
-    }();
+    Object.defineProperties(anonymous.prototype, prototypeAccessors);
+    return anonymous;
+  }();
 }();
-
 /**
  * Detects whether window and document objects are available in current environment.
  */
-var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document;
 
-// Returns global object of a current environment.
+
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document; // Returns global object of a current environment.
+
 var global$1 = function () {
-    if (typeof global !== 'undefined' && global.Math === Math) {
-        return global;
-    }
+  if (typeof global !== 'undefined' && global.Math === Math) {
+    return global;
+  }
 
-    if (typeof self !== 'undefined' && self.Math === Math) {
-        return self;
-    }
+  if (typeof self !== 'undefined' && self.Math === Math) {
+    return self;
+  }
 
-    if (typeof window !== 'undefined' && window.Math === Math) {
-        return window;
-    }
+  if (typeof window !== 'undefined' && window.Math === Math) {
+    return window;
+  } // eslint-disable-next-line no-new-func
 
-    // eslint-disable-next-line no-new-func
-    return Function('return this')();
+
+  return Function('return this')();
 }();
-
 /**
  * A shim for the requestAnimationFrame which falls back to the setTimeout if
  * first one is not supported.
  *
  * @returns {number} Requests' identifier.
  */
+
+
 var requestAnimationFrame$1 = function () {
-    if (typeof requestAnimationFrame === 'function') {
-        // It's required to use a bounded function because IE sometimes throws
-        // an "Invalid calling object" error if rAF is invoked without the global
-        // object on the left hand side.
-        return requestAnimationFrame.bind(global$1);
-    }
+  if (typeof requestAnimationFrame === 'function') {
+    // It's required to use a bounded function because IE sometimes throws
+    // an "Invalid calling object" error if rAF is invoked without the global
+    // object on the left hand side.
+    return requestAnimationFrame.bind(global$1);
+  }
 
-    return function (callback) {
-        return setTimeout(function () {
-            return callback(Date.now());
-        }, 1000 / 60);
-    };
-}();
+  return function (callback) {
+    return setTimeout(function () {
+      return callback(Date.now());
+    }, 1000 / 60);
+  };
+}(); // Defines minimum timeout before adding a trailing call.
 
-// Defines minimum timeout before adding a trailing call.
+
 var trailingTimeout = 2;
-
 /**
  * Creates a wrapper function which ensures that provided callback will be
  * invoked only once during the specified delay period.
@@ -6973,95 +7004,92 @@ var trailingTimeout = 2;
  * @param {number} delay - Delay after which to invoke callback.
  * @returns {Function}
  */
+
 var throttle = function (callback, delay) {
-    var leadingCall = false,
-        trailingCall = false,
-        lastCallTime = 0;
+  var leadingCall = false,
+      trailingCall = false,
+      lastCallTime = 0;
+  /**
+   * Invokes the original callback function and schedules new invocation if
+   * the "proxy" was called during current request.
+   *
+   * @returns {void}
+   */
 
-    /**
-     * Invokes the original callback function and schedules new invocation if
-     * the "proxy" was called during current request.
-     *
-     * @returns {void}
-     */
-    function resolvePending() {
-        if (leadingCall) {
-            leadingCall = false;
-
-            callback();
-        }
-
-        if (trailingCall) {
-            proxy();
-        }
+  function resolvePending() {
+    if (leadingCall) {
+      leadingCall = false;
+      callback();
     }
 
-    /**
-     * Callback invoked after the specified delay. It will further postpone
-     * invocation of the original function delegating it to the
-     * requestAnimationFrame.
-     *
-     * @returns {void}
-     */
-    function timeoutCallback() {
-        requestAnimationFrame$1(resolvePending);
+    if (trailingCall) {
+      proxy();
+    }
+  }
+  /**
+   * Callback invoked after the specified delay. It will further postpone
+   * invocation of the original function delegating it to the
+   * requestAnimationFrame.
+   *
+   * @returns {void}
+   */
+
+
+  function timeoutCallback() {
+    requestAnimationFrame$1(resolvePending);
+  }
+  /**
+   * Schedules invocation of the original function.
+   *
+   * @returns {void}
+   */
+
+
+  function proxy() {
+    var timeStamp = Date.now();
+
+    if (leadingCall) {
+      // Reject immediately following calls.
+      if (timeStamp - lastCallTime < trailingTimeout) {
+        return;
+      } // Schedule new call to be in invoked when the pending one is resolved.
+      // This is important for "transitions" which never actually start
+      // immediately so there is a chance that we might miss one if change
+      // happens amids the pending invocation.
+
+
+      trailingCall = true;
+    } else {
+      leadingCall = true;
+      trailingCall = false;
+      setTimeout(timeoutCallback, delay);
     }
 
-    /**
-     * Schedules invocation of the original function.
-     *
-     * @returns {void}
-     */
-    function proxy() {
-        var timeStamp = Date.now();
+    lastCallTime = timeStamp;
+  }
 
-        if (leadingCall) {
-            // Reject immediately following calls.
-            if (timeStamp - lastCallTime < trailingTimeout) {
-                return;
-            }
+  return proxy;
+}; // Minimum delay before invoking the update of observers.
 
-            // Schedule new call to be in invoked when the pending one is resolved.
-            // This is important for "transitions" which never actually start
-            // immediately so there is a chance that we might miss one if change
-            // happens amids the pending invocation.
-            trailingCall = true;
-        } else {
-            leadingCall = true;
-            trailingCall = false;
 
-            setTimeout(timeoutCallback, delay);
-        }
-
-        lastCallTime = timeStamp;
-    }
-
-    return proxy;
-};
-
-// Minimum delay before invoking the update of observers.
-var REFRESH_DELAY = 20;
-
-// A list of substrings of CSS properties used to find transition events that
+var REFRESH_DELAY = 20; // A list of substrings of CSS properties used to find transition events that
 // might affect dimensions of observed elements.
-var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight'];
 
-// Check if MutationObserver is available.
+var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight']; // Check if MutationObserver is available.
+
 var mutationObserverSupported = typeof MutationObserver !== 'undefined';
-
 /**
  * Singleton controller class which handles updates of ResizeObserver instances.
  */
+
 var ResizeObserverController = function () {
-    this.connected_ = false;
-    this.mutationEventsAdded_ = false;
-    this.mutationsObserver_ = null;
-    this.observers_ = [];
-
-    this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
-    this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
+  this.connected_ = false;
+  this.mutationEventsAdded_ = false;
+  this.mutationsObserver_ = null;
+  this.observers_ = [];
+  this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
+  this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
 };
-
 /**
  * Adds observer to observers list.
  *
@@ -7086,54 +7114,55 @@ var ResizeObserverController = function () {
  *
  * @private {boolean}
  */
+
+
 ResizeObserverController.prototype.addObserver = function (observer) {
-    if (!~this.observers_.indexOf(observer)) {
-        this.observers_.push(observer);
-    }
+  if (!~this.observers_.indexOf(observer)) {
+    this.observers_.push(observer);
+  } // Add listeners if they haven't been added yet.
 
-    // Add listeners if they haven't been added yet.
-    if (!this.connected_) {
-        this.connect_();
-    }
+
+  if (!this.connected_) {
+    this.connect_();
+  }
 };
-
 /**
  * Removes observer from observers list.
  *
  * @param {ResizeObserverSPI} observer - Observer to be removed.
  * @returns {void}
  */
+
+
 ResizeObserverController.prototype.removeObserver = function (observer) {
-    var observers = this.observers_;
-    var index = observers.indexOf(observer);
+  var observers = this.observers_;
+  var index = observers.indexOf(observer); // Remove observer if it's present in registry.
 
-    // Remove observer if it's present in registry.
-    if (~index) {
-        observers.splice(index, 1);
-    }
+  if (~index) {
+    observers.splice(index, 1);
+  } // Remove listeners if controller has no connected observers.
 
-    // Remove listeners if controller has no connected observers.
-    if (!observers.length && this.connected_) {
-        this.disconnect_();
-    }
+
+  if (!observers.length && this.connected_) {
+    this.disconnect_();
+  }
 };
-
 /**
  * Invokes the update of observers. It will continue running updates insofar
  * it detects changes.
  *
  * @returns {void}
  */
+
+
 ResizeObserverController.prototype.refresh = function () {
-    var changesDetected = this.updateObservers_();
+  var changesDetected = this.updateObservers_(); // Continue running updates if changes have been detected as there might
+  // be future ones caused by CSS transitions.
 
-    // Continue running updates if changes have been detected as there might
-    // be future ones caused by CSS transitions.
-    if (changesDetected) {
-        this.refresh();
-    }
+  if (changesDetected) {
+    this.refresh();
+  }
 };
-
 /**
  * Updates every observer from observers list and notifies them of queued
  * entries.
@@ -7142,91 +7171,89 @@ ResizeObserverController.prototype.refresh = function () {
  * @returns {boolean} Returns "true" if any observer has detected changes in
  *  dimensions of it's elements.
  */
+
+
 ResizeObserverController.prototype.updateObservers_ = function () {
-    // Collect observers that have active observations.
-    var activeObservers = this.observers_.filter(function (observer) {
-        return observer.gatherActive(), observer.hasActive();
-    });
+  // Collect observers that have active observations.
+  var activeObservers = this.observers_.filter(function (observer) {
+    return observer.gatherActive(), observer.hasActive();
+  }); // Deliver notifications in a separate cycle in order to avoid any
+  // collisions between observers, e.g. when multiple instances of
+  // ResizeObserver are tracking the same element and the callback of one
+  // of them changes content dimensions of the observed target. Sometimes
+  // this may result in notifications being blocked for the rest of observers.
 
-    // Deliver notifications in a separate cycle in order to avoid any
-    // collisions between observers, e.g. when multiple instances of
-    // ResizeObserver are tracking the same element and the callback of one
-    // of them changes content dimensions of the observed target. Sometimes
-    // this may result in notifications being blocked for the rest of observers.
-    activeObservers.forEach(function (observer) {
-        return observer.broadcastActive();
-    });
-
-    return activeObservers.length > 0;
+  activeObservers.forEach(function (observer) {
+    return observer.broadcastActive();
+  });
+  return activeObservers.length > 0;
 };
-
 /**
  * Initializes DOM listeners.
  *
  * @private
  * @returns {void}
  */
+
+
 ResizeObserverController.prototype.connect_ = function () {
-    // Do nothing if running in a non-browser environment or if listeners
-    // have been already added.
-    if (!isBrowser || this.connected_) {
-        return;
-    }
+  // Do nothing if running in a non-browser environment or if listeners
+  // have been already added.
+  if (!isBrowser || this.connected_) {
+    return;
+  } // Subscription to the "Transitionend" event is used as a workaround for
+  // delayed transitions. This way it's possible to capture at least the
+  // final state of an element.
 
-    // Subscription to the "Transitionend" event is used as a workaround for
-    // delayed transitions. This way it's possible to capture at least the
-    // final state of an element.
-    document.addEventListener('transitionend', this.onTransitionEnd_);
 
-    window.addEventListener('resize', this.refresh);
+  document.addEventListener('transitionend', this.onTransitionEnd_);
+  window.addEventListener('resize', this.refresh);
 
-    if (mutationObserverSupported) {
-        this.mutationsObserver_ = new MutationObserver(this.refresh);
+  if (mutationObserverSupported) {
+    this.mutationsObserver_ = new MutationObserver(this.refresh);
+    this.mutationsObserver_.observe(document, {
+      attributes: true,
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+  } else {
+    document.addEventListener('DOMSubtreeModified', this.refresh);
+    this.mutationEventsAdded_ = true;
+  }
 
-        this.mutationsObserver_.observe(document, {
-            attributes: true,
-            childList: true,
-            characterData: true,
-            subtree: true
-        });
-    } else {
-        document.addEventListener('DOMSubtreeModified', this.refresh);
-
-        this.mutationEventsAdded_ = true;
-    }
-
-    this.connected_ = true;
+  this.connected_ = true;
 };
-
 /**
  * Removes DOM listeners.
  *
  * @private
  * @returns {void}
  */
+
+
 ResizeObserverController.prototype.disconnect_ = function () {
-    // Do nothing if running in a non-browser environment or if listeners
-    // have been already removed.
-    if (!isBrowser || !this.connected_) {
-        return;
-    }
+  // Do nothing if running in a non-browser environment or if listeners
+  // have been already removed.
+  if (!isBrowser || !this.connected_) {
+    return;
+  }
 
-    document.removeEventListener('transitionend', this.onTransitionEnd_);
-    window.removeEventListener('resize', this.refresh);
+  document.removeEventListener('transitionend', this.onTransitionEnd_);
+  window.removeEventListener('resize', this.refresh);
 
-    if (this.mutationsObserver_) {
-        this.mutationsObserver_.disconnect();
-    }
+  if (this.mutationsObserver_) {
+    this.mutationsObserver_.disconnect();
+  }
 
-    if (this.mutationEventsAdded_) {
-        document.removeEventListener('DOMSubtreeModified', this.refresh);
-    }
+  if (this.mutationEventsAdded_) {
+    document.removeEventListener('DOMSubtreeModified', this.refresh);
+  }
 
-    this.mutationsObserver_ = null;
-    this.mutationEventsAdded_ = false;
-    this.connected_ = false;
+  this.mutationsObserver_ = null;
+  this.mutationEventsAdded_ = false;
+  this.connected_ = false;
 };
-
 /**
  * "Transitionend" event handler.
  *
@@ -7234,34 +7261,36 @@ ResizeObserverController.prototype.disconnect_ = function () {
  * @param {TransitionEvent} event
  * @returns {void}
  */
+
+
 ResizeObserverController.prototype.onTransitionEnd_ = function (ref) {
-    var propertyName = ref.propertyName;if (propertyName === void 0) propertyName = '';
+  var propertyName = ref.propertyName;
+  if (propertyName === void 0) propertyName = ''; // Detect whether transition may affect dimensions of an element.
 
-    // Detect whether transition may affect dimensions of an element.
-    var isReflowProperty = transitionKeys.some(function (key) {
-        return !!~propertyName.indexOf(key);
-    });
+  var isReflowProperty = transitionKeys.some(function (key) {
+    return !!~propertyName.indexOf(key);
+  });
 
-    if (isReflowProperty) {
-        this.refresh();
-    }
+  if (isReflowProperty) {
+    this.refresh();
+  }
 };
-
 /**
  * Returns instance of the ResizeObserverController.
  *
  * @returns {ResizeObserverController}
  */
-ResizeObserverController.getInstance = function () {
-    if (!this.instance_) {
-        this.instance_ = new ResizeObserverController();
-    }
 
-    return this.instance_;
+
+ResizeObserverController.getInstance = function () {
+  if (!this.instance_) {
+    this.instance_ = new ResizeObserverController();
+  }
+
+  return this.instance_;
 };
 
 ResizeObserverController.instance_ = null;
-
 /**
  * Defines non-writable/enumerable properties of the provided target object.
  *
@@ -7269,51 +7298,50 @@ ResizeObserverController.instance_ = null;
  * @param {Object} props - Properties to be defined.
  * @returns {Object} Target object.
  */
+
 var defineConfigurable = function (target, props) {
-    for (var i = 0, list = Object.keys(props); i < list.length; i += 1) {
-        var key = list[i];
+  for (var i = 0, list = Object.keys(props); i < list.length; i += 1) {
+    var key = list[i];
+    Object.defineProperty(target, key, {
+      value: props[key],
+      enumerable: false,
+      writable: false,
+      configurable: true
+    });
+  }
 
-        Object.defineProperty(target, key, {
-            value: props[key],
-            enumerable: false,
-            writable: false,
-            configurable: true
-        });
-    }
-
-    return target;
+  return target;
 };
-
 /**
  * Returns the global object associated with provided element.
  *
  * @param {Object} target
  * @returns {Object}
  */
+
+
 var getWindowOf = function (target) {
-    // Assume that the element is an instance of Node, which means that it
-    // has the "ownerDocument" property from which we can retrieve a
-    // corresponding global object.
-    var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView;
+  // Assume that the element is an instance of Node, which means that it
+  // has the "ownerDocument" property from which we can retrieve a
+  // corresponding global object.
+  var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView; // Return the local global object if it's not possible extract one from
+  // provided element.
 
-    // Return the local global object if it's not possible extract one from
-    // provided element.
-    return ownerGlobal || global$1;
-};
+  return ownerGlobal || global$1;
+}; // Placeholder of an empty content rectangle.
 
-// Placeholder of an empty content rectangle.
+
 var emptyRect = createRectInit(0, 0, 0, 0);
-
 /**
  * Converts provided string to a number.
  *
  * @param {number|string} value
  * @returns {number}
  */
-function toFloat(value) {
-    return parseFloat(value) || 0;
-}
 
+function toFloat(value) {
+  return parseFloat(value) || 0;
+}
 /**
  * Extracts borders size from provided styles.
  *
@@ -7321,39 +7349,39 @@ function toFloat(value) {
  * @param {...string} positions - Borders positions (top, right, ...)
  * @returns {number}
  */
+
+
 function getBordersSize(styles) {
-    var positions = [],
-        len = arguments.length - 1;
-    while (len-- > 0) positions[len] = arguments[len + 1];
+  var positions = [],
+      len = arguments.length - 1;
 
-    return positions.reduce(function (size, position) {
-        var value = styles['border-' + position + '-width'];
+  while (len-- > 0) positions[len] = arguments[len + 1];
 
-        return size + toFloat(value);
-    }, 0);
+  return positions.reduce(function (size, position) {
+    var value = styles['border-' + position + '-width'];
+    return size + toFloat(value);
+  }, 0);
 }
-
 /**
  * Extracts paddings sizes from provided styles.
  *
  * @param {CSSStyleDeclaration} styles
  * @returns {Object} Paddings box.
  */
+
+
 function getPaddings(styles) {
-    var positions = ['top', 'right', 'bottom', 'left'];
-    var paddings = {};
+  var positions = ['top', 'right', 'bottom', 'left'];
+  var paddings = {};
 
-    for (var i = 0, list = positions; i < list.length; i += 1) {
-        var position = list[i];
+  for (var i = 0, list = positions; i < list.length; i += 1) {
+    var position = list[i];
+    var value = styles['padding-' + position];
+    paddings[position] = toFloat(value);
+  }
 
-        var value = styles['padding-' + position];
-
-        paddings[position] = toFloat(value);
-    }
-
-    return paddings;
+  return paddings;
 }
-
 /**
  * Calculates content rectangle of provided SVG element.
  *
@@ -7361,146 +7389,146 @@ function getPaddings(styles) {
  *      to be calculated.
  * @returns {DOMRectInit}
  */
+
+
 function getSVGContentRect(target) {
-    var bbox = target.getBBox();
-
-    return createRectInit(0, 0, bbox.width, bbox.height);
+  var bbox = target.getBBox();
+  return createRectInit(0, 0, bbox.width, bbox.height);
 }
-
 /**
  * Calculates content rectangle of provided HTMLElement.
  *
  * @param {HTMLElement} target - Element for which to calculate the content rectangle.
  * @returns {DOMRectInit}
  */
+
+
 function getHTMLElementContentRect(target) {
-    // Client width & height properties can't be
-    // used exclusively as they provide rounded values.
-    var clientWidth = target.clientWidth;
-    var clientHeight = target.clientHeight;
+  // Client width & height properties can't be
+  // used exclusively as they provide rounded values.
+  var clientWidth = target.clientWidth;
+  var clientHeight = target.clientHeight; // By this condition we can catch all non-replaced inline, hidden and
+  // detached elements. Though elements with width & height properties less
+  // than 0.5 will be discarded as well.
+  //
+  // Without it we would need to implement separate methods for each of
+  // those cases and it's not possible to perform a precise and performance
+  // effective test for hidden elements. E.g. even jQuery's ':visible' filter
+  // gives wrong results for elements with width & height less than 0.5.
 
-    // By this condition we can catch all non-replaced inline, hidden and
-    // detached elements. Though elements with width & height properties less
-    // than 0.5 will be discarded as well.
+  if (!clientWidth && !clientHeight) {
+    return emptyRect;
+  }
+
+  var styles = getWindowOf(target).getComputedStyle(target);
+  var paddings = getPaddings(styles);
+  var horizPad = paddings.left + paddings.right;
+  var vertPad = paddings.top + paddings.bottom; // Computed styles of width & height are being used because they are the
+  // only dimensions available to JS that contain non-rounded values. It could
+  // be possible to utilize the getBoundingClientRect if only it's data wasn't
+  // affected by CSS transformations let alone paddings, borders and scroll bars.
+
+  var width = toFloat(styles.width),
+      height = toFloat(styles.height); // Width & height include paddings and borders when the 'border-box' box
+  // model is applied (except for IE).
+
+  if (styles.boxSizing === 'border-box') {
+    // Following conditions are required to handle Internet Explorer which
+    // doesn't include paddings and borders to computed CSS dimensions.
     //
-    // Without it we would need to implement separate methods for each of
-    // those cases and it's not possible to perform a precise and performance
-    // effective test for hidden elements. E.g. even jQuery's ':visible' filter
-    // gives wrong results for elements with width & height less than 0.5.
-    if (!clientWidth && !clientHeight) {
-        return emptyRect;
+    // We can say that if CSS dimensions + paddings are equal to the "client"
+    // properties then it's either IE, and thus we don't need to subtract
+    // anything, or an element merely doesn't have paddings/borders styles.
+    if (Math.round(width + horizPad) !== clientWidth) {
+      width -= getBordersSize(styles, 'left', 'right') + horizPad;
     }
 
-    var styles = getWindowOf(target).getComputedStyle(target);
-    var paddings = getPaddings(styles);
-    var horizPad = paddings.left + paddings.right;
-    var vertPad = paddings.top + paddings.bottom;
+    if (Math.round(height + vertPad) !== clientHeight) {
+      height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
+    }
+  } // Following steps can't be applied to the document's root element as its
+  // client[Width/Height] properties represent viewport area of the window.
+  // Besides, it's as well not necessary as the <html> itself neither has
+  // rendered scroll bars nor it can be clipped.
 
-    // Computed styles of width & height are being used because they are the
-    // only dimensions available to JS that contain non-rounded values. It could
-    // be possible to utilize the getBoundingClientRect if only it's data wasn't
-    // affected by CSS transformations let alone paddings, borders and scroll bars.
-    var width = toFloat(styles.width),
-        height = toFloat(styles.height);
 
-    // Width & height include paddings and borders when the 'border-box' box
-    // model is applied (except for IE).
-    if (styles.boxSizing === 'border-box') {
-        // Following conditions are required to handle Internet Explorer which
-        // doesn't include paddings and borders to computed CSS dimensions.
-        //
-        // We can say that if CSS dimensions + paddings are equal to the "client"
-        // properties then it's either IE, and thus we don't need to subtract
-        // anything, or an element merely doesn't have paddings/borders styles.
-        if (Math.round(width + horizPad) !== clientWidth) {
-            width -= getBordersSize(styles, 'left', 'right') + horizPad;
-        }
+  if (!isDocumentElement(target)) {
+    // In some browsers (only in Firefox, actually) CSS width & height
+    // include scroll bars size which can be removed at this step as scroll
+    // bars are the only difference between rounded dimensions + paddings
+    // and "client" properties, though that is not always true in Chrome.
+    var vertScrollbar = Math.round(width + horizPad) - clientWidth;
+    var horizScrollbar = Math.round(height + vertPad) - clientHeight; // Chrome has a rather weird rounding of "client" properties.
+    // E.g. for an element with content width of 314.2px it sometimes gives
+    // the client width of 315px and for the width of 314.7px it may give
+    // 314px. And it doesn't happen all the time. So just ignore this delta
+    // as a non-relevant.
 
-        if (Math.round(height + vertPad) !== clientHeight) {
-            height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
-        }
+    if (Math.abs(vertScrollbar) !== 1) {
+      width -= vertScrollbar;
     }
 
-    // Following steps can't be applied to the document's root element as its
-    // client[Width/Height] properties represent viewport area of the window.
-    // Besides, it's as well not necessary as the <html> itself neither has
-    // rendered scroll bars nor it can be clipped.
-    if (!isDocumentElement(target)) {
-        // In some browsers (only in Firefox, actually) CSS width & height
-        // include scroll bars size which can be removed at this step as scroll
-        // bars are the only difference between rounded dimensions + paddings
-        // and "client" properties, though that is not always true in Chrome.
-        var vertScrollbar = Math.round(width + horizPad) - clientWidth;
-        var horizScrollbar = Math.round(height + vertPad) - clientHeight;
-
-        // Chrome has a rather weird rounding of "client" properties.
-        // E.g. for an element with content width of 314.2px it sometimes gives
-        // the client width of 315px and for the width of 314.7px it may give
-        // 314px. And it doesn't happen all the time. So just ignore this delta
-        // as a non-relevant.
-        if (Math.abs(vertScrollbar) !== 1) {
-            width -= vertScrollbar;
-        }
-
-        if (Math.abs(horizScrollbar) !== 1) {
-            height -= horizScrollbar;
-        }
+    if (Math.abs(horizScrollbar) !== 1) {
+      height -= horizScrollbar;
     }
+  }
 
-    return createRectInit(paddings.left, paddings.top, width, height);
+  return createRectInit(paddings.left, paddings.top, width, height);
 }
-
 /**
  * Checks whether provided element is an instance of the SVGGraphicsElement.
  *
  * @param {Element} target - Element to be checked.
  * @returns {boolean}
  */
+
+
 var isSVGGraphicsElement = function () {
-    // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
-    // interface.
-    if (typeof SVGGraphicsElement !== 'undefined') {
-        return function (target) {
-            return target instanceof getWindowOf(target).SVGGraphicsElement;
-        };
-    }
-
-    // If it's so, then check that element is at least an instance of the
-    // SVGElement and that it has the "getBBox" method.
-    // eslint-disable-next-line no-extra-parens
+  // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
+  // interface.
+  if (typeof SVGGraphicsElement !== 'undefined') {
     return function (target) {
-        return target instanceof getWindowOf(target).SVGElement && typeof target.getBBox === 'function';
+      return target instanceof getWindowOf(target).SVGGraphicsElement;
     };
-}();
+  } // If it's so, then check that element is at least an instance of the
+  // SVGElement and that it has the "getBBox" method.
+  // eslint-disable-next-line no-extra-parens
 
+
+  return function (target) {
+    return target instanceof getWindowOf(target).SVGElement && typeof target.getBBox === 'function';
+  };
+}();
 /**
  * Checks whether provided element is a document element (<html>).
  *
  * @param {Element} target - Element to be checked.
  * @returns {boolean}
  */
-function isDocumentElement(target) {
-    return target === getWindowOf(target).document.documentElement;
-}
 
+
+function isDocumentElement(target) {
+  return target === getWindowOf(target).document.documentElement;
+}
 /**
  * Calculates an appropriate content rectangle for provided html or svg element.
  *
  * @param {Element} target - Element content rectangle of which needs to be calculated.
  * @returns {DOMRectInit}
  */
+
+
 function getContentRect(target) {
-    if (!isBrowser) {
-        return emptyRect;
-    }
+  if (!isBrowser) {
+    return emptyRect;
+  }
 
-    if (isSVGGraphicsElement(target)) {
-        return getSVGContentRect(target);
-    }
+  if (isSVGGraphicsElement(target)) {
+    return getSVGContentRect(target);
+  }
 
-    return getHTMLElementContentRect(target);
+  return getHTMLElementContentRect(target);
 }
-
 /**
  * Creates rectangle with an interface of the DOMRectReadOnly.
  * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
@@ -7508,28 +7536,29 @@ function getContentRect(target) {
  * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
  * @returns {DOMRectReadOnly}
  */
+
+
 function createReadOnlyRect(ref) {
-    var x = ref.x;
-    var y = ref.y;
-    var width = ref.width;
-    var height = ref.height;
+  var x = ref.x;
+  var y = ref.y;
+  var width = ref.width;
+  var height = ref.height; // If DOMRectReadOnly is available use it as a prototype for the rectangle.
 
-    // If DOMRectReadOnly is available use it as a prototype for the rectangle.
-    var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
-    var rect = Object.create(Constr.prototype);
+  var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
+  var rect = Object.create(Constr.prototype); // Rectangle's properties are not writable and non-enumerable.
 
-    // Rectangle's properties are not writable and non-enumerable.
-    defineConfigurable(rect, {
-        x: x, y: y, width: width, height: height,
-        top: y,
-        right: x + width,
-        bottom: height + y,
-        left: x
-    });
-
-    return rect;
+  defineConfigurable(rect, {
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    top: y,
+    right: x + width,
+    bottom: height + y,
+    left: x
+  });
+  return rect;
 }
-
 /**
  * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
  * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
@@ -7540,22 +7569,28 @@ function createReadOnlyRect(ref) {
  * @param {number} height - Rectangle's height.
  * @returns {DOMRectInit}
  */
-function createRectInit(x, y, width, height) {
-    return { x: x, y: y, width: width, height: height };
-}
 
+
+function createRectInit(x, y, width, height) {
+  return {
+    x: x,
+    y: y,
+    width: width,
+    height: height
+  };
+}
 /**
  * Class that is responsible for computations of the content rectangle of
  * provided DOM element and for keeping track of it's changes.
  */
+
+
 var ResizeObservation = function (target) {
-    this.broadcastWidth = 0;
-    this.broadcastHeight = 0;
-    this.contentRect_ = createRectInit(0, 0, 0, 0);
-
-    this.target = target;
+  this.broadcastWidth = 0;
+  this.broadcastHeight = 0;
+  this.contentRect_ = createRectInit(0, 0, 0, 0);
+  this.target = target;
 };
-
 /**
  * Updates content rectangle and tells whether it's width or height properties
  * have changed since the last broadcast.
@@ -7574,54 +7609,54 @@ var ResizeObservation = function (target) {
  *
  * @type {number}
  */
+
+
 ResizeObservation.prototype.isActive = function () {
-    var rect = getContentRect(this.target);
-
-    this.contentRect_ = rect;
-
-    return rect.width !== this.broadcastWidth || rect.height !== this.broadcastHeight;
+  var rect = getContentRect(this.target);
+  this.contentRect_ = rect;
+  return rect.width !== this.broadcastWidth || rect.height !== this.broadcastHeight;
 };
-
 /**
  * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
  * from the corresponding properties of the last observed content rectangle.
  *
  * @returns {DOMRectInit} Last observed content rectangle.
  */
+
+
 ResizeObservation.prototype.broadcastRect = function () {
-    var rect = this.contentRect_;
-
-    this.broadcastWidth = rect.width;
-    this.broadcastHeight = rect.height;
-
-    return rect;
+  var rect = this.contentRect_;
+  this.broadcastWidth = rect.width;
+  this.broadcastHeight = rect.height;
+  return rect;
 };
 
 var ResizeObserverEntry = function (target, rectInit) {
-    var contentRect = createReadOnlyRect(rectInit);
+  var contentRect = createReadOnlyRect(rectInit); // According to the specification following properties are not writable
+  // and are also not enumerable in the native implementation.
+  //
+  // Property accessors are not being used as they'd require to define a
+  // private WeakMap storage which may cause memory leaks in browsers that
+  // don't support this type of collections.
 
-    // According to the specification following properties are not writable
-    // and are also not enumerable in the native implementation.
-    //
-    // Property accessors are not being used as they'd require to define a
-    // private WeakMap storage which may cause memory leaks in browsers that
-    // don't support this type of collections.
-    defineConfigurable(this, { target: target, contentRect: contentRect });
+  defineConfigurable(this, {
+    target: target,
+    contentRect: contentRect
+  });
 };
 
 var ResizeObserverSPI = function (callback, controller, callbackCtx) {
-    this.activeObservations_ = [];
-    this.observations_ = new MapShim();
+  this.activeObservations_ = [];
+  this.observations_ = new MapShim();
 
-    if (typeof callback !== 'function') {
-        throw new TypeError('The callback provided as parameter 1 is not a function.');
-    }
+  if (typeof callback !== 'function') {
+    throw new TypeError('The callback provided as parameter 1 is not a function.');
+  }
 
-    this.callback_ = callback;
-    this.controller_ = controller;
-    this.callbackCtx_ = callbackCtx;
+  this.callback_ = callback;
+  this.controller_ = controller;
+  this.callbackCtx_ = callbackCtx;
 };
-
 /**
  * Starts observing provided element.
  *
@@ -7648,181 +7683,182 @@ var ResizeObserverSPI = function (callback, controller, callbackCtx) {
  *
  * @private {Array<ResizeObservation>}
  */
+
+
 ResizeObserverSPI.prototype.observe = function (target) {
-    if (!arguments.length) {
-        throw new TypeError('1 argument required, but only 0 present.');
-    }
+  if (!arguments.length) {
+    throw new TypeError('1 argument required, but only 0 present.');
+  } // Do nothing if current environment doesn't have the Element interface.
 
-    // Do nothing if current environment doesn't have the Element interface.
-    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
-        return;
-    }
 
-    if (!(target instanceof getWindowOf(target).Element)) {
-        throw new TypeError('parameter 1 is not of type "Element".');
-    }
+  if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+    return;
+  }
 
-    var observations = this.observations_;
+  if (!(target instanceof getWindowOf(target).Element)) {
+    throw new TypeError('parameter 1 is not of type "Element".');
+  }
 
-    // Do nothing if element is already being observed.
-    if (observations.has(target)) {
-        return;
-    }
+  var observations = this.observations_; // Do nothing if element is already being observed.
 
-    observations.set(target, new ResizeObservation(target));
+  if (observations.has(target)) {
+    return;
+  }
 
-    this.controller_.addObserver(this);
+  observations.set(target, new ResizeObservation(target));
+  this.controller_.addObserver(this); // Force the update of observations.
 
-    // Force the update of observations.
-    this.controller_.refresh();
+  this.controller_.refresh();
 };
-
 /**
  * Stops observing provided element.
  *
  * @param {Element} target - Element to stop observing.
  * @returns {void}
  */
+
+
 ResizeObserverSPI.prototype.unobserve = function (target) {
-    if (!arguments.length) {
-        throw new TypeError('1 argument required, but only 0 present.');
-    }
+  if (!arguments.length) {
+    throw new TypeError('1 argument required, but only 0 present.');
+  } // Do nothing if current environment doesn't have the Element interface.
 
-    // Do nothing if current environment doesn't have the Element interface.
-    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
-        return;
-    }
 
-    if (!(target instanceof getWindowOf(target).Element)) {
-        throw new TypeError('parameter 1 is not of type "Element".');
-    }
+  if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+    return;
+  }
 
-    var observations = this.observations_;
+  if (!(target instanceof getWindowOf(target).Element)) {
+    throw new TypeError('parameter 1 is not of type "Element".');
+  }
 
-    // Do nothing if element is not being observed.
-    if (!observations.has(target)) {
-        return;
-    }
+  var observations = this.observations_; // Do nothing if element is not being observed.
 
-    observations.delete(target);
+  if (!observations.has(target)) {
+    return;
+  }
 
-    if (!observations.size) {
-        this.controller_.removeObserver(this);
-    }
+  observations.delete(target);
+
+  if (!observations.size) {
+    this.controller_.removeObserver(this);
+  }
 };
-
 /**
  * Stops observing all elements.
  *
  * @returns {void}
  */
-ResizeObserverSPI.prototype.disconnect = function () {
-    this.clearActive();
-    this.observations_.clear();
-    this.controller_.removeObserver(this);
-};
 
+
+ResizeObserverSPI.prototype.disconnect = function () {
+  this.clearActive();
+  this.observations_.clear();
+  this.controller_.removeObserver(this);
+};
 /**
  * Collects observation instances the associated element of which has changed
  * it's content rectangle.
  *
  * @returns {void}
  */
+
+
 ResizeObserverSPI.prototype.gatherActive = function () {
-    var this$1 = this;
-
-    this.clearActive();
-
-    this.observations_.forEach(function (observation) {
-        if (observation.isActive()) {
-            this$1.activeObservations_.push(observation);
-        }
-    });
+  var this$1 = this;
+  this.clearActive();
+  this.observations_.forEach(function (observation) {
+    if (observation.isActive()) {
+      this$1.activeObservations_.push(observation);
+    }
+  });
 };
-
 /**
  * Invokes initial callback function with a list of ResizeObserverEntry
  * instances collected from active resize observations.
  *
  * @returns {void}
  */
+
+
 ResizeObserverSPI.prototype.broadcastActive = function () {
-    // Do nothing if observer doesn't have active observations.
-    if (!this.hasActive()) {
-        return;
-    }
+  // Do nothing if observer doesn't have active observations.
+  if (!this.hasActive()) {
+    return;
+  }
 
-    var ctx = this.callbackCtx_;
+  var ctx = this.callbackCtx_; // Create ResizeObserverEntry instance for every active observation.
 
-    // Create ResizeObserverEntry instance for every active observation.
-    var entries = this.activeObservations_.map(function (observation) {
-        return new ResizeObserverEntry(observation.target, observation.broadcastRect());
-    });
-
-    this.callback_.call(ctx, entries, ctx);
-    this.clearActive();
+  var entries = this.activeObservations_.map(function (observation) {
+    return new ResizeObserverEntry(observation.target, observation.broadcastRect());
+  });
+  this.callback_.call(ctx, entries, ctx);
+  this.clearActive();
 };
-
 /**
  * Clears the collection of active observations.
  *
  * @returns {void}
  */
-ResizeObserverSPI.prototype.clearActive = function () {
-    this.activeObservations_.splice(0);
-};
 
+
+ResizeObserverSPI.prototype.clearActive = function () {
+  this.activeObservations_.splice(0);
+};
 /**
  * Tells whether observer has active observations.
  *
  * @returns {boolean}
  */
-ResizeObserverSPI.prototype.hasActive = function () {
-    return this.activeObservations_.length > 0;
-};
 
-// Registry of internal observers. If WeakMap is not available use current shim
+
+ResizeObserverSPI.prototype.hasActive = function () {
+  return this.activeObservations_.length > 0;
+}; // Registry of internal observers. If WeakMap is not available use current shim
 // for the Map collection as it has all required methods and because WeakMap
 // can't be fully polyfilled anyway.
-var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
 
+
+var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
 /**
  * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
  * exposing only those methods and properties that are defined in the spec.
  */
+
 var ResizeObserver = function (callback) {
-    if (!(this instanceof ResizeObserver)) {
-        throw new TypeError('Cannot call a class as a function.');
-    }
-    if (!arguments.length) {
-        throw new TypeError('1 argument required, but only 0 present.');
-    }
+  if (!(this instanceof ResizeObserver)) {
+    throw new TypeError('Cannot call a class as a function.');
+  }
 
-    var controller = ResizeObserverController.getInstance();
-    var observer = new ResizeObserverSPI(callback, controller, this);
+  if (!arguments.length) {
+    throw new TypeError('1 argument required, but only 0 present.');
+  }
 
-    observers.set(this, observer);
-};
+  var controller = ResizeObserverController.getInstance();
+  var observer = new ResizeObserverSPI(callback, controller, this);
+  observers.set(this, observer);
+}; // Expose public methods of ResizeObserver.
 
-// Expose public methods of ResizeObserver.
+
 ['observe', 'unobserve', 'disconnect'].forEach(function (method) {
-    ResizeObserver.prototype[method] = function () {
-        return (ref = observers.get(this))[method].apply(ref, arguments);
-        var ref;
-    };
+  ResizeObserver.prototype[method] = function () {
+    return (ref = observers.get(this))[method].apply(ref, arguments);
+    var ref;
+  };
 });
 
 var index = function () {
-    // Export existing implementation if available.
-    if (typeof global$1.ResizeObserver !== 'undefined') {
-        return global$1.ResizeObserver;
-    }
+  // Export existing implementation if available.
+  if (typeof global$1.ResizeObserver !== 'undefined') {
+    return global$1.ResizeObserver;
+  }
 
-    return ResizeObserver;
+  return ResizeObserver;
 }();
 
-exports.default = index;
-},{}],8:[function(require,module,exports) {
+var _default = index;
+exports.default = _default;
+},{}],"../../../node_modules/@uppy/dashboard/lib/index.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8610,7 +8646,7 @@ module.exports = function (_Plugin) {
 
   return Dashboard;
 }(Plugin);
-},{"@uppy/core":7,"@uppy/utils/lib/Translator":31,"drag-drop":37,"./components/Dashboard":28,"@uppy/status-bar":36,"@uppy/informer":38,"@uppy/thumbnail-generator":10,"@uppy/utils/lib/findAllDOMElements":32,"@uppy/utils/lib/toArray":33,"prettier-bytes":39,"resize-observer-polyfill":40,"./components/icons":30}],101:[function(require,module,exports) {
+},{"@uppy/core":"../../../node_modules/@uppy/core/lib/index.js","@uppy/utils/lib/Translator":"../../../node_modules/@uppy/utils/lib/Translator.js","drag-drop":"../../../node_modules/drag-drop/index.js","./components/Dashboard":"../../../node_modules/@uppy/dashboard/lib/components/Dashboard.js","@uppy/status-bar":"../../../node_modules/@uppy/status-bar/lib/index.js","@uppy/informer":"../../../node_modules/@uppy/informer/lib/index.js","@uppy/thumbnail-generator":"../../../node_modules/@uppy/thumbnail-generator/lib/index.js","@uppy/utils/lib/findAllDOMElements":"../../../node_modules/@uppy/utils/lib/findAllDOMElements.js","@uppy/utils/lib/toArray":"../../../node_modules/@uppy/utils/lib/toArray.js","prettier-bytes":"../../../node_modules/prettier-bytes/index.js","resize-observer-polyfill":"../../../node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js","./components/icons":"../../../node_modules/@uppy/dashboard/lib/components/icons.js"}],"../../../node_modules/tus-js-client/lib.es5/fingerprint.js":[function(require,module,exports) {
 // Generated by Babel
 "use strict";
 
@@ -8627,7 +8663,7 @@ exports.default = fingerprint;
 function fingerprint(file, options) {
   return ["tus", file.name, file.type, file.size, file.lastModified, options.endpoint].join("-");
 }
-},{}],102:[function(require,module,exports) {
+},{}],"../../../node_modules/tus-js-client/lib.es5/error.js":[function(require,module,exports) {
 // Generated by Babel
 "use strict";
 
@@ -8670,7 +8706,7 @@ var DetailedError = function (_Error) {
 }(Error);
 
 exports.default = DetailedError;
-},{}],106:[function(require,module,exports) {
+},{}],"../../../node_modules/extend/index.js":[function(require,module,exports) {
 'use strict';
 
 var hasOwn = Object.prototype.hasOwnProperty;
@@ -8789,7 +8825,7 @@ module.exports = function extend() {
 	return target;
 };
 
-},{}],113:[function(require,module,exports) {
+},{}],"../../../node_modules/resolve-url/resolve-url.js":[function(require,module,exports) {
 var define;
 // Copyright 2014 Simon Lydell
 // X11 (“MIT”) Licensed. (See LICENSE.)
@@ -8839,7 +8875,7 @@ void (function(root, factory) {
 
 }));
 
-},{}],103:[function(require,module,exports) {
+},{}],"../../../node_modules/tus-js-client/lib.es5/browser/request.js":[function(require,module,exports) {
 // Generated by Babel
 "use strict";
 
@@ -8863,7 +8899,7 @@ function newRequest() {
 function resolveUrl(origin, link) {
   return (0, _resolveUrl2.default)(origin, link);
 }
-},{"resolve-url":113}],104:[function(require,module,exports) {
+},{"resolve-url":"../../../node_modules/resolve-url/resolve-url.js"}],"../../../node_modules/tus-js-client/lib.es5/browser/source.js":[function(require,module,exports) {
 // Generated by Babel
 "use strict";
 
@@ -8908,7 +8944,7 @@ function getSource(input) {
 
   throw new Error("source object may only be an instance of File or Blob in this environment");
 }
-},{}],105:[function(require,module,exports) {
+},{}],"../../../node_modules/tus-js-client/lib.es5/browser/base64.js":[function(require,module,exports) {
 // Generated by Babel
 "use strict";
 
@@ -8925,7 +8961,7 @@ function encode(data) {
 }
 
 var isSupported = exports.isSupported = "btoa" in window;
-},{}],72:[function(require,module,exports) {
+},{}],"../../../node_modules/tus-js-client/lib.es5/browser/storage.js":[function(require,module,exports) {
 // Generated by Babel
 "use strict";
 
@@ -8972,7 +9008,7 @@ function removeItem(key) {
   if (!hasStorage) return;
   return localStorage.removeItem(key);
 }
-},{}],71:[function(require,module,exports) {
+},{}],"../../../node_modules/tus-js-client/lib.es5/upload.js":[function(require,module,exports) {
 // Generated by Babel
 "use strict";
 
@@ -9571,7 +9607,7 @@ function inStatusCategory(status, category) {
 Upload.defaultOptions = defaultOptions;
 
 exports.default = Upload;
-},{"./fingerprint":101,"./error":102,"extend":106,"./node/request":103,"./node/source":104,"./node/base64":105,"./node/storage":72}],21:[function(require,module,exports) {
+},{"./fingerprint":"../../../node_modules/tus-js-client/lib.es5/fingerprint.js","./error":"../../../node_modules/tus-js-client/lib.es5/error.js","extend":"../../../node_modules/extend/index.js","./node/request":"../../../node_modules/tus-js-client/lib.es5/browser/request.js","./node/source":"../../../node_modules/tus-js-client/lib.es5/browser/source.js","./node/base64":"../../../node_modules/tus-js-client/lib.es5/browser/base64.js","./node/storage":"../../../node_modules/tus-js-client/lib.es5/browser/storage.js"}],"../../../node_modules/tus-js-client/lib.es5/index.js":[function(require,module,exports) {
 // Generated by Babel
 "use strict";
 
@@ -9609,7 +9645,7 @@ module.exports = {
   canStoreURLs: _storage.canStoreURLs,
   defaultOptions: defaultOptions
 };
-},{"./upload":71,"./node/storage":72}],75:[function(require,module,exports) {
+},{"./upload":"../../../node_modules/tus-js-client/lib.es5/upload.js","./node/storage":"../../../node_modules/tus-js-client/lib.es5/browser/storage.js"}],"../../../node_modules/@uppy/companion-client/lib/RequestClient.js":[function(require,module,exports) {
 'use strict';
 
 // Remove the trailing slash so we can always safely append /xyz.
@@ -9733,7 +9769,7 @@ module.exports = function () {
 
   return RequestClient;
 }();
-},{}],76:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/companion-client/lib/Provider.js":[function(require,module,exports) {
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -9837,7 +9873,7 @@ module.exports = function (_RequestClient) {
 
   return Provider;
 }(RequestClient);
-},{"./RequestClient":75}],77:[function(require,module,exports) {
+},{"./RequestClient":"../../../node_modules/@uppy/companion-client/lib/RequestClient.js"}],"../../../node_modules/@uppy/companion-client/lib/Socket.js":[function(require,module,exports) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ee = require('namespace-emitter');
@@ -9919,7 +9955,7 @@ module.exports = function () {
 
   return UppySocket;
 }();
-},{"namespace-emitter":55}],22:[function(require,module,exports) {
+},{"namespace-emitter":"../../../node_modules/namespace-emitter/index.js"}],"../../../node_modules/@uppy/companion-client/lib/index.js":[function(require,module,exports) {
 'use-strict';
 /**
  * Manages communications with Companion
@@ -9934,7 +9970,7 @@ module.exports = {
   Provider: Provider,
   Socket: Socket
 };
-},{"./RequestClient":75,"./Provider":76,"./Socket":77}],17:[function(require,module,exports) {
+},{"./RequestClient":"../../../node_modules/@uppy/companion-client/lib/RequestClient.js","./Provider":"../../../node_modules/@uppy/companion-client/lib/Provider.js","./Socket":"../../../node_modules/@uppy/companion-client/lib/Socket.js"}],"../../../node_modules/@uppy/utils/lib/emitSocketProgress.js":[function(require,module,exports) {
 var throttle = require('lodash.throttle');
 
 function _emitSocketProgress(uploader, progressData, file) {
@@ -9953,7 +9989,7 @@ function _emitSocketProgress(uploader, progressData, file) {
 }
 
 module.exports = throttle(_emitSocketProgress, 300, { leading: true, trailing: true });
-},{"lodash.throttle":78}],18:[function(require,module,exports) {
+},{"lodash.throttle":"../../../node_modules/lodash.throttle/index.js"}],"../../../node_modules/@uppy/utils/lib/getSocketHost.js":[function(require,module,exports) {
 module.exports = function getSocketHost(url) {
   // get the host domain
   var regex = /^(?:https?:\/\/|\/\/)?(?:[^@\n]+@)?(?:www\.)?([^\n]+)/;
@@ -9962,7 +9998,7 @@ module.exports = function getSocketHost(url) {
 
   return socketProtocol + '://' + host;
 };
-},{}],19:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/settle.js":[function(require,module,exports) {
 module.exports = function settle(promises) {
   var resolutions = [];
   var rejections = [];
@@ -9984,7 +10020,7 @@ module.exports = function settle(promises) {
     };
   });
 };
-},{}],20:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/utils/lib/limitPromises.js":[function(require,module,exports) {
 /**
  * Limit the amount of simultaneously pending Promises.
  * Returns a function that, when passed a function `fn`,
@@ -10025,7 +10061,7 @@ module.exports = function limitPromises(limit) {
     if (next) next();
   }
 };
-},{}],9:[function(require,module,exports) {
+},{}],"../../../node_modules/@uppy/tus/lib/index.js":[function(require,module,exports) {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10544,71 +10580,67 @@ module.exports = function (_Plugin) {
 
   return Tus;
 }(Plugin);
-},{"@uppy/core":7,"tus-js-client":21,"@uppy/companion-client":22,"@uppy/utils/lib/emitSocketProgress":17,"@uppy/utils/lib/getSocketHost":18,"@uppy/utils/lib/settle":19,"@uppy/utils/lib/limitPromises":20}],2:[function(require,module,exports) {
-'use strict';
+},{"@uppy/core":"../../../node_modules/@uppy/core/lib/index.js","tus-js-client":"../../../node_modules/tus-js-client/lib.es5/index.js","@uppy/companion-client":"../../../node_modules/@uppy/companion-client/lib/index.js","@uppy/utils/lib/emitSocketProgress":"../../../node_modules/@uppy/utils/lib/emitSocketProgress.js","@uppy/utils/lib/getSocketHost":"../../../node_modules/@uppy/utils/lib/getSocketHost.js","@uppy/utils/lib/settle":"../../../node_modules/@uppy/utils/lib/settle.js","@uppy/utils/lib/limitPromises":"../../../node_modules/@uppy/utils/lib/limitPromises.js"}],"uploader.js":[function(require,module,exports) {
+"use strict";
 
-var _core = require('@uppy/core');
+var _core = _interopRequireDefault(require("@uppy/core"));
 
-var _core2 = _interopRequireDefault(_core);
+var _dashboard = _interopRequireDefault(require("@uppy/dashboard"));
 
-var _dashboard = require('@uppy/dashboard');
+var _tus = _interopRequireDefault(require("@uppy/tus"));
 
-var _dashboard2 = _interopRequireDefault(_dashboard);
-
-var _tus = require('@uppy/tus');
-
-var _tus2 = _interopRequireDefault(_tus);
-
-var _thumbnailGenerator = require('@uppy/thumbnail-generator');
-
-var _thumbnailGenerator2 = _interopRequireDefault(_thumbnailGenerator);
+var _thumbnailGenerator = _interopRequireDefault(require("@uppy/thumbnail-generator"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var uploader = {
-    init: function init(inputSelector, experimentID) {
+  init: function init(inputSelector, experimentID) {
+    var uppy = (0, _core.default)({
+      debug: true,
+      autoProceed: false,
+      meta: {
+        experimentID: experimentID
+      },
+      restrictions: {
+        maxFileSize: 20000 * 1000000,
+        maxNumberOfFiles: 999,
+        minNumberOfFiles: 1,
+        allowedFileTypes: ['image/*', 'video/*']
+      }
+    }).use(_thumbnailGenerator.default, {
+      thumbnailWidth: 200
+    }).use(_dashboard.default, {
+      proudlyDisplayPoweredByUppy: false,
+      // // inline: true,
+      trigger: '#uppy-trigger',
+      // // target: inputSelector,
+      // // replaceTargetContent: true,
+      showProgressDetails: true,
+      // height: 470,
+      metaFields: [{
+        id: 'name',
+        name: 'Name',
+        placeholder: 'file name'
+      }, {
+        id: 'description',
+        name: 'Description',
+        placeholder: 'describe what the image/video'
+      }] // browserBackButtonClose: true
 
-        var uppy = (0, _core2.default)({
-            debug: true,
-            autoProceed: false,
-            meta: {
-                experimentID: experimentID
-            },
-            restrictions: {
-                maxFileSize: 20000 * 1000000,
-                maxNumberOfFiles: 999,
-                minNumberOfFiles: 1,
-                allowedFileTypes: ['image/*', 'video/*']
-            }
-        }).use(_thumbnailGenerator2.default, {
-            thumbnailWidth: 200
-        }).use(_dashboard2.default, {
-            proudlyDisplayPoweredByUppy: false,
-            // // inline: true,
-            trigger: '#uppy-trigger',
-            // // target: inputSelector,
-            // // replaceTargetContent: true,
-            showProgressDetails: true,
-            // height: 470,
-            metaFields: [{ id: 'name', name: 'Name', placeholder: 'file name' }, { id: 'description', name: 'Description', placeholder: 'describe what the image/video' }]
-            // browserBackButtonClose: true
-        }).use(_tus2.default, { endpoint: '/files/' });
-
-        uppy.on('complete', function (result) {
-            console.log('successful files:', result.successful);
-            console.log('failed files:', result.failed);
-
-            location.reload();
-            //TODO
-        });
-    }
+    }).use(_tus.default, {
+      endpoint: '/files/'
+    });
+    uppy.on('complete', function (result) {
+      console.log('successful files:', result.successful);
+      console.log('failed files:', result.failed);
+      location.reload(); //TODO
+    });
+  }
 };
-
 window.uploader = uploader;
-},{"@uppy/core":7,"@uppy/dashboard":8,"@uppy/tus":9,"@uppy/thumbnail-generator":10}],117:[function(require,module,exports) {
+},{"@uppy/core":"../../../node_modules/@uppy/core/lib/index.js","@uppy/dashboard":"../../../node_modules/@uppy/dashboard/lib/index.js","@uppy/tus":"../../../node_modules/@uppy/tus/lib/index.js","@uppy/thumbnail-generator":"../../../node_modules/@uppy/thumbnail-generator/lib/index.js"}],"../../../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
-
 var OldModule = module.bundle.Module;
 
 function Module(moduleName) {
@@ -10624,27 +10656,25 @@ function Module(moduleName) {
       this._disposeCallbacks.push(fn);
     }
   };
-
   module.bundle.hotData = null;
 }
 
 module.bundle.Module = Module;
-
 var parent = module.bundle.parent;
+
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = '' || location.hostname;
+  var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63540' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58280" + '/');
+
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
     if (data.type === 'update') {
       console.clear();
-
       data.assets.forEach(function (asset) {
         hmrApply(global.parcelRequire, asset);
       });
-
       data.assets.forEach(function (asset) {
         if (!asset.isNew) {
           hmrAccept(global.parcelRequire, asset.id);
@@ -10654,6 +10684,7 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
 
     if (data.type === 'reload') {
       ws.close();
+
       ws.onclose = function () {
         location.reload();
       };
@@ -10661,15 +10692,12 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
 
     if (data.type === 'error-resolved') {
       console.log('[parcel] ✨ Error resolved');
-
       removeErrorOverlay();
     }
 
     if (data.type === 'error') {
       console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
-
       removeErrorOverlay();
-
       var overlay = createErrorOverlay(data);
       document.body.appendChild(overlay);
     }
@@ -10678,6 +10706,7 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
 
 function removeErrorOverlay() {
   var overlay = document.getElementById(OVERLAY_ID);
+
   if (overlay) {
     overlay.remove();
   }
@@ -10685,21 +10714,19 @@ function removeErrorOverlay() {
 
 function createErrorOverlay(data) {
   var overlay = document.createElement('div');
-  overlay.id = OVERLAY_ID;
+  overlay.id = OVERLAY_ID; // html encode message and stack trace
 
-  // html encode message and stack trace
   var message = document.createElement('div');
   var stackTrace = document.createElement('pre');
   message.innerText = data.error.message;
   stackTrace.innerText = data.error.stack;
-
   overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
-
   return overlay;
 }
 
 function getParents(bundle, id) {
   var modules = bundle.modules;
+
   if (!modules) {
     return [];
   }
@@ -10710,8 +10737,9 @@ function getParents(bundle, id) {
   for (k in modules) {
     for (d in modules[k][1]) {
       dep = modules[k][1][d];
+
       if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
-        parents.push(+k);
+        parents.push(k);
       }
     }
   }
@@ -10725,6 +10753,7 @@ function getParents(bundle, id) {
 
 function hmrApply(bundle, asset) {
   var modules = bundle.modules;
+
   if (!modules) {
     return;
   }
@@ -10740,6 +10769,7 @@ function hmrApply(bundle, asset) {
 
 function hmrAccept(bundle, id) {
   var modules = bundle.modules;
+
   if (!modules) {
     return;
   }
@@ -10750,6 +10780,7 @@ function hmrAccept(bundle, id) {
 
   var cached = bundle.cache[id];
   bundle.hotData = {};
+
   if (cached) {
     cached.hot.data = bundle.hotData;
   }
@@ -10762,12 +10793,13 @@ function hmrAccept(bundle, id) {
 
   delete bundle.cache[id];
   bundle(id);
-
   cached = bundle.cache[id];
+
   if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
     cached.hot._acceptCallbacks.forEach(function (cb) {
       cb();
     });
+
     return true;
   }
 
@@ -10775,5 +10807,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[117,2], null)
+},{}]},{},["../../../node_modules/parcel/src/builtins/hmr-runtime.js","uploader.js"], null)
 //# sourceMappingURL=/uploader.map

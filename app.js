@@ -48,6 +48,8 @@ app.use(sassMiddleware({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/font-awesome', express.static('./node_modules/font-awesome'));
+
 
 // app.use('/fonts', express.static(__dirname + '/node_modules/font-awesome/fonts'));
 
@@ -75,7 +77,10 @@ app.use(function (req, res, next) {
             res.locals.signedInUser.isAdmin = true;
         }
 
-        res.locals.config = {rootPath: config.rootPath};
+        res.locals.config = {
+            // rootPath: config.rootPath,
+            HPCRoot: config.HPCRoot
+        };
     }
     next(null, req, res);
 });
@@ -99,7 +104,7 @@ passport.use(new LdapStrategy({
         searchFilter: config.ldap.searchFilter
     }
 }, function (userLdap, done) {
-    //if(userLdap.company === 'TSL'){ //TODO check company is TSL
+    //if(userLdap.company === 'TSL'){ //optional check company is TSL
     //}
     const user = {
         id: userLdap.sAMAccountName,
@@ -112,9 +117,7 @@ passport.use(new LdapStrategy({
     done(null, user);
 }));
 
-
-//TODO check groups exist in the database
-
+//check group exists in DB
 config.groups.map(group => {
     Group.filter({safeName: group.safeName})
         .run()
@@ -138,7 +141,7 @@ app.use('/', router);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    next(createError(404));
+    res.render('404')
 });
 
 // error handler

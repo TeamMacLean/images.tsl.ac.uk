@@ -4,33 +4,39 @@ const r = thinky.r;
 const Util = require('../lib/util');
 const config = require('../config');
 
-const Project = thinky.createModel('Project', {
+const Capture = thinky.createModel('Capture', {
     id: type.string(),
-    groupID: type.string().required(),
+    experimentID: type.string().required(),
     createdAt: type.date().default(r.now()),
     updatedAt: type.date(),
-    shortDescription: type.string().required(),
-    longDescription: type.string().required(),
-    name: type.string().required()
+    name: type.string().required(),
+    safeName: type.string().required(),
+
+
+    platformName: type.string().required(),
+    platformLens: type.string().required(),
+    platformCamera: type.string().required(),
+    platformGain: type.string().required()
 });
 
-module.exports = Project;
+module.exports = Capture;
 
-const Group = require('./group');
 const Sample = require('./sample');
+const Experiment = require('./experiment');
+const File = require('./file');
 
-Project.pre('save', function (next) {
-    const project = this;
+Capture.pre('save', function (next) {
+    const capture = this;
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
-            if (project.safeName) {
+            if (capture.safeName) {
                 return good();
             } else {
-                Project.run()
-                    .then(projects => {
-                        Util.generateSafeName(project.name, projects)
+                Capture.run()
+                    .then(captures => {
+                        Util.generateSafeName(capture.name, captures)
                             .then(safeName => {
-                                project.safeName = safeName;
+                                capture.safeName = safeName;
                                 return good();
                             })
                     })
@@ -43,9 +49,10 @@ Project.pre('save', function (next) {
 
     const MakeDirectory = function () {
         return new Promise((good, bad) => {
-            Group.get(project.groupID)
-                .then(group => {
-                    Util.ensureDir(config.rootPath + '/' + group.safeName + '/' + project.safeName)
+            Experiment.get(capture.experimentID)
+                .getJoin({sample: {project: {group: true}}})
+                .then(experiment => {
+                    Util.ensureDir(`${config.rootPath}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}/${capture.safeName}`)
                         .then(() => {
                             good()
                         })
@@ -67,7 +74,8 @@ Project.pre('save', function (next) {
         .catch(err => next(err));
 
 });
-Project.ensureIndex("createdAt");
 
-Project.belongsTo(Group, 'group', 'groupID', 'id');
-Project.hasMany(Sample, 'samples', 'id', 'projectID');
+Capture.ensureIndex("createdAt");
+
+Capture.belongsTo(Sample, 'sample', 'sampleID', 'id');
+Capture.hasMany(File, 'files', 'id', 'captureID');

@@ -1,0 +1,69 @@
+<% locals.breadcrumbs = [
+    {name: 'Home', link: '/'},
+    {name: project.group.name, link: `/browse/${project.group.safeName}`},
+    {name: project.name, link: `/browse/${project.group.safeName}/${project.safeName}`},
+    {name: 'New Sample', active: true}
+]; %>
+<% include ../head.ejs %>
+<div class="container">
+
+
+    <h1 class="title has-text-centered">New Sample</h1>
+
+    <form method="post" action="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new">
+
+
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">Sample Name</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="New experiment name" name="name">
+                    </div>
+                    <p class="help">help text</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Taxonomy ID</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="NCBI Taxonomy ID" name="taxid">
+                    </div>
+                    <p class="help">help text</p>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">Scientific Name</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Scientific name" name="scientificName">
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Common Name</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Common name" name="commonName">
+                    </div>
+                    <p class="help">help text</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Protocol</label>
+            <div class="control">
+                <textarea class="input" type="text" placeholder="Protocol" name="protocol"></textarea>
+            </div>
+            <p class="help">help text</p>
+        </div>
+        <div class="control">
+            <button class="button is-success">Create</button>
+        </div>
+    </form>
+
+</div>
+<% include ../foot.ejs %>

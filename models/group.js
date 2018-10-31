@@ -19,6 +19,7 @@ module.exports = Group;
 Group.pre('save', function (next) {
     Util.ensureDir(config.rootPath + '/' + this.safeName)
         .then(() => {
+            console.log('made',config.rootPath + '/' + this.safeName);
             next()
         })
         .catch(err => {

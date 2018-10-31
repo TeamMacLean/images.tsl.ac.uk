@@ -7,20 +7,33 @@
 <div class="container">
 
     <h1 class="title has-text-centered"><%- project.name %></h1>
-    <p class="subtitle has-text-centered"><%- `${locals.config.rootPath}/${project.group.safeName}/${project.safeName}` %></p>
+    <% const HPCPath = `${locals.config.HPCRoot}/${project.group.safeName}/${project.safeName}` %>
+
+    <p class="subtitle has-text-centered"><%- HPCPath %>
+        <button class="button is-small is-link is-outlined clipboard" data-clipboard-text="<%- HPCPath %>">
+            Copy to clipboard
+        </button>
+    </p>
+
+    <h2 class="subtitle has-text-centered is-4">Short Description</h2>
+    <p><%- project.shortDescription %></p>
     <br>
-    <h2 class="title has-text-centered is-4">Experiments</h2>
+    <h2 class="subtitle has-text-centered is-4">Long Description</h2>
+    <p><%- project.longDescription %></p>
+
+    <hr>
+    <h2 class="subtitle has-text-centered is-4">Samples</h2>
 
     <div class="section">
-        <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new" class="button is-success is-medium">New
-            Experiment</a>
+        <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new" class="button is-success">New
+            Sample</a>
     </div>
 
 
     <div class="columns">
-        <% project.experiments.map((experiment, experimentIndex)=>{ %>
+        <% project.samples.map((sample, exampleIndex)=>{ %>
 
-            <% if (experimentIndex !== 0 && experimentIndex % 3 == 0){ %>
+            <% if (exampleIndex !== 0 && exampleIndex % 3 == 0){ %>
                 <%- '</div>' %>
                 <%- '<div class= "columns" >' %>
             <% } %>
@@ -31,14 +44,15 @@
 
                         <div class="media">
                             <div class="media-content">
-                                <p class="title is-4"><%- experiment.name %></p>
+                                <p class="title is-4"><%- sample.name %></p>
 
                             </div>
                         </div>
                         <div class="content">
-                            <a class="button is-link"
-                               href="/browse/<%- project.group.safeName %>/<%- experiment.safeName %>/<%- experiment.safeName %>">View
-                                Experiment</a>
+                            <p><%- sample.safeName %></p>
+                            <a class="button is-link is-outlined"
+                               href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/<%- sample.safeName %>">View
+                                Sample</a>
                         </div>
 
                     </div>
