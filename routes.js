@@ -9,6 +9,7 @@ const Experiments = require('./controllers/experiments');
 const Captures = require('./controllers/captures');
 const Samples = require('./controllers/samples');
 // const config = require('./config');
+const Help = require('./controllers/help');
 
 /* GET home page. */
 router
@@ -25,6 +26,10 @@ router.route('/signin')
 router.route('/signout')
     .get(Auth.signOut);
 
+router.route('/help')
+    .all(isAuthenticated)
+    .get(Help.index);
+
 router.route('/groups')
     .all(isAuthenticated)
     .get(Groups.index);
@@ -32,41 +37,50 @@ router.route('/groups')
 router.route('/browse/:group')
     .all([isAuthenticated, isInGroup])
     .get(Groups.show);
-
-// router.route('/admin')
-//     .all([isAuthenticated, isAdmin])
-//     .get(Admin.index);
-
 router.route('/browse/:group/new')
     .all([isAuthenticated, isInGroup])
     .get(Projects.new)
-    .post(Projects.newPost);
+    .post(Projects.save);
+
 router.route('/browse/:group/:project')
     .all([isAuthenticated, isInGroup])
     .get(Projects.show);
-
 router.route('/browse/:group/:project/new')
     .all([isAuthenticated, isInGroup])
     .get(Samples.new)
-    .post(Samples.newPost);
+    .post(Samples.save);
+router.route('/browse/:group/:project/edit')
+    .all([isAuthenticated, isInGroup])
+    .get(Projects.edit);
+
 router.route('/browse/:group/:project/:sample')
     .all([isAuthenticated, isInGroup])
     .get(Samples.show);
-
 router.route('/browse/:group/:project/:sample/new')
     .all([isAuthenticated, isInGroup])
     .get(Experiments.new)
-    .post(Experiments.newPost);
+    .post(Experiments.save);
+router.route('/browse/:group/:project/:sample/edit')
+    .all([isAuthenticated, isInGroup])
+    .get(Samples.edit);
+
 router.route('/browse/:group/:project/:sample/:experiment')
     .all([isAuthenticated, isInGroup])
     .get(Experiments.show);
-
 router.route('/browse/:group/:project/:sample/:experiment/new')
     .all([isAuthenticated, isInGroup])
-    .get(Captures.new);
+    .get(Captures.new)
+    .get(Captures.save);
+router.route('/browse/:group/:project/:sample/:experiment/edit')
+    .all([isAuthenticated, isInGroup])
+    .get(Experiments.edit)
+
 router.route('/browse/:group/:project/:sample/:experiment/:capture')
     .all([isAuthenticated, isInGroup])
     .get(Captures.show);
+router.route('/browse/:group/:project/:sample/:experiment/:capture/edit')
+    .all([isAuthenticated, isInGroup])
+    .get(Captures.edit);
 
 
 module.exports = router;

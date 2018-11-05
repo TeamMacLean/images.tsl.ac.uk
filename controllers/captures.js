@@ -19,13 +19,13 @@ module.exports = {
                     && e.sample.project.safeName === projectName);
 
                 if (experimentsFiltered && experimentsFiltered.length) {
-                    return res.render('captures/new', {experiment: experimentsFiltered[0]});
+                    return res.render('captures/edit', {experiment: experimentsFiltered[0]});
                 } else {
                     next();
                 }
             });
     },
-    newPost: (req, res, next) => {
+    save: (req, res, next) => {
         const groupName = req.params.group;
         const projectName = req.params.project;
         const sampleName = req.params.sample;
@@ -58,22 +58,28 @@ module.exports = {
         const groupName = req.params.group;
         const captureName = req.params.capture;
 
-        Capture.filter({safeName: captureName})
-            .getJoin({experiment: {sample: {project: {group: true}, files: true}}})
-            .then(captures => {
-                const capturessFiltered = captures.filter(c => c.experiment.sample.project.group.safeName === groupName
-                    && c.experiment.sample.project.safeName === projectName
-                    && c.experiment.sample.safeName === sampleName
-                    && c.experiment.safeName === experimentName);
-                if (capturessFiltered && capturessFiltered.length) {
-                    return res.render('captures/show', {capture: capturessFiltered[0]});
-                } else {
-                    return next();
-                }
+        Capture.find(captureName, experimentName, sampleName, projectName, groupName)
+            .then(capture => {
+                return res.render('captures/show', {capture: capture});
             })
             .catch(err => {
                 return next();
             });
+    },
+    edit: (req, res, next) => {
 
-    }
+        const experimentName = req.params.experiment;
+        const sampleName = req.params.sample;
+        const projectName = req.params.project;
+        const groupName = req.params.group;
+        const captureName = req.params.capture;
+
+        Capture.find(captureName, experimentName, sampleName, projectName, groupName)
+            .then(capture => {
+                return res.render('captures/edit', {capture: capture});
+            })
+            .catch(err => {
+                return next();
+            });
+    },
 };

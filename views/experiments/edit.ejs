@@ -1,4 +1,12 @@
-<% locals.breadcrumbs = [
+<%
+isEdit = false;
+if (typeof experiment !== 'undefined') {
+    sample = experiment.sample;
+    isEdit = true;
+}
+
+
+locals.breadcrumbs = [
     {name: 'Home', link: '/'},
     {name: sample.project.group.name, link: `/browse/${sample.project.group.safeName}`},
     {name: sample.project.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}`},
@@ -8,8 +16,11 @@
 <% include ../head.ejs %>
 <div class="container">
 
-
-    <h1 class="title has-text-centered">New Experiment</h1>
+    <% if(isEdit){ %>
+        <h1 class="title has-text-centered">Edit: <%- experiment.name %></h1>
+    <% } else { %>
+        <h1 class="title has-text-centered">New Experiment</h1>
+    <% } %>
 
     <form method="post"
           action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
@@ -19,12 +30,13 @@
                 <div class="field">
                     <label class="label">Experiment Name</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="New experiment name" name="name">
+                        <input class="input" type="text" placeholder="New experiment name" name="name"
+                               value="<%- isEdit ? sample.scientificName : '' %>" required>
                     </div>
                     <!--<p class="help">This is a help text</p>-->
                 </div>
                 <div class="control">
-                    <button class="button is-success">Create</button>
+                    <button class="button is-success"><%- isEdit ? 'Update' : 'Create' %></button>
                 </div>
             </div>
     </form>

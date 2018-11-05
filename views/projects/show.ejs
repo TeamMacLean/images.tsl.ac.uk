@@ -4,58 +4,71 @@
     {name: project.name, active: true}
 ]; %>
 <% include ../head.ejs %>
-<div class="container">
 
-    <h1 class="title has-text-centered"><%- project.name %></h1>
-    <% const HPCPath = `${locals.config.HPCRoot}/${project.group.safeName}/${project.safeName}` %>
-    <% include ../_hpc_path.ejs %>
-    <hr>
-    <h2 class="subtitle has-text-centered is-4">Short Description</h2>
-    <p><%- project.shortDescription %></p>
-    <br>
-    <h2 class="subtitle has-text-centered is-4">Long Description</h2>
-    <p><%- project.longDescription %></p>
+<section class="section">
+    <div class="container">
+        <h1 class="title has-text-centered"><%- project.name %></h1>
+        <% const HPCPath = `${locals.config.HPCRoot}/${project.group.safeName}/${project.safeName}` %>
+        <% include ../_hpc_path.ejs %>
+        <br>
 
-    <hr>
-    <h2 class="subtitle has-text-centered is-4">Samples</h2>
+        <table class="table is-fullwidth">
+            <thead>
+            <tr>
+                <th>Short Description</th>
+                <th>Long Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><%- project.shortDescription %></td>
+                <td><%- project.longDescription %></td>
+            </tr>
+            </tbody>
+        </table>
 
-    <div class="section">
-        <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new" class="button is-success">New
+        <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/edit" class="button is-info">Edit
             Sample</a>
     </div>
+</section>
+<section class="section">
+    <div class="container">
+        <h2 class="title has-text-centered is-4">Samples</h2>
 
+        <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new"
+           class="button is-success">New Sample</a>
 
-    <div class="columns">
-        <% project.samples.map((sample, exampleIndex)=>{ %>
+        <div class="columns">
+            <% project.samples.map((sample, exampleIndex)=>{ %>
 
-            <% if (exampleIndex !== 0 && exampleIndex % 3 == 0){ %>
-                <%- '</div>' %>
-                <%- '<div class= "columns" >' %>
-            <% } %>
+                <% if (exampleIndex !== 0 && exampleIndex % 3 == 0){ %>
+                    <%- '</div>' %>
+                    <%- '<div class= "columns" >' %>
+                <% } %>
 
-            <div class="column is-one-third">
-                <div class="card is-rounded">
-                    <div class="card-content">
+                <div class="column is-one-third">
+                    <div class="card is-rounded">
+                        <div class="card-content">
 
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="title is-4"><%- sample.name %></p>
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4"><%- sample.name %></p>
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="content">
-                            <p><%- sample.safeName %></p>
-                            <a class="button is-link is-outlined"
-                               href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/<%- sample.safeName %>">View
-                                Sample</a>
-                        </div>
+                            <div class="content">
+                                <p><%- sample.safeName %></p>
+                                <a class="button is-link is-outlined"
+                                   href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/<%- sample.safeName %>">View
+                                    Sample</a>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        <% }) %>
+            <% }) %>
+        </div>
     </div>
-
-</div>
+</section>
 <% include ../foot.ejs %>

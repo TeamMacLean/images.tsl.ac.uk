@@ -3,23 +3,21 @@ const Group = require('../models/group');
 const renderError = require('../lib/renderError');
 module.exports = {
     new: (req, res, next) => {
-
         const groupName = req.params.group;
-
         Group.filter({safeName: groupName})
             .run()
             .then(groups => {
+                console.log('HERE!');
                 if (groups && groups.length) {
-                    return res.render('projects/new', {group: groups[0]});
+                    return res.render('projects/edit', {group: groups[0]});
                 } else {
                     next();
-                    // renderError(res, new Error('Group does not exist'));
                 }
             });
 
 
     },
-    newPost: (req, res, next) => {
+    save: (req, res, next) => {
         const groupName = req.params.group;
         const projectName = req.body.name;
 
@@ -58,20 +56,26 @@ module.exports = {
         const projectName = req.params.project;
         const groupName = req.params.group;
 
-        Project.filter({safeName: projectName})
-            .getJoin({group: true, samples: true})
-            .then(projects => {
-                const filteredProjects = projects.filter(p => p.group.safeName === groupName);
-                if (filteredProjects && filteredProjects.length) {
-                    return res.render('projects/show', {project: filteredProjects[0]});
-                } else {
-                    next();
-                    // return renderError(res, new Error('Group not found'));
-                }
+        Project.find(groupName, projectName)
+            .then(project => {
+                return res.render('projects/show', {project});
             })
             .catch(err => {
-                next();
-                // return renderError(res, err);
+                return next();
+            });
+
+    },
+    edit: (req, res, next) => {
+
+        const projectName = req.params.project;
+        const groupName = req.params.group;
+
+        Project.find(groupName, projectName)
+            .then(project => {
+                return res.render('projects/edit', {project});
+            })
+            .catch(err => {
+                return next();
             });
 
     }

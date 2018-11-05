@@ -1,46 +1,47 @@
 <% include ../head.ejs %>
-<div class="container">
+<section class="section">
+    <div class="container">
+        <h1 class="title has-text-centered">Groups</h1>
 
-    <h1 class="title has-text-centered">Groups</h1>
+        <% if(groups && groups.length){ %>
 
-    <% if(groups && groups.length){ %>
+            <div class="columns">
 
-        <div class="columns">
+                <% groups.map((group, groupIndex)=>{ %>
 
-            <% groups.map((group, groupIndex)=>{ %>
+                    <% if (groupIndex !== 0 && groupIndex % 3 == 0){ %>
+                        <%- '</div>' %>
+                        <%- '<div class= "columns" >' %>
+                    <% } %>
 
-                <% if (groupIndex !== 0 && groupIndex % 3 == 0){ %>
-                    <%- '</div>' %>
-                    <%- '<div class= "columns" >' %>
-                <% } %>
+                    <div class="column is-one-third">
 
-                <div class="column is-one-third">
-
-                    <div class="card is-rounded">
-                        <div class="card-image">
-                            <figure class="image is-4by2">
-                                <img src="<%- group.image %>" alt="Placeholder image">
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4"><%- group.name %></p>
-                                    <p class="subtitle is-6"><%- group.safeName %></p>
-                                </div>
+                        <div class="card is-rounded">
+                            <div class="card-image">
+                                <figure class="image is-4by2">
+                                    <img src="<%- group.image %>" alt="Placeholder image">
+                                </figure>
                             </div>
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-content">
+                                        <p class="title is-4"><%- group.name %></p>
+                                        <p class="subtitle is-6"><%- group.safeName %></p>
+                                    </div>
+                                </div>
 
-                            <div class="content">
-                                <a class="button is-link is-outlined" href="/browse/<%- group.safeName %>">View Projects</a>
+                                <div class="content">
+                                    <a class="button is-link is-outlined" href="/browse/<%- group.safeName %>">View
+                                        Projects</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            <% }); %>
+                <% }); %>
 
-        </div>
-    <% } %>
-
-</div>
+            </div>
+        <% } %>
+    </div>
+</section>
 <% include ../foot.ejs %>

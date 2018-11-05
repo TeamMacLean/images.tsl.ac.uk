@@ -13,16 +13,22 @@ module.exports = {
             .then(projects => {
                 const projectsFiltered = projects.filter(p => p.group.safeName === groupName);
                 if (projectsFiltered && projectsFiltered.length) {
-                    return res.render('samples/new', {project: projects[0]});
+                    return res.render('samples/edit', {project: projects[0]});
                 } else {
                     return next();
                 }
             });
     },
-    newPost: (req, res, next) => {
+    save: (req, res, next) => {
         const groupName = req.params.group;
         const projectName = req.params.project;
         const sampleName = req.body.name;
+        const protocol = req.body.protocol;
+        const taxID = req.body.taxID;
+        const scientificName = req.body.scientificName;
+        const commonName = req.body.commonName;
+
+        console.log('taxID',taxID);
 
         Project.filter({safeName: projectName})
             .getJoin({group: true})
@@ -31,7 +37,7 @@ module.exports = {
                 const projectsFiltered = projects.filter(p => p.group.safeName === groupName);
 
                 if (projectsFiltered && projectsFiltered.length) {
-                    new Sample({projectID: projectsFiltered[0].id, name: sampleName})
+                    new Sample({projectID: projectsFiltered[0].id, name: sampleName, protocol, taxID, scientificName, commonName})
                         .save()
                         .then(savedSample => {
                             return res.redirect(`/browse/${groupName}/${projectName}/${savedSample.safeName}`)
@@ -49,19 +55,23 @@ module.exports = {
         const projectName = req.params.project;
         const sampleName = req.params.sample;
 
-        Sample.filter({safeName: sampleName})
-            .getJoin({
-                experiments: true,
-                project: {group: true}
+        Sample.find(groupName, projectName, sampleName)
+            .then(sample => {
+                return res.render('samples/show', {sample});
             })
-            .then(samples => {
-                const samplesFiltered = samples.filter(s => s.project.group.safeName === groupName
-                    && s.project.safeName === projectName);
-                if (samplesFiltered && samplesFiltered.length) {
-                    return res.render('samples/show', {sample: samplesFiltered[0]});
-                } else {
-                    return next();
-                }
+            .catch(err => {
+                return next(err);
+            });
+
+    },
+    edit: (req, res, next) => {
+        const groupName = req.params.group;
+        const projectName = req.params.project;
+        const sampleName = req.params.sample;
+
+        Sample.find(groupName, projectName, sampleName)
+            .then(sample => {
+                return res.render('samples/edit', {sample});
             })
             .catch(err => {
                 return next();

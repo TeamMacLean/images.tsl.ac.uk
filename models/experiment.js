@@ -15,6 +15,27 @@ const Experiment = thinky.createModel('Experiment', {
 
 module.exports = Experiment;
 
+Experiment.defineStatic('find', function (groupName, projectName, sampleName, experimentName) {
+    return new Promise((good, bad) => {
+        Experiment.filter({safeName: experimentName})
+            .getJoin({sample: {project: {group: true}, files: true}})
+            .then(experiments => {
+                const samplesExperiments = experiments.filter(e => e.sample.project.group.safeName === groupName
+                    && e.sample.project.safeName === projectName
+                    && e.sample.safeName === sampleName);
+
+                if (samplesExperiments && samplesExperiments.length) {
+                    return good(samplesExperiments[0]);
+                } else {
+                    return bad(new Error('Experiment not found'));
+                }
+            })
+            .catch(err => {
+                return bad(err);
+            });
+    })
+});
+
 const Sample = require('./sample');
 const Capture = require('./capture');
 

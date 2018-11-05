@@ -22,17 +22,12 @@ module.exports = {
     },
     show: (req, res, next) => {
         const groupName = req.params.group;
-        Group.filter({safeName: groupName})
-            .getJoin({projects: true})
-            .then(groups => {
-                if (groups && groups.length) {
-                    return res.render('groups/show', {group: groups[0]});
-                } else {
-                    next();
-                }
+        Group.find(groupName)
+            .then(group => {
+                return res.render('groups/show', {group});
             })
             .catch(err => {
-                next();
+                return next();
             });
     }
 };

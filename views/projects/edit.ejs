@@ -1,12 +1,24 @@
-<% locals.breadcrumbs = [
+<%
+isEdit = false;
+if (typeof project !== 'undefined') {
+    group = project.group;
+    isEdit = true;
+}
+locals.breadcrumbs = [
     {name: 'Home', link: '/'},
     {name: group.name, link: `/browse/${group.safeName}`},
     {name: 'New Project', active: true}
-]; %>
+];
+%>
 <% include ../head.ejs %>
+
 <div class="container">
 
-    <h1 class="title has-text-centered">New Project</h1>
+    <% if(isEdit){ %>
+        <h1 class="title has-text-centered">Edit: <%- project.name %></h1>
+    <% } else { %>
+        <h1 class="title has-text-centered">New Project</h1>
+    <% } %>
 
     <form method="post" action="/browse/<%- group.safeName %>/new">
 
@@ -15,7 +27,8 @@
                 <div class="field">
                     <label class="label">Project Name</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="New project name" name="name" required>
+                        <input class="input" type="text" placeholder="New project name" name="name"
+                               value="<%- isEdit ? project.name : '' %>" required>
                     </div>
                     <p class="help">This is a help text</p>
                 </div>
@@ -25,7 +38,7 @@
                     <label class="label">Short Description</label>
                     <div class="control">
                 <textarea class="input" placeholder="Short description" name="shortDescription"
-                          required></textarea>
+                          required><%- isEdit ? project.shortDescription : '' %></textarea>
                     </div>
                     <p class="help">This is a help text</p>
                 </div>
@@ -36,13 +49,14 @@
         <div class="field">
             <label class="label">Long Description</label>
             <div class="control">
-                <textarea class="input" placeholder="Long description" name="longDescription"></textarea>
+                <textarea class="input" placeholder="Long description"
+                          name="longDescription"><%- isEdit ? project.shortDescription : '' %></textarea>
             </div>
             <p class="help">This is a help text</p>
         </div>
 
         <div class="control">
-            <button class="button is-success">Create</button>
+            <button class="button is-success"><%- isEdit ? 'Update' : 'Create' %></button>
         </div>
     </form>
 

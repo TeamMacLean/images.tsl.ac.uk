@@ -10,10 +10,37 @@ const Sample = thinky.createModel('Sample', {
     createdAt: type.date().default(r.now()),
     updatedAt: type.date(),
     name: type.string().required(),
-    protocol: type.string()
+    protocol: type.string().required(),
+    taxID: type.string().required(),
+    scientificName: type.string().required(),
+    commonName: type.string().required()
 });
 
 module.exports = Sample;
+
+Sample.defineStatic('find', function (groupName, projectName, sampleName) {
+    return new Promise((good, bad) => {
+
+        Sample.filter({safeName: sampleName})
+            .getJoin({
+                experiments: true,
+                project: {group: true}
+            })
+            .then(samples => {
+                const samplesFiltered = samples.filter(s => s.project.group.safeName === groupName
+                    && s.project.safeName === projectName);
+                if (samplesFiltered && samplesFiltered.length) {
+                    return good(samplesFiltered[0]);
+                } else {
+                    return bad(new Error('Sample not found'));
+                }
+            })
+            .catch(err => {
+                return bad(err);
+            });
+
+    })
+});
 
 const Project = require('./project');
 const Experiment = require('./experiment');

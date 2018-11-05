@@ -16,7 +16,7 @@ body {
 
 .site-content {
   flex: 1 0 auto;
-  margin-top: 32px;
+  //margin-top: 32px;
 }
 
 .navbar.custom {
@@ -35,7 +35,10 @@ input {
 
 .container {
   padding: 0 25px;
+}
 
+.section {
+  padding: 3rem 0;
 }
 
 .scrollable {

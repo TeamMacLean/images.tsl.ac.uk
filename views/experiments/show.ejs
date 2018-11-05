@@ -12,53 +12,58 @@
     {name: experiment.name, active: true}
 ]; %>
 <% include ../head.ejs %>
-<div class="container">
 
-    <h1 class="title has-text-centered"><%- experiment.name %></h1>
-    <% const HPCPath = `${locals.config.HPCRoot}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}` %>
-    <% include ../_hpc_path.ejs %>
-    <hr>
-    <h2 class="subtitle has-text-centered is-4">Captures</h2>
+<section class="section">
+    <div class="container">
 
-    <div class="section">
-        <a href="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new"
-           class="button is-success">New
-            Capture</a>
+        <h1 class="title has-text-centered"><%- experiment.name %></h1>
+        <% const HPCPath = `${locals.config.HPCRoot}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}` %>
+        <% include ../_hpc_path.ejs %>
     </div>
+</section>
+<section class="section">
+    <div class="container">
+        <h2 class="title has-text-centered is-4">Captures</h2>
 
-    <% if(experiment.captures){ %>
-        <div class="columns">
-            <% experiment.captures.map((capture, captureIndex)=>{ %>
+        <div class="section">
+            <a href="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new"
+               class="button is-success">New
+                Capture</a>
+        </div>
 
-                <% if (captureIndex !== 0 && captureIndex % 3 == 0){ %>
-                    <%- '</div>' %>
-                    <%- '<div class= "columns" >' %>
-                <% } %>
+        <% if(experiment.captures){ %>
+            <div class="columns">
+                <% experiment.captures.map((capture, captureIndex)=>{ %>
 
-                <div class="column is-one-third">
-                    <div class="card is-rounded">
-                        <div class="card-content">
+                    <% if (captureIndex !== 0 && captureIndex % 3 == 0){ %>
+                        <%- '</div>' %>
+                        <%- '<div class= "columns" >' %>
+                    <% } %>
 
-                            <div class="media">
-                                <div class="media-content">
-                                    <p class="title is-4"><%- capture.name %></p>
+                    <div class="column is-one-third">
+                        <div class="card is-rounded">
+                            <div class="card-content">
 
+                                <div class="media">
+                                    <div class="media-content">
+                                        <p class="title is-4"><%- capture.name %></p>
+
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="content">
-                                <p><%- capture.safeName %></p>
-                                <a class="button is-link is-outlined"
-                                   href="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/<%- capture.safeName %>">View
-                                    Capture</a>
-                            </div>
+                                <div class="content">
+                                    <p><%- capture.safeName %></p>
+                                    <a class="button is-link is-outlined"
+                                       href="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/<%- capture.safeName %>">View
+                                        Capture</a>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            <% }) %>
-        </div>
-    <% } %>
-
-</div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+</section>
 <% include ../foot.ejs %>

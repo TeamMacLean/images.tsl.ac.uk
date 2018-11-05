@@ -16,7 +16,7 @@ module.exports = {
                 const samplesFiltered = samples.filter(p => p.project.group.safeName === groupName
                     && p.project.safeName === projectName);
                 if (samplesFiltered && samplesFiltered.length) {
-                    return res.render('experiments/new', {sample: samples[0]});
+                    return res.render('experiments/edit', {sample: samples[0]});
                 } else {
                     return next();
                     // renderError(res, new Error('Project does not exist'));
@@ -25,30 +25,41 @@ module.exports = {
 
 
     },
-    newPost: (req, res, next) => {
+    save: (req, res, next) => {
         const groupName = req.params.group;
         const projectName = req.params.project;
         const sampleName = req.params.sample;
         const experimentName = req.body.name;
 
-        Sample.filter({safeName: sampleName})
-            .getJoin({sample: {project: {group: true}}})
-            .run()
-            .then(samples => {
-                const samplesFiltered = samples.filter((p => p.project.group.safeName === groupName
-                    && p.project.safeName === projectName));
+        Sample.find(groupName, projectName, sampleName)
+            .then(sample=>{
+                new Experiment({sampleID: sample.id, name: experimentName})
+                    .save()
+                    .then(savedExperiment => {
+                        return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
+                    })
+                    .catch(err => renderError(res, err));
+            })
+            .catch(err => renderError(res, err));
 
-                if (samplesFiltered && samplesFiltered.length) {
-                    new Experiment({sampleID: samplesFiltered[0].id, name: experimentName})
-                        .save()
-                        .then(savedExperiment => {
-                            return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
-                        })
-                        .catch(err => renderError(res, err));
-                } else {
-                    return next();
-                }
-            });
+        // Sample.filter({safeName: sampleName})
+        //     .getJoin({sample: {project: {group: true}}})
+        //     .run()
+        //     .then(samples => {
+        //         const samplesFiltered = samples.filter((p => p.project.group.safeName === groupName
+        //             && p.project.safeName === projectName));
+        //
+        //         if (samplesFiltered && samplesFiltered.length) {
+        //             new Experiment({sampleID: samplesFiltered[0].id, name: experimentName})
+        //                 .save()
+        //                 .then(savedExperiment => {
+        //                     return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
+        //                 })
+        //                 .catch(err => renderError(res, err));
+        //         } else {
+        //             return next();
+        //         }
+        //     });
     },
     show: (req, res, next) => {
 
@@ -57,18 +68,25 @@ module.exports = {
         const projectName = req.params.project;
         const sampleName = req.params.sample;
 
-        Experiment.filter({safeName: experimentName})
-            .getJoin({sample: {project: {group: true}, files: true}})
-            .then(experiments => {
-                const samplesExperiments = experiments.filter(e => e.sample.project.group.safeName === groupName
-                    && e.sample.project.safeName === projectName
-                    && e.sample.safeName === sampleName);
+        Experiment.find(groupName, projectName, sampleName, experimentName)
+            .then(experiment => {
+                return res.render('experiments/show', {experiment});
+            })
+            .catch(err => {
+                return next();
+            });
 
-                if (samplesExperiments && samplesExperiments.length) {
-                    return res.render('experiments/show', {experiment: samplesExperiments[0]});
-                } else {
-                    return next();
-                }
+    },
+    edit: (req, res, next) => {
+
+        const experimentName = req.params.experiment;
+        const groupName = req.params.group;
+        const projectName = req.params.project;
+        const sampleName = req.params.sample;
+
+        Experiment.find(groupName, projectName, sampleName, experimentName)
+            .then(experiment => {
+                return res.render('experiments/edit', {experiment});
             })
             .catch(err => {
                 return next();

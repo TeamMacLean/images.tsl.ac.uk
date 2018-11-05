@@ -34,7 +34,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-// app.use(lessMiddleware(path.join(__dirname, 'public')));
 
 app.all(['/files', '/files/*', '/files/*.*'], tusServer.handle.bind(tusServer));
 
@@ -49,9 +48,6 @@ app.use(sassMiddleware({
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/font-awesome', express.static('./node_modules/font-awesome'));
-
-
-// app.use('/fonts', express.static(__dirname + '/node_modules/font-awesome/fonts'));
 
 const r = require('./lib/thinky').r;
 const store = new rethinkSession(r);
@@ -86,12 +82,10 @@ app.use(function (req, res, next) {
 });
 
 passport.serializeUser(function (user, done) {
-    //console.log('serializeUser was called');
     done(null, user);
 });
 
 passport.deserializeUser(function (obj, done) {
-    //console.log('deserializeUser was called');
     done(null, obj);
 });
 
@@ -104,8 +98,6 @@ passport.use(new LdapStrategy({
         searchFilter: config.ldap.searchFilter
     }
 }, function (userLdap, done) {
-    //if(userLdap.company === 'TSL'){ //optional check company is TSL
-    //}
     const user = {
         id: userLdap.sAMAccountName,
         username: userLdap.sAMAccountName,
