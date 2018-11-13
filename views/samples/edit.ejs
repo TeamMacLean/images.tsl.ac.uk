@@ -14,73 +14,75 @@ locals.breadcrumbs = [
 %>
 <% include ../head.ejs %>
 
+<section class="section">
+    <div class="container">
 
-<div class="container">
+        <% if(isEdit){ %>
+            <h1 class="title has-text-centered">Edit: <%- sample.name %></h1>
+        <% } else { %>
+            <h1 class="title has-text-centered">New Sample</h1>
+        <% } %>
 
-    <% if(isEdit){ %>
-        <h1 class="title has-text-centered">Edit: <%- sample.name %></h1>
-    <% } else { %>
-        <h1 class="title has-text-centered">New Sample</h1>
-    <% } %>
+        <form method="post" action="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new">
 
-    <form method="post" action="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new">
-
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label class="label">Sample Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="New experiment name" name="name"
-                               value="<%- isEdit ? sample.name : '' %>" required>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Sample Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="New experiment name" name="name"
+                                   value="<%- isEdit ? sample.name : '' %>" required>
+                        </div>
+                        <p class="help">The name of your sample</p>
                     </div>
-                    <p class="help">help text</p>
                 </div>
-            </div>
-            <div class="column">
-                <div class="field">
-                    <label class="label">Taxonomy ID</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="NCBI Taxonomy ID" name="taxID"
-                               value="<%- isEdit ? sample.taxID : '' %>" required>
-                    </div>
-                    <p class="help">help text</p>
-                </div>
-            </div>
-        </div>
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label class="label">Scientific Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Scientific name" name="scientificName"
-                               value="<%- isEdit ? sample.scientificName : '' %>" required>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Taxonomy ID</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="NCBI Taxonomy ID" name="taxID"
+                                   value="<%- isEdit ? sample.taxID : '' %>" required>
+                        </div>
+                        <p class="help">This can be found <a href="https://www.ncbi.nlm.nih.gov/taxonomy">here</a></p>
                     </div>
                 </div>
             </div>
-            <div class="column">
-                <div class="field">
-                    <label class="label">Common Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Common name" name="commonName"
-                               value="<%- isEdit ? sample.commonName : '' %>" required>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Scientific Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Scientific name" name="scientificName"
+                                   value="<%- isEdit ? sample.scientificName : '' %>" required>
+                        </div>
+                        <p class="help">Example: Magnaporthe oryzae</p>
                     </div>
-                    <p class="help">help text</p>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Common Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Common name" name="commonName"
+                                   value="<%- isEdit ? sample.commonName : '' %>" required>
+                        </div>
+                        <p class="help">Example: rice blast fungus</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Protocol</label>
-            <div class="control">
+            <div class="field">
+                <label class="label">Protocol</label>
+                <div class="control">
                 <textarea class="input" placeholder="Protocol" name="protocol"
                           required><%- isEdit ? sample.protocol : '' %></textarea>
+                </div>
+                <p class="help">help text</p>
             </div>
-            <p class="help">help text</p>
-        </div>
-        <div class="control">
-            <button class="button is-success"><%- isEdit ? 'Update' : 'Create' %></button>
-        </div>
-    </form>
+            <div class="control">
+                <button class="button is-success"><%- isEdit ? 'Update' : 'Create' %></button>
+            </div>
+        </form>
 
-</div>
+    </div>
+</section>
 <% include ../foot.ejs %>

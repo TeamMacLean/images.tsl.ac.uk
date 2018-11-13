@@ -12,53 +12,55 @@ locals.breadcrumbs = [
 %>
 <% include ../head.ejs %>
 
-<div class="container">
+<section class="section">
+    <div class="container">
 
-    <% if(isEdit){ %>
-        <h1 class="title has-text-centered">Edit: <%- project.name %></h1>
-    <% } else { %>
-        <h1 class="title has-text-centered">New Project</h1>
-    <% } %>
+        <% if(isEdit){ %>
+            <h1 class="title has-text-centered">Edit: <%- project.name %></h1>
+        <% } else { %>
+            <h1 class="title has-text-centered">New Project</h1>
+        <% } %>
 
-    <form method="post" action="/browse/<%- group.safeName %>/new">
+        <form method="post" action="/browse/<%- group.safeName %>/new">
 
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label class="label">Project Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="New project name" name="name"
-                               value="<%- isEdit ? project.name : '' %>" required>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Project Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="New project name" name="name"
+                                   value="<%- isEdit ? project.name : '' %>" required>
+                        </div>
+                        <p class="help">The name of your project</p>
                     </div>
-                    <p class="help">This is a help text</p>
                 </div>
-            </div>
-            <div class="column">
-                <div class="field">
-                    <label class="label">Short Description</label>
-                    <div class="control">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Short Description</label>
+                        <div class="control">
                 <textarea class="input" placeholder="Short description" name="shortDescription"
                           required><%- isEdit ? project.shortDescription : '' %></textarea>
+                        </div>
+                        <p class="help">a short description of the project. 20-100 characters</p>
                     </div>
-                    <p class="help">This is a help text</p>
                 </div>
             </div>
-        </div>
 
 
-        <div class="field">
-            <label class="label">Long Description</label>
-            <div class="control">
+            <div class="field">
+                <label class="label">Long Description</label>
+                <div class="control">
                 <textarea class="input" placeholder="Long description"
                           name="longDescription"><%- isEdit ? project.shortDescription : '' %></textarea>
+                </div>
+                <p class="help">a long description of the project. 100+ characters</p>
             </div>
-            <p class="help">This is a help text</p>
-        </div>
 
-        <div class="control">
-            <button class="button is-success"><%- isEdit ? 'Update' : 'Create' %></button>
-        </div>
-    </form>
+            <div class="control">
+                <button class="button is-success"><%- isEdit ? 'Update' : 'Create' %></button>
+            </div>
+        </form>
 
-</div>
+    </div>
+</section>
 <% include ../foot.ejs %>

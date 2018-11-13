@@ -14,9 +14,9 @@ const Capture = thinky.createModel('Capture', {
 
 
     platformName: type.string().required(),
-    platformLens: type.string().required(),
-    platformCamera: type.string().required(),
-    platformGain: type.string().required()
+    // platformLens: type.string().required(),
+    // platformCamera: type.string().required(),
+    // platformGain: type.string().required()
 });
 
 module.exports = Capture;
@@ -24,7 +24,9 @@ module.exports = Capture;
 Capture.defineStatic('find', function (groupName, projectName, sampleName, experimentName, captureName) {
     return new Promise((good, bad) => {
         Capture.filter({safeName: captureName})
-            .getJoin({experiment: {sample: {project: {group: true}, files: true}}})
+            .getJoin({
+                experiment: {sample: {project: {group: true}}}, files: true
+            })
             .then(captures => {
                 const capturessFiltered = captures.filter(c => c.experiment.sample.project.group.safeName === groupName
                     && c.experiment.sample.project.safeName === projectName
@@ -98,5 +100,5 @@ Capture.pre('save', function (next) {
 
 Capture.ensureIndex("createdAt");
 
-Capture.belongsTo(Sample, 'sample', 'sampleID', 'id');
+Capture.belongsTo(Experiment, 'experiment', 'experimentID', 'id');
 Capture.hasMany(File, 'files', 'id', 'captureID');

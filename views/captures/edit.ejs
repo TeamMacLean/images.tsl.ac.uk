@@ -1,112 +1,132 @@
-<% locals.breadcrumbs = [
+<%
+isEdit = false;
+if (typeof capture !== 'undefined') {
+    experiment = capture.experiment;
+    isEdit = true;
+}
+
+
+locals.breadcrumbs = [
     {name: 'Home', link: '/'},
     {name: experiment.sample.project.group.name, link: `/browse/${experiment.sample.project.group.safeName}`},
-    {name: experiment.sample.project.name, link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`},
-    {name: experiment.sample.name, link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`},
-    {name: experiment.name, link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}`},
+    {
+        name: experiment.sample.project.name,
+        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`
+    },
+    {
+        name: experiment.sample.name,
+        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`
+    },
+    {
+        name: experiment.name,
+        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}`
+    },
     {name: 'New Capture', active: true}
 ]; %>
 <% include ../head.ejs %>
 
-<div class="container">
+<section class="section">
+    <div class="container">
 
 
-    <h1 class="title has-text-centered">New Capture</h1>
+        <h1 class="title has-text-centered">New Capture</h1>
 
-    <form method="post"
-          action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">
+        <form method="post"
+              action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">
 
 
-        <div class="columns">
-            <div class="column is-6">
-                <div class="field">
-                    <label class="label">Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="New capture name" name="name">
-                    </div>
-                    <p class="help">This is a help text</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label class="label">Platform Name</label>
-                    <div class="control">
-                        <div class="select">
-
-                            <%
-                            const cameras = [
-                                'Leica SP8',
-                                'Spinning Disc',
-                                'Zeiss 510',
-                                'Lecia M205',
-                                'Olympus IX81',
-                                'Ziess',
-                                'Axioskop2'
-                            ].sort();
-                            %>
-
-                            <select>
-                                <% cameras.map(camera=>{ %>
-                                    <option><%- camera %></option>
-                                <% }) %>
-                            </select>
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="New capture name" name="name"
+                                   value="<%- isEdit ? capture.name : '' %>" required>
                         </div>
+                        <p class="help">The name of your capture</p>
                     </div>
-                    <p class="help">This is a help text</p>
                 </div>
             </div>
 
-            <div class="column">
-                <div class="field">
-                    <label class="label">Lens</label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Select dropdown</option>
-                            </select>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Platform Name</label>
+                        <div class="control">
+                            <div class="select">
+
+                                <%
+                                const platforms = [
+                                    'Leica SP8',
+                                    'Spinning Disc',
+                                    'Zeiss 510',
+                                    'Lecia M205',
+                                    'Olympus IX81',
+                                    'Ziess',
+                                    'Axioskop2'
+                                ].sort();
+                                %>
+
+                                <select name="platformName">
+                                    <% platforms.map(platform=>{ %>
+                                        <option <%- isEdit && capture.platformName === platform ? 'selected' : '' %>><%- platform %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
                         </div>
+                        <!--<p class="help">This is a help text</p>-->
                     </div>
-                    <p class="help">This is a help text</p>
                 </div>
+
+                <!--<div class="column">-->
+                <!--<div class="field">-->
+                <!--<label class="label">Lens</label>-->
+                <!--<div class="control">-->
+                <!--<div class="select">-->
+                <!--<select>-->
+                <!--<option>Select dropdown</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<p class="help">This is a help text</p>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="column">-->
+                <!--<div class="field is-expanded">-->
+                <!--<label class="label">Camera</label>-->
+                <!--<div class="control">-->
+                <!--<div class="select">-->
+                <!--<select>-->
+                <!--<option>Select dropdown</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<p class="help">This is a help text</p>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="column">-->
+                <!--<div class="field">-->
+                <!--<label class="label">Gain</label>-->
+                <!--<div class="control">-->
+                <!--<div class="select">-->
+                <!--<select>-->
+                <!--<option>Select dropdown</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<p class="help">This is a help text</p>-->
+                <!--</div>-->
+                <!--</div>-->
+
             </div>
 
-            <div class="column">
-                <div class="field is-expanded">
-                    <label class="label">Camera</label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Select dropdown</option>
-                            </select>
-                        </div>
-                    </div>
-                    <p class="help">This is a help text</p>
-                </div>
+            <div class="control">
+                <button class="button is-success">Create</button>
             </div>
+        </form>
 
-            <div class="column">
-                <div class="field">
-                    <label class="label">Gain</label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Select dropdown</option>
-                            </select>
-                        </div>
-                    </div>
-                    <p class="help">This is a help text</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="control">
-            <button class="button is-success">Create</button>
-        </div>
-    </form>
-
-</div>
+    </div>
+</section>
 <% include ../foot.ejs %>

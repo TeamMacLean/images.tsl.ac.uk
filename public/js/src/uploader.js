@@ -4,13 +4,13 @@ import Tus from '@uppy/tus';
 import ThumbnailGenerator from '@uppy/thumbnail-generator';
 
 const uploader = {
-    init: function (inputSelector, experimentID) {
+    init: function (inputSelector, captureID) {
 
         const uppy = Uppy({
             debug: true,
             autoProceed: false,
             meta: {
-                experimentID: experimentID
+                captureID: captureID
             },
             restrictions: {
                 maxFileSize: 20000 * 1000000,

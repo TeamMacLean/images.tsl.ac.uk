@@ -14,17 +14,42 @@ body {
   flex-direction: column;
 }
 
-.site-content {
-  flex: 1 0 auto;
-  //margin-top: 32px;
-}
-
+//NAVBAR
 .navbar.custom {
   border-top: 3px solid $primary;
 }
 
-input {
-  font-weight: 300;
+.navbar-item.brand-text {
+  font-size: 1rem;
+  font-weight: $font-weight-light;
+
+}
+
+.navbar-item, .navbar-link {
+  font-size: 14px;
+
+}
+
+.navbar.is-white .navbar-brand > a.navbar-item {
+  &:hover, &:focus {
+    background-color: transparent;
+    //color: #999999;
+  }
+}
+
+@media screen and (max-width: 1087px) {
+  .navbar-menu {
+    box-shadow: none;
+  }
+}
+
+.breadcrumb li + li::before {
+  color: $text;
+}
+
+.site-content {
+  flex: 1 0 auto;
+  //margin-top: 32px;
 }
 
 .reverse-ellipsis {
@@ -56,23 +81,6 @@ input {
   }
 }
 
-@media screen and (max-width: 1087px) {
-  .navbar-menu {
-    box-shadow: none;
-  }
-}
-
-.navbar-item.brand-text {
-  font-size: 1rem;
-  font-weight: $font-weight-light;
-
-}
-
-.navbar-item, .navbar-link {
-  font-size: 14px;
-
-}
-
 .card {
   border-radius: 5px;
 }
@@ -92,4 +100,22 @@ input {
 
 .footer {
   margin-top: 32px;
+  padding: 2rem 1.5rem;
+}
+
+hr {
+  background-color: transparent;
+}
+
+.card.is-disabled {
+  background-color: $grey-lighter;
+  .title, .subtitle {
+    color: $grey-light
+  }
+  box-shadow: none;
+  img {
+    opacity: 0.5;
+    filter: opacity(50%) grayscale(1);
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  }
 }

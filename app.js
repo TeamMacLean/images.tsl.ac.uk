@@ -35,7 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
-app.all(['/files', '/files/*', '/files/*.*'], tusServer.handle.bind(tusServer));
+app.all([config.tusPath, config.tusPath + '/*', config.tusPath + '/*.*'], tusServer.handle.bind(tusServer));
 
 app.use(sassMiddleware({
     /* Options */

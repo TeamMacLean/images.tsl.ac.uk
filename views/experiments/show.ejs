@@ -19,6 +19,10 @@
         <h1 class="title has-text-centered"><%- experiment.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}` %>
         <% include ../_hpc_path.ejs %>
+
+        <hr>
+        <a href="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/edit"
+           class="button is-info">Edit Experiment</a>
     </div>
 </section>
 <section class="section">
@@ -27,8 +31,7 @@
 
         <div class="section">
             <a href="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new"
-               class="button is-success">New
-                Capture</a>
+               class="button is-success">New Capture</a>
         </div>
 
         <% if(experiment.captures){ %>

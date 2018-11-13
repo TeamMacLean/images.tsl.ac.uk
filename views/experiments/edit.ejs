@@ -14,32 +14,35 @@ locals.breadcrumbs = [
     {name: 'New Experiment', active: true}
 ]; %>
 <% include ../head.ejs %>
-<div class="container">
 
-    <% if(isEdit){ %>
-        <h1 class="title has-text-centered">Edit: <%- experiment.name %></h1>
-    <% } else { %>
-        <h1 class="title has-text-centered">New Experiment</h1>
-    <% } %>
+<section class="section">
+    <div class="container">
 
-    <form method="post"
-          action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
+        <% if(isEdit){ %>
+            <h1 class="title has-text-centered">Edit: <%- experiment.name %></h1>
+        <% } else { %>
+            <h1 class="title has-text-centered">New Experiment</h1>
+        <% } %>
 
-        <div class="columns">
-            <div class="column is-6">
-                <div class="field">
-                    <label class="label">Experiment Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="New experiment name" name="name"
-                               value="<%- isEdit ? sample.scientificName : '' %>" required>
+        <form method="post"
+              action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
+
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Experiment Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="New experiment name" name="name"
+                                   value="<%- isEdit ? experiment.name : '' %>" required>
+                        </div>
+                        <p class="help">The name of your experiment</p>
                     </div>
-                    <!--<p class="help">This is a help text</p>-->
+                    <div class="control">
+                        <button class="button is-success"><%- isEdit ? 'Update' : 'Create' %></button>
+                    </div>
                 </div>
-                <div class="control">
-                    <button class="button is-success"><%- isEdit ? 'Update' : 'Create' %></button>
-                </div>
-            </div>
-    </form>
+        </form>
 
-</div>
+    </div>
+</section>
 <% include ../foot.ejs %>

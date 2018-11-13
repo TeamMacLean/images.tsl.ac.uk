@@ -13,17 +13,48 @@
         <h1 class="title has-text-centered"><%- sample.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}` %>
         <% include ../_hpc_path.ejs %>
+        <hr>
+
+        <div class="columns">
+            <div class="column">
+                <label class="label">Sample Name</label>
+                <p><%- sample.name %></p>
+            </div>
+            <div class="column">
+                <label class="label">Taxonomy ID</label>
+                <p><%- sample.taxID %></p>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <label class="label">Scientific Name</label>
+                <p><%- sample.scientificName %></p>
+            </div>
+            <div class="column">
+                <label class="label">Common Name</label>
+                <p><%- sample.commonName %></p>
+            </div>
+        </div>
+
+        <label class="label">Protocol</label>
+        <p><%- sample.protocol %></p>
+
+        <hr>
+        <a href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/edit"
+           class="button is-info">Edit
+            Sample</a>
+
     </div>
 </section>
 <section class="section">
     <div class="container">
         <h2 class="title has-text-centered is-4">Experiments</h2>
 
-        <div class="section">
-            <a href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new"
-               class="button is-success">New Experiment</a>
-        </div>
+        <a href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new"
+           class="button is-success">New Experiment</a>
 
+        <hr>
         <% if(sample.experiments){ %>
             <div class="columns">
                 <% sample.experiments.map((experiment, experimentIndex)=>{ %>

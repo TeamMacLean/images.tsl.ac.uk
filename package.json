@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "build": "node_modules/.bin/parcel build public/js/src/*.js -d public/js",
-    "watch": "node_modules/.bin/parcel watch public/js/src/*.js -d public/js"
+    "build": "node_modules/.bin/parcel build public/js/src/*.js -d public/js/dist/",
+    "watch": "node_modules/.bin/parcel watch public/js/src/*.js -d public/js/dist/"
   },
   "dependencies": {
     "@uppy/core": "^0.27.3",
@@ -25,7 +25,8 @@
     "passport-ldapauth": "^2.1.0",
     "session-rethinkdb": "^2.0.1",
     "thinky": "^2.3.9",
-    "tus-node-server": "^0.3.2"
+    "tus-node-server": "^0.3.2",
+    "md5.js": "latest"
   },
   "devDependencies": {
     "bulma": "^0.7.1",

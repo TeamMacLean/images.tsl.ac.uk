@@ -7,7 +7,6 @@ module.exports = {
         Group.filter({safeName: groupName})
             .run()
             .then(groups => {
-                console.log('HERE!');
                 if (groups && groups.length) {
                     return res.render('projects/edit', {group: groups[0]});
                 } else {

@@ -10,25 +10,25 @@
         <h1 class="title has-text-centered"><%- project.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${project.group.safeName}/${project.safeName}` %>
         <% include ../_hpc_path.ejs %>
-        <br>
+        <hr>
 
-        <table class="table is-fullwidth">
-            <thead>
-            <tr>
-                <th>Short Description</th>
-                <th>Long Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><%- project.shortDescription %></td>
-                <td><%- project.longDescription %></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="columns">
+            <div class="column">
+                <label class="label">Project Name</label>
+                <p><%- project.name %></p>
+            </div>
+            <div class="column">
+                <label class="label">Short Description</label>
+                <p><%- project.shortDescription %></p>
+            </div>
+        </div>
 
+        <label class="label">Long Description</label>
+        <p><%- project.longDescription %></p>
+
+        <hr>
         <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/edit" class="button is-info">Edit
-            Sample</a>
+            Project</a>
     </div>
 </section>
 <section class="section">
@@ -37,6 +37,7 @@
 
         <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new"
            class="button is-success">New Sample</a>
+        <hr>
 
         <div class="columns">
             <% project.samples.map((sample, exampleIndex)=>{ %>

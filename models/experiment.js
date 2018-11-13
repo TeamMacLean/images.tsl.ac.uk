@@ -18,7 +18,7 @@ module.exports = Experiment;
 Experiment.defineStatic('find', function (groupName, projectName, sampleName, experimentName) {
     return new Promise((good, bad) => {
         Experiment.filter({safeName: experimentName})
-            .getJoin({sample: {project: {group: true}, files: true}})
+            .getJoin({sample: {project: {group: true}, files: true}, captures: true})
             .then(experiments => {
                 const samplesExperiments = experiments.filter(e => e.sample.project.group.safeName === groupName
                     && e.sample.project.safeName === projectName

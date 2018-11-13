@@ -1,13 +1,13 @@
 <link rel="stylesheet" type="text/css" href="/style/uppy_dash.css">
 
-<button class="button is-success is-medium" id="uppy-trigger">Upload Files</button>
+<button class="button is-success" id="uppy-trigger">Upload Files</button>
 <div style="display: flex;align-items: center; justify-content: center;">
     <div id="drag-drop-area"></div>
 </div>
 
-<script src="/js/uploader.js"></script>
+<script src="/js/dist/uploader.js"></script>
 <script>
-    window.uploader.init('#drag-drop-area', "<%- experiment.id %>");
+    window.uploader.init('#drag-drop-area', "<%- capture.id %>");
 </script>
 
 

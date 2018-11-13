@@ -4,19 +4,19 @@ const router = express.Router();
 const Auth = require('./controllers/auth');
 const Groups = require('./controllers/groups');
 const Projects = require('./controllers/projects');
-const Admin = require('./controllers/admin');
+// const Admin = require('./controllers/admin');
 const Experiments = require('./controllers/experiments');
 const Captures = require('./controllers/captures');
 const Samples = require('./controllers/samples');
-// const config = require('./config');
+const Files = require('./controllers/files');
 const Help = require('./controllers/help');
 
+const Util = require('./lib/util');
+
 /* GET home page. */
-router
+router.route('/')
     .all(isAuthenticated)
-    .get('/', function (req, res, next) {
-        res.redirect('/groups');
-    });
+    .get(Groups.index);
 
 
 router.route('/signin')
@@ -30,9 +30,9 @@ router.route('/help')
     .all(isAuthenticated)
     .get(Help.index);
 
-router.route('/groups')
-    .all(isAuthenticated)
-    .get(Groups.index);
+// router.route('/groups')
+//     .all(isAuthenticated)
+//     .get(Groups.index);
 
 router.route('/browse/:group')
     .all([isAuthenticated, isInGroup])
@@ -45,35 +45,35 @@ router.route('/browse/:group/new')
 router.route('/browse/:group/:project')
     .all([isAuthenticated, isInGroup])
     .get(Projects.show);
+router.route('/browse/:group/:project/edit')
+    .all([isAuthenticated, isInGroup])
+    .get(Projects.edit);
 router.route('/browse/:group/:project/new')
     .all([isAuthenticated, isInGroup])
     .get(Samples.new)
     .post(Samples.save);
-router.route('/browse/:group/:project/edit')
-    .all([isAuthenticated, isInGroup])
-    .get(Projects.edit);
 
 router.route('/browse/:group/:project/:sample')
     .all([isAuthenticated, isInGroup])
     .get(Samples.show);
+router.route('/browse/:group/:project/:sample/edit')
+    .all([isAuthenticated, isInGroup])
+    .get(Samples.edit);
 router.route('/browse/:group/:project/:sample/new')
     .all([isAuthenticated, isInGroup])
     .get(Experiments.new)
     .post(Experiments.save);
-router.route('/browse/:group/:project/:sample/edit')
-    .all([isAuthenticated, isInGroup])
-    .get(Samples.edit);
 
 router.route('/browse/:group/:project/:sample/:experiment')
     .all([isAuthenticated, isInGroup])
     .get(Experiments.show);
+router.route('/browse/:group/:project/:sample/:experiment/edit')
+    .all([isAuthenticated, isInGroup])
+    .get(Experiments.edit);
 router.route('/browse/:group/:project/:sample/:experiment/new')
     .all([isAuthenticated, isInGroup])
     .get(Captures.new)
-    .get(Captures.save);
-router.route('/browse/:group/:project/:sample/:experiment/edit')
-    .all([isAuthenticated, isInGroup])
-    .get(Experiments.edit)
+    .post(Captures.save);
 
 router.route('/browse/:group/:project/:sample/:experiment/:capture')
     .all([isAuthenticated, isInGroup])
@@ -81,6 +81,16 @@ router.route('/browse/:group/:project/:sample/:experiment/:capture')
 router.route('/browse/:group/:project/:sample/:experiment/:capture/edit')
     .all([isAuthenticated, isInGroup])
     .get(Captures.edit);
+
+router.route('/browse/:group/:project/:sample/:experiment/:capture/:file')
+    .all([isAuthenticated, isInGroup])
+    .get(Files.show);
+router.route('/browse/:group/:project/:sample/:experiment/:capture/:edit')
+    .all([isAuthenticated, isInGroup])
+    .get(Files.edit);
+router.route('/browse/:group/:project/:sample/:experiment/:capture/:download')
+    .all([isAuthenticated, isInGroup])
+    .get(Files.download);
 
 
 module.exports = router;
@@ -95,16 +105,11 @@ function isAuthenticated(req, res, next) {
     }
 }
 
-// function isAdmin(req, res, next) {
-//     if (req.user && req.user.isAdmin) {
-//         return next();
-//     } else {
-//         return res.status(401).send('Admins only.');
-//     }
-// }
-
 function isInGroup(req, res, next) {
 
-    return next();//TODO
-
+    if (Util.canAccessGroup(req.params.group, req)) {
+        return next();
+    } else {
+        return next('you do not have permission to view this group');
+    }
 }

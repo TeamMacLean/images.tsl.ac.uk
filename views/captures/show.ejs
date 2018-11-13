@@ -1,26 +1,42 @@
 <% locals.breadcrumbs = [
     {name: 'Home', link: '/'},
-    {name: experiment.project.group.name, link: `/browse/${experiment.project.group.safeName}`},
     {
-        name: experiment.project.name,
-        link: `/browse/${experiment.project.group.safeName}/${experiment.project.safeName}`
+        name: capture.experiment.sample.project.group.name,
+        link: `/browse/${capture.experiment.sample.project.group.safeName}`
     },
-    {name: experiment.name, active: true}
+    {
+        name: capture.experiment.sample.project.name,
+        link: `/browse/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}`
+    },
+    {
+        name: capture.experiment.sample.name,
+        link: `/browse/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}/${capture.experiment.sample.safeName}`
+    },
+    {
+        name: capture.experiment.name,
+        link: `/browse/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}/${capture.experiment.sample.safeName}/${capture.experiment.safeName}`
+    },
+    {name: capture.name, active: true}
 ]; %>
 <% include ../head.ejs %>
 <section class="section">
     <div class="container">
 
-        <h1 class="title has-text-centered"><%- experiment.name %></h1>
-        <% const HPCPath = `${locals.config.HPCRoot}/${experiment.project.group.safeName}/${experiment.project.safeName}/${experiment.safeName}` %>
+        <h1 class="title has-text-centered"><%- capture.name %></h1>
+        <% const HPCPath = `${locals.config.HPCRoot}/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}/${capture.experiment.sample.safeName}/${capture.experiment.safeName}/${capture.safeName}` %>
         <% include ../_hpc_path.ejs %>
+        <hr>
+        <div class="columns">
+            <div class="column">
+                <label class="label">Platform Name</label>
+                <p><%- capture.platformName %></p>
+            </div>
+        </div>
 
-        <p></p>
+        <hr>
+        <a href="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- capture.experiment.sample.safeName %>/<%- capture.experiment.safeName %>/<%- capture.safeName %>/edit"
+           class="button is-info">Edit Capture</a>
 
-        <p><%- capture.platformName %></p>
-        <p><%- capture.platformLens %></p>
-        <p><%- capture.platformCamera %></p>
-        <p><%- capture.platformGain %></p>
     </div>
 </section>
 <section class="section">
@@ -33,7 +49,7 @@
         </div>
 
         <div class="columns">
-            <% experiment.files.map((file, fileIndex)=>{ %>
+            <% capture.files.map((file, fileIndex)=>{ %>
 
                 <% if (fileIndex !== 0 && fileIndex % 3 == 0){ %>
                     <%- '</div>' %>
@@ -46,8 +62,11 @@
 
                             <div class="media ">
                                 <div class="media-content">
-
-                                    <p class="title is-6"><%- file.parsedName() %></p>
+                                    <p class="title is-6">
+                                        <a href="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- capture.experiment.sample.safeName %>/<%- capture.experiment.safeName %>/<%- capture.safeName %>/<%- file.name %>">
+                                            <%- file.parsedName() %>
+                                        </a>
+                                    </p>
                                     <div class="tags has-addons">
                                         <span class="tag">Type</span>
                                         <span class="tag is-primary"><%- file.type %></span>
@@ -60,7 +79,7 @@
 
                             <div class="content">
                                 <a class="button is-link"
-                                   href="/browse/<%- experiment.project.group.safeName %>/<%- experiment.safeName %>/<%- experiment.safeName %>/<%- file.name %> %>">Download</a>
+                                   href="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- capture.experiment.sample.safeName %>/<%- capture.experiment.safeName %>/<%- capture.safeName %>/<%- file.name %>/download">Download</a>
                             </div>
 
                         </div>

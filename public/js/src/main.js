@@ -3,6 +3,7 @@ import ClipBoard from "clipboard";
 (function () {
     initBurgerMenu();
     initClipboard();
+    // initNavActive();
 })();
 
 function initClipboard() {
@@ -23,8 +24,20 @@ function initClipboard() {
 
     });
 
-
 }
+
+// function initNavActive() {
+//     const pathname = window.location.pathname;
+//
+//     const navItems = document.getElementsByClassName('navbar-item');
+//     for (let i = 0; i < navItems.length; i++) {
+//         const item = navItems[i];
+//         console.log(item.getAttribute("href"), pathname);
+//         if (item.getAttribute("href") === pathname) {
+//             item.classList.add('is-active');
+//         }
+//     }
+// }
 
 function initBurgerMenu() {
     // The following code is based off a toggle menu by @Bradcomp
