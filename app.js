@@ -6,6 +6,7 @@ const sassMiddleware = require('node-sass-middleware');
 const logger = require('morgan');
 const passport = require('passport');
 const LdapStrategy = require('passport-ldapauth');
+const config = require('./config');
 
 const uploadFile = require('./lib/uploadFIle');
 
@@ -22,7 +23,6 @@ tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, (event) => {
 });
 
 const router = require('./routes');
-const config = require('./config');
 const Group = require('./models/group');
 const app = express();
 

@@ -1,9 +1,10 @@
 const app = require('./app');
 const debug = require('debug')('imagehog:server');
 const http = require('http');
+const config = require('./config');
 
 
-let port = normalizePort(process.env.PORT || '3000');
+let port = normalizePort(config.port);
 app.set('port', port);
 
 
