@@ -19,7 +19,7 @@ module.exports = {
                 console.log(info);
             }
             if (!user) {
-                var message = 'No such user';
+                let message = 'No such user';
                 if (info && info.message) {
                     message += ', ' + info.message;
                 }

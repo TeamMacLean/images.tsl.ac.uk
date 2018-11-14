@@ -3,7 +3,6 @@ module.exports = {
     db: 'imagehog',
     port: "3000",
     secret: "keyboard cats!",
-    dataDir: "/mnt/image/",
     HPCRoot: "/tsl/data/image", //no trailing slash
     tmpDir: "/storage/uploads/",
     ldap: {
