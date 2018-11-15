@@ -42,9 +42,12 @@ const uploader = {
             console.log('successful files:', result.successful);
             console.log('failed files:', result.failed);
 
+            //TODO notify of success
+            //TODO notify of error
+
+            //TODO don't reload until user confirms notification
 
             location.reload();
-            //TODO
         });
     }
 };
