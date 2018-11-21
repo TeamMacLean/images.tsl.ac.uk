@@ -3,10 +3,10 @@ const File = require('../models/file');
 // const Experiment = require('../models/experiment');
 const renderError = require('../lib/renderError');
 module.exports = {
-    show:(req, res, next)=>{
+    show: (req, res, next) => {
 
     },
-    edit:(req, res, next)=>{
+    edit: (req, res, next) => {
 
     },
     download: (req, res, next) => {
@@ -23,7 +23,7 @@ module.exports = {
             .then(file => {
                 file.getPath()
                     .then(path => {
-                        return res.sendFile(path);
+                        return res.download(path, file.originalName);
                     })
                     .catch(err => {
                         next(err);
