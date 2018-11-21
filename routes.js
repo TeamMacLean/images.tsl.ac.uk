@@ -88,7 +88,7 @@ router.route('/browse/:group/:project/:sample/:experiment/:capture/:file')
 router.route('/browse/:group/:project/:sample/:experiment/:capture/:edit')
     .all([isAuthenticated, isInGroup])
     .get(Files.edit);
-router.route('/browse/:group/:project/:sample/:experiment/:capture/:download')
+router.route('/browse/:group/:project/:sample/:experiment/:capture/:file/:download')
     .all([isAuthenticated, isInGroup])
     .get(Files.download);
 
