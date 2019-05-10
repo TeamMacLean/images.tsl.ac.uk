@@ -22,6 +22,7 @@ locals.breadcrumbs = [
         <% } %>
 
         <form method="post" action="/browse/<%- group.safeName %>/new">
+            <input type="hidden" name="id" value="<%- project.id %>" class="is-hidden">
 
             <div class="columns">
                 <div class="column">

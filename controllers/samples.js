@@ -28,7 +28,6 @@ module.exports = {
         const scientificName = req.body.scientificName;
         const commonName = req.body.commonName;
 
-        console.log('taxID',taxID);
 
         Project.filter({safeName: projectName})
             .getJoin({group: true})
@@ -37,12 +36,40 @@ module.exports = {
                 const projectsFiltered = projects.filter(p => p.group.safeName === groupName);
 
                 if (projectsFiltered && projectsFiltered.length) {
-                    new Sample({projectID: projectsFiltered[0].id, name: sampleName, protocol, taxID, scientificName, commonName})
-                        .save()
-                        .then(savedSample => {
-                            return res.redirect(`/browse/${groupName}/${projectName}/${savedSample.safeName}`)
+
+                    if (req.body.id) {
+                        Sample.get(req.body.id)
+                            .then(sample => {
+                                sample.update({
+                                    projectID: projectsFiltered[0].id,
+                                    name: sampleName,
+                                    protocol,
+                                    taxID,
+                                    scientificName,
+                                    commonName
+                                })
+                                    .then(savedSample => {
+                                        return res.redirect(`/browse/${groupName}/${projectName}/${savedSample.safeName}`)
+                                    })
+                                    .catch(err => renderError(res, err));
+                            })
+                    } else {
+
+
+                        new Sample({
+                            projectID: projectsFiltered[0].id,
+                            name: sampleName,
+                            protocol,
+                            taxID,
+                            scientificName,
+                            commonName
                         })
-                        .catch(err => renderError(res, err));
+                            .save()
+                            .then(savedSample => {
+                                return res.redirect(`/browse/${groupName}/${projectName}/${savedSample.safeName}`)
+                            })
+                            .catch(err => renderError(res, err));
+                    }
                 } else {
                     return next();
                 }

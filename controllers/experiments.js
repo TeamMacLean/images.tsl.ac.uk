@@ -32,13 +32,31 @@ module.exports = {
         const experimentName = req.body.name;
 
         Sample.find(groupName, projectName, sampleName)
-            .then(sample=>{
-                new Experiment({sampleID: sample.id, name: experimentName})
-                    .save()
-                    .then(savedExperiment => {
-                        return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
-                    })
-                    .catch(err => renderError(res, err));
+            .then(sample => {
+
+                if (req.body.id) {
+
+                    Experiment.get(req.body.id)
+                        .then(experiment => {
+                            experiment.update({
+                                sampleID: sample.id, name: experimentName
+                            })
+                                .then(savedExperiment => {
+                                    return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
+                                })
+                                .catch(err => renderError(res, err));
+                        })
+                        .catch(err => renderError(res, err))
+
+                } else {
+
+                    new Experiment({sampleID: sample.id, name: experimentName})
+                        .save()
+                        .then(savedExperiment => {
+                            return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
+                        })
+                        .catch(err => renderError(res, err));
+                }
             })
             .catch(err => renderError(res, err));
 

@@ -17,9 +17,9 @@ module.exports = {
 
     },
     save: (req, res, next) => {
+
         const groupName = req.params.group;
         const projectName = req.body.name;
-
         const shortDescription = req.body['shortDescription'];
         const longDescription = req.body['longDescription'];
 
@@ -29,17 +29,41 @@ module.exports = {
             .then(groups => {
                 if (groups && groups.length) {
                     const group = groups[0];
-                    new Project({
-                        groupID: group.id,
-                        name: projectName,
-                        shortDescription: shortDescription,
-                        longDescription: longDescription
-                    })
-                        .save()
-                        .then(savedProject => {
-                            return res.redirect(`/browse/${groupName}/${savedProject.safeName}`)
+
+                    if (req.body.id) {
+
+                        Project.get(req.body.id)
+                            .then(project => {
+
+                                project.update({
+                                    groupID: group.id,
+                                    name: projectName,
+                                    shortDescription: shortDescription,
+                                    longDescription: longDescription
+                                })
+                                    .save()
+                                    .then(savedProject => {
+                                        return res.redirect(`/browse/${groupName}/${savedProject.safeName}`)
+                                    })
+                                    .catch(err => renderError(res, err));
+
+                            })
+                            .catch(err => renderError(res, err))
+
+                    } else {
+
+                        new Project({
+                            groupID: group.id,
+                            name: projectName,
+                            shortDescription: shortDescription,
+                            longDescription: longDescription
                         })
-                        .catch(err => renderError(res, err));
+                            .save()
+                            .then(savedProject => {
+                                return res.redirect(`/browse/${groupName}/${savedProject.safeName}`)
+                            })
+                            .catch(err => renderError(res, err));
+                    }
                 } else {
                     next();
                     // renderError(res, new Error('Group does not exist'));

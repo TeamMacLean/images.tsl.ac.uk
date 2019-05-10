@@ -5,6 +5,7 @@ module.exports = {
     secret: "keyboard cats!",
     HPCRoot: "/tsl/data/image", //no trailing slash
     tmpDir: "/storage/uploads/",
+    postChangesTo:'',
     ldap: {
         url: "ldap://dc.example.org:389",
         bindDn: "",

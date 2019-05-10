@@ -26,7 +26,8 @@
     "session-rethinkdb": "^2.0.1",
     "thinky": "^2.3.9",
     "tus-node-server": "^0.3.2",
-    "md5.js": "latest"
+    "md5.js": "latest",
+    "request": "latest"
   },
   "devDependencies": {
     "bulma": "^0.7.1",

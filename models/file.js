@@ -6,6 +6,7 @@ const config = require('../config');
 const MD5 = require('md5.js');
 const fs = require('fs');
 const path = require('path');
+const postUpload = require('../lib/postUpload');
 
 const File = thinky.createModel('File', {
     id: type.string(),
@@ -65,7 +66,6 @@ File.define('parsedName', function () {
     return path.parse(this.originalName).name;
 });
 
-const Capture = require('./capture');
 File.pre('save', function (next) {
     const file = this;
 
@@ -80,10 +80,10 @@ File.pre('save', function (next) {
     file.getPath()
         .then(path => {
             //TODO move to new path
-
             Util.move(oldPath, path)
                 .then(() => {
-                    next()
+                    postUpload.notify(file);
+                    next();
                 })
                 .catch(err => {
                     console.error(err);
@@ -97,4 +97,5 @@ File.pre('save', function (next) {
 //
 File.ensureIndex("createdAt");
 
+const Capture = require('./capture');
 File.belongsTo(Capture, 'capture', 'captureID', 'id');

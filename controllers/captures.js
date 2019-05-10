@@ -35,18 +35,37 @@ module.exports = {
 
         const platformName = req.body.platformName;
 
+
         Experiment.find(groupName, projectName, sampleName, experimentName)
             .then(experiment => {
-                new Capture({
-                    experimentID: experiment.id,
-                    name: captureName,
-                    platformName: platformName
-                })
-                    .save()
-                    .then(savedCapture => {
-                        return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${experimentName}/${savedCapture.safeName}`)
+
+                if (req.body.id) {
+                    Capture.get(req.body.id)
+                        .then(capture => {
+                            capture.update({
+                                experimentID: experiment.id,
+                                name: captureName,
+                                platformName: platformName
+                            })
+                                .then(savedCapture => {
+                                    return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${experimentName}/${savedCapture.safeName}`)
+                                })
+                                .catch(err => renderError(res, err));
+                        })
+                } else {
+                    new Capture({
+                        experimentID: experiment.id,
+                        name: captureName,
+                        platformName: platformName
                     })
-                    .catch(err => renderError(res, err));
+                        .save()
+                        .then(savedCapture => {
+                            return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${experimentName}/${savedCapture.safeName}`)
+                        })
+                        .catch(err => renderError(res, err));
+                }
+
+
             })
             .catch(err => renderError(res, err));
 
