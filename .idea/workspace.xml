@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dfb55bf8-7fcc-4683-bb98-2658e8df8c25" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/captures.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/captures.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/experiments.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/experiments.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/projects.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/projects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/samples.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/samples.js" afterDir="false" />
-    </list>
+    <list default="true" id="dfb55bf8-7fcc-4683-bb98-2658e8df8c25" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,16 +20,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/projects.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="46" column="74" selection-start-line="46" selection-start-column="74" selection-end-line="46" selection-end-column="74" />
+            <state relative-caret-position="696">
+              <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/samples.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="779">
@@ -141,8 +136,8 @@
         <option value="$PROJECT_DIR$/views/samples/edit.ejs" />
         <option value="$PROJECT_DIR$/controllers/captures.js" />
         <option value="$PROJECT_DIR$/controllers/experiments.js" />
-        <option value="$PROJECT_DIR$/controllers/projects.js" />
         <option value="$PROJECT_DIR$/controllers/samples.js" />
+        <option value="$PROJECT_DIR$/controllers/projects.js" />
       </list>
     </option>
   </component>
@@ -682,17 +677,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/projects.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="46" column="74" selection-start-line="46" selection-start-column="74" selection-end-line="46" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/samples.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="779">
           <caret line="55" column="63" selection-start-line="55" selection-start-column="63" selection-end-line="55" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/projects.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
         </state>
       </provider>
     </entry>

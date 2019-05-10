@@ -47,7 +47,6 @@ module.exports = {
                                 project.longDescription = longDescription;
 
                                 project.save()
-                                    .save()
                                     .then(savedProject => {
                                         return res.redirect(`/browse/${groupName}/${savedProject.safeName}`)
                                     })
