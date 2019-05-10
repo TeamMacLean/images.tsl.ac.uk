@@ -96,7 +96,7 @@ Experiment.pre('save', function (next) {
                         if (err) {
                             bad(err);
                         } else {
-                            good()
+                            good(newName)
                         }
 
                     })
