@@ -40,14 +40,22 @@ module.exports = {
                     if (req.body.id) {
                         Sample.get(req.body.id)
                             .then(sample => {
-                                sample.update({
-                                    projectID: projectsFiltered[0].id,
-                                    name: sampleName,
-                                    protocol,
-                                    taxID,
-                                    scientificName,
-                                    commonName
-                                })
+                                // sample.update({
+                                //     projectID: projectsFiltered[0].id,
+                                //     name: sampleName,
+                                //     protocol,
+                                //     taxID,
+                                //     scientificName,
+                                //     commonName
+                                // })
+
+                                sample.name = sampleName;
+                                sample.protocol = protocol;
+                                sample.taxID = taxID;
+                                sample.scientificName = scientificName;
+                                sample.commonName = commonName;
+
+                                sample.save()
                                     .then(savedSample => {
                                         return res.redirect(`/browse/${groupName}/${projectName}/${savedSample.safeName}`)
                                     })

@@ -42,11 +42,9 @@ module.exports = {
                 if (req.body.id) {
                     Capture.get(req.body.id)
                         .then(capture => {
-                            capture.update({
-                                experimentID: experiment.id,
-                                name: captureName,
-                                platformName: platformName
-                            })
+                            capture.name = captureName;
+                            capture.platformName = platformName;
+                            capture.save()
                                 .then(savedCapture => {
                                     return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${experimentName}/${savedCapture.safeName}`)
                                 })

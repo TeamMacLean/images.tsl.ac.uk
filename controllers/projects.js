@@ -35,12 +35,18 @@ module.exports = {
                         Project.get(req.body.id)
                             .then(project => {
 
-                                project.update({
-                                    groupID: group.id,
-                                    name: projectName,
-                                    shortDescription: shortDescription,
-                                    longDescription: longDescription
-                                })
+                                // project.update({
+                                //     groupID: group.id,
+                                //     name: projectName,
+                                //     shortDescription: shortDescription,
+                                //     longDescription: longDescription
+                                // })
+
+                                project.name = projectName;
+                                project.shortDescription = shortDescription;
+                                project.longDescription = longDescription;
+
+                                project.save()
                                     .save()
                                     .then(savedProject => {
                                         return res.redirect(`/browse/${groupName}/${savedProject.safeName}`)

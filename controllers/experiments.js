@@ -38,9 +38,8 @@ module.exports = {
 
                     Experiment.get(req.body.id)
                         .then(experiment => {
-                            experiment.update({
-                                sampleID: sample.id, name: experimentName
-                            })
+                            experiment.name = experimentName;
+                            experiment.save()
                                 .then(savedExperiment => {
                                     return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
                                 })
