@@ -4,6 +4,8 @@ const r = thinky.r;
 const Util = require('../lib/util');
 const config = require('../config');
 
+const fs = require('fs');
+
 const Project = thinky.createModel('Project', {
     id: type.string(),
     groupID: type.string().required(),

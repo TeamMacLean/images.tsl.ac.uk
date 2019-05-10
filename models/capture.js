@@ -4,6 +4,8 @@ const r = thinky.r;
 const Util = require('../lib/util');
 const config = require('../config');
 
+const fs = require('fs');
+
 const Capture = thinky.createModel('Capture', {
     id: type.string(),
     experimentID: type.string().required(),
