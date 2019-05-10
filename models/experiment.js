@@ -62,14 +62,14 @@ Experiment.pre('save', function (next) {
         });
     };
 
-    const MakeDirectory = function () {
+    const MakeDirectory = function (newName) {
         return new Promise((good, bad) => {
             Sample.get(experiment.sampleID)
                 .getJoin({project: {group: true}})
                 .then(sample => {
                     Util.ensureDir(`${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${experiment.safeName}`)
                         .then(() => {
-                            good()
+                            good(newName)
                         })
                         .catch(err => {
                             console.error(err);
@@ -116,8 +116,12 @@ Experiment.pre('save', function (next) {
                     return MoveDirectory(self.safeName, newSafeName)
                 }
             } else {
-                return MakeDirectory()
+                return MakeDirectory(newSafeName)
             }
+        })
+        .then(newSafeName=>{
+            self.safeName = newSafeName;
+            next()
         })
         .then(next)
         .catch(err => next(err));

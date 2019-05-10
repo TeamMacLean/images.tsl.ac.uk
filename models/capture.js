@@ -70,14 +70,14 @@ Capture.pre('save', function (next) {
         });
     };
 
-    const MakeDirectory = function () {
+    const MakeDirectory = function (newName) {
         return new Promise((good, bad) => {
             Experiment.get(capture.experimentID)
                 .getJoin({sample: {project: {group: true}}})
                 .then(experiment => {
                     Util.ensureDir(`${config.rootPath}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}/${capture.safeName}`)
                         .then(() => {
-                            good()
+                            good(newName)
                         })
                         .catch(err => {
                             console.error(err);
@@ -102,7 +102,7 @@ Capture.pre('save', function (next) {
                         if (err) {
                             bad(err);
                         } else {
-                            good()
+                            good(newName)
                         }
 
                     })
@@ -115,10 +115,6 @@ Capture.pre('save', function (next) {
         })
     };
 
-    // GenerateSafeName()
-    //     .then(MakeDirectory)
-    //     .then(next)
-    //     .catch(err => next(err));
 
     const self = this;
     GenerateSafeName()
@@ -129,8 +125,12 @@ Capture.pre('save', function (next) {
                     return MoveDirectory(self.safeName, newSafeName)
                 }
             } else {
-                return MakeDirectory()
+                return MakeDirectory(newSafeName)
             }
+        })
+        .then(newSafeName => {
+            self.safeName = newSafeName;
+            next()
         })
         .then(next)
         .catch(err => next(err));

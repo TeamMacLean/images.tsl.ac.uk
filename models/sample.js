@@ -56,8 +56,8 @@ Sample.pre('save', function (next) {
                     .then(samples => {
                         Util.generateSafeName(sample.name, samples)
                             .then(safeName => {
-                                sample.safeName = safeName;
-                                return good();
+                                // sample.safeName = safeName;
+                                return good(safeName);
                             })
                     })
                     .catch(err => {
@@ -91,7 +91,7 @@ Sample.pre('save', function (next) {
         })
     };
 
-    const MakeDirectory = function () {
+    const MakeDirectory = function (newName) {
         return new Promise((good, bad) => {
 
             Project.get(sample.projectID)
@@ -99,7 +99,7 @@ Sample.pre('save', function (next) {
                 .then(project => {
                     Util.ensureDir(`${config.rootPath}/${project.group.safeName}/${project.safeName}/${sample.safeName}`)
                         .then(() => {
-                            return good()
+                            return good(newName)
                         })
                         .catch(err => {
                             console.error(err);
@@ -113,11 +113,6 @@ Sample.pre('save', function (next) {
         });
     };
 
-    // GenerateSafeName()
-    //     .then(MakeDirectory)
-    //     .then(next)
-    //     .catch(err => next(err));
-
     const self = this;
     GenerateSafeName()
         .then(newSafeName => {
@@ -127,10 +122,13 @@ Sample.pre('save', function (next) {
                     return MoveDirectory(self.safeName, newSafeName)
                 }
             } else {
-                return MakeDirectory()
+                return MakeDirectory(newSafeName)
             }
         })
-        .then(next)
+        .then(newSafeName => {
+            self.safeName = newSafeName;
+            next()
+        })
         .catch(err => next(err));
 
 });

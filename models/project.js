@@ -39,6 +39,8 @@ const Group = require('./group');
 const Sample = require('./sample');
 
 Project.pre('save', function (next) {
+
+
     const project = this;
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
@@ -49,8 +51,8 @@ Project.pre('save', function (next) {
                     .then(projects => {
                         Util.generateSafeName(project.name, projects)
                             .then(safeName => {
-                                project.safeName = safeName;
-                                return good();
+                                // project.safeName = safeName;
+                                return good(safeName);
                             })
                     })
                     .catch(err => {
@@ -83,13 +85,13 @@ Project.pre('save', function (next) {
         })
     };
 
-    const MakeDirectory = function () {
+    const MakeDirectory = function (newName) {
         return new Promise((good, bad) => {
             Group.get(project.groupID)
                 .then(group => {
                     Util.ensureDir(`${config.rootPath}/${group.safeName}/${project.safeName}`)
                         .then(() => {
-                            good()
+                            good(newName)
                         })
                         .catch(err => {
                             console.error(err);
@@ -103,11 +105,6 @@ Project.pre('save', function (next) {
         });
     };
 
-    // GenerateSafeName()
-    //     .then(MakeDirectory)
-    //     .then(next)
-    //     .catch(err => next(err));
-
     const self = this;
     GenerateSafeName()
         .then(newSafeName => {
@@ -117,8 +114,12 @@ Project.pre('save', function (next) {
                     return MoveDirectory(self.safeName, newSafeName)
                 }
             } else {
-                return MakeDirectory()
+                return MakeDirectory(newSafeName)
             }
+        })
+        .then(newSafeName=>{
+            self.safeName = newSafeName
+            next()
         })
         .then(next)
         .catch(err => next(err));
