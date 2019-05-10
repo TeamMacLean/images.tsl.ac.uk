@@ -59,8 +59,8 @@ Capture.pre('save', function (next) {
                     .then(captures => {
                         Util.generateSafeName(capture.name, captures)
                             .then(safeName => {
-                                capture.safeName = safeName;
-                                return good();
+                                // capture.safeName = safeName;
+                                return good(safeName);
                             })
                     })
                     .catch(err => {
@@ -91,8 +91,47 @@ Capture.pre('save', function (next) {
         });
     };
 
+    const MoveDirectory = function (oldName, newName) {
+        return new Promise((good, bad) => {
+            Experiment.get(capture.experimentID)
+                .getJoin({sample: {project: {group: true}}})
+                .then(experiment => {
+                    const oldFullPath = `${config.rootPath}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}/${oldName}`;
+                    const newFullPath = `${config.rootPath}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}/${newName}`;
+                    fs.rename(oldFullPath, newFullPath, function (err) {
+                        if (err) {
+                            bad(err);
+                        } else {
+                            good()
+                        }
+
+                    })
+
+                })
+                .catch(err => {
+                    console.error(err);
+                    bad(err);
+                })
+        })
+    };
+
+    // GenerateSafeName()
+    //     .then(MakeDirectory)
+    //     .then(next)
+    //     .catch(err => next(err));
+
+    const self = this;
     GenerateSafeName()
-        .then(MakeDirectory)
+        .then(newSafeName => {
+            if (self.safeName) {
+                if (self.safeName !== newSafeName) {
+                    //move
+                    return MoveDirectory(self.safeName, newSafeName)
+                }
+            } else {
+                return MakeDirectory()
+            }
+        })
         .then(next)
         .catch(err => next(err));
 

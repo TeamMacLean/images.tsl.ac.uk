@@ -60,11 +60,34 @@ Project.pre('save', function (next) {
         });
     };
 
+    const MoveDirectory = function (oldName, newName) {
+        return new Promise((good, bad) => {
+            Group.get(project.groupID)
+                .then(group => {
+                    const oldFullPath = `${config.rootPath}/${group.safeName}/${oldName}`;
+                    const newFullPath = `${config.rootPath}/${group.safeName}/${newName}`;
+                    fs.rename(oldFullPath, newFullPath, function (err) {
+                        if (err) {
+                            bad(err);
+                        } else {
+                            good()
+                        }
+
+                    })
+
+                })
+                .catch(err => {
+                    console.error(err);
+                    bad(err);
+                })
+        })
+    };
+
     const MakeDirectory = function () {
         return new Promise((good, bad) => {
             Group.get(project.groupID)
                 .then(group => {
-                    Util.ensureDir(config.rootPath + '/' + group.safeName + '/' + project.safeName)
+                    Util.ensureDir(`${config.rootPath}/${group.safeName}/${project.safeName}`)
                         .then(() => {
                             good()
                         })
@@ -80,11 +103,25 @@ Project.pre('save', function (next) {
         });
     };
 
+    // GenerateSafeName()
+    //     .then(MakeDirectory)
+    //     .then(next)
+    //     .catch(err => next(err));
+
+    const self = this;
     GenerateSafeName()
-        .then(MakeDirectory)
+        .then(newSafeName => {
+            if (self.safeName) {
+                if (self.safeName !== newSafeName) {
+                    //move
+                    return MoveDirectory(self.safeName, newSafeName)
+                }
+            } else {
+                return MakeDirectory()
+            }
+        })
         .then(next)
         .catch(err => next(err));
-
 });
 Project.ensureIndex("createdAt");
 

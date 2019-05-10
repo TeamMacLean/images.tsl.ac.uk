@@ -43,27 +43,27 @@ Experiment.pre('save', function (next) {
     const experiment = this;
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
-            if (experiment.safeName) {
-                return good();
-            } else {
-                Experiment.run()
-                    .then(experiments => {
-                        Util.generateSafeName(experiment.name, experiments)
-                            .then(safeName => {
-                                experiment.safeName = safeName;
-                                return good();
-                            })
-                    })
-                    .catch(err => {
-                        return bad(err);
-                    });
-            }
+            // if (experiment.safeName) {
+            //TODO move
+            // return good();
+            // } else {
+            Experiment.run()
+                .then(experiments => {
+                    Util.generateSafeName(experiment.name, experiments)
+                        .then(safeName => {
+                            // experiment.safeName = safeName;
+                            return good(safeName);
+                        })
+                })
+                .catch(err => {
+                    return bad(err);
+                });
+            // }
         });
     };
 
     const MakeDirectory = function () {
         return new Promise((good, bad) => {
-            console.log('exp', experiment);
             Sample.get(experiment.sampleID)
                 .getJoin({project: {group: true}})
                 .then(sample => {
@@ -83,8 +83,42 @@ Experiment.pre('save', function (next) {
         });
     };
 
+    const MoveDirectory = function (oldName, newName) {
+        return new Promise((good, bad) => {
+            Sample.get(experiment.sampleID)
+                .getJoin({project: {group: true}})
+                .then(sample => {
+                    const oldFullPath = `${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${oldName}`;
+                    const newFullPath = `${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${newName}`;
+                    fs.rename(oldFullPath, newFullPath, function (err) {
+                        if (err) {
+                            bad(err);
+                        } else {
+                            good()
+                        }
+
+                    })
+
+                })
+                .catch(err => {
+                    console.error(err);
+                    bad(err);
+                })
+        })
+    };
+
+    const self = this;
     GenerateSafeName()
-        .then(MakeDirectory)
+        .then(newSafeName => {
+            if (self.safeName) {
+                if (self.safeName !== newSafeName) {
+                    //move
+                    return MoveDirectory(self.safeName, newSafeName)
+                }
+            } else {
+                return MakeDirectory()
+            }
+        })
         .then(next)
         .catch(err => next(err));
 });

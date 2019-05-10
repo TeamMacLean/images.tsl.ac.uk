@@ -67,6 +67,30 @@ Sample.pre('save', function (next) {
         });
     };
 
+    const MoveDirectory = function (oldName, newName) {
+        return new Promise((good, bad) => {
+            Project.get(sample.projectID)
+                .getJoin({group: true})
+                .then(project => {
+                    const oldFullPath = `${config.rootPath}/${project.group.safeName}/${project.safeName}/${oldName}`;
+                    const newFullPath = `${config.rootPath}/${project.group.safeName}/${project.safeName}/${newName}`;
+                    fs.rename(oldFullPath, newFullPath, function (err) {
+                        if (err) {
+                            bad(err);
+                        } else {
+                            good()
+                        }
+
+                    })
+
+                })
+                .catch(err => {
+                    console.error(err);
+                    bad(err);
+                })
+        })
+    };
+
     const MakeDirectory = function () {
         return new Promise((good, bad) => {
 
@@ -89,8 +113,23 @@ Sample.pre('save', function (next) {
         });
     };
 
+    // GenerateSafeName()
+    //     .then(MakeDirectory)
+    //     .then(next)
+    //     .catch(err => next(err));
+
+    const self = this;
     GenerateSafeName()
-        .then(MakeDirectory)
+        .then(newSafeName => {
+            if (self.safeName) {
+                if (self.safeName !== newSafeName) {
+                    //move
+                    return MoveDirectory(self.safeName, newSafeName)
+                }
+            } else {
+                return MakeDirectory()
+            }
+        })
         .then(next)
         .catch(err => next(err));
 
