@@ -3,6 +3,8 @@ isEdit = false;
 if (typeof project !== 'undefined') {
     group = project.group;
     isEdit = true;
+} else {
+    project = {}
 }
 locals.breadcrumbs = [
     {name: 'Home', link: '/'},
