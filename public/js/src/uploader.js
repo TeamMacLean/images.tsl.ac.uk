@@ -43,11 +43,18 @@ const uploader = {
             console.log('successful files:', result.successful);
             console.log('failed files:', result.failed);
 
+            const successfulFileNames = result.successful.map(s => {
+                return s.name;
+            }).join(', ');
+            const failedFileNames = result.failed.map(s => {
+                return s.name;
+            }).join(', ');
 
             function displaySuccess() {
+
                 Swal.fire({
                         title: 'Good job!',
-                        text: '' + JSON.stringify(result.failed) + ' successfully uploaded',
+                        text: successfulFileNames + ' successfully uploaded',
                         type: 'success',
                         onAfterClose: function () {
                             location.reload();
@@ -60,9 +67,9 @@ const uploader = {
                 Swal.fire({
                     type: 'error',
                     title: 'Oops...',
-                    text: '' + JSON.stringify(result.failed) + ' failed to upload',
+                    text: failedFileNames + ' failed to upload',
                     onAfterClose: function () {
-                        if (result.successful) {
+                        if (result.successful.length) {
                             displaySuccess();
                         } else {
                             location.reload();
@@ -71,7 +78,7 @@ const uploader = {
                 })
             }
 
-            if (result.failed) {
+            if (result.failed.length) {
                 displayFailed(); //calls success after if available
             } else {
                 displaySuccess();
