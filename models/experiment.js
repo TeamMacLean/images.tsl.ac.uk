@@ -43,7 +43,7 @@ const Capture = require('./capture');
 
 Experiment.pre('save', function (next) {
     const experiment = this;
-    const OldSafeName = experiment.safeName
+    const OldSafeName = experiment.safeName;
 
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
@@ -99,7 +99,6 @@ Experiment.pre('save', function (next) {
                         }
 
                     })
-
                 })
                 .catch(err => {
                     console.error(err);
@@ -108,13 +107,11 @@ Experiment.pre('save', function (next) {
         })
     };
 
-    const self = this;
     GenerateSafeName()
         .then(newSafeName => {
             if (OldSafeName) {
-                if (self.safeName !== OldSafeName) {
-                    //move
-                    return MoveDirectory(self.safeName, newSafeName)
+                if (experiment.safeName !== OldSafeName) {
+                    return MoveDirectory(experiment.safeName, newSafeName)
                 } else {
                     next();
                 }

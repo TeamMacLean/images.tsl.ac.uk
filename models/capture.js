@@ -52,8 +52,7 @@ const File = require('./file');
 
 Capture.pre('save', function (next) {
     const capture = this;
-    const OldSafeName = capture.safeName.toString();
-
+    const OldSafeName = capture.safeName
 
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
@@ -110,9 +109,7 @@ Capture.pre('save', function (next) {
                         } else {
                             good()
                         }
-
                     })
-
                 })
                 .catch(err => {
                     console.error(err);
@@ -125,8 +122,7 @@ Capture.pre('save', function (next) {
     GenerateSafeName()
         .then(() => {
             if (OldSafeName) {
-                if (self.safeName !== OldSafeName) {
-                    //move
+                if (capture.safeName !== OldSafeName) {
                     return MoveDirectory(OldSafeName, capture.safeName)
                 } else {
                     next();

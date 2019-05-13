@@ -85,9 +85,7 @@ Sample.pre('save', function (next) {
                         } else {
                             good(newName)
                         }
-
                     })
-
                 })
                 .catch(err => {
                     console.error(err);
@@ -118,12 +116,10 @@ Sample.pre('save', function (next) {
         });
     };
 
-    const self = this;
     GenerateSafeName()
         .then(() => {
-            if (OldSafeName) {
-                if (self.safeName !== OldSafeName) {
-                    //move
+            if (sample) {
+                if (sample.safeName !== OldSafeName) {
                     return MoveDirectory(OldSafeName, sample.safeName)
                 } else {
                     next();

@@ -42,9 +42,10 @@ const Sample = require('./sample');
 
 Project.pre('save', function (next) {
     const project = this;
-    const OldSafeName = String(project.safeName);
+    const OldSafeName = project.safeName;
 
     const GenerateSafeName = function () {
+        console.log(project);
         return new Promise((good, bad) => {
             if (project.safeName) {
                 return good();
@@ -77,9 +78,7 @@ Project.pre('save', function (next) {
                         } else {
                             good(newName)
                         }
-
                     })
-
                 })
                 .catch(err => {
                     console.error(err);
@@ -108,14 +107,11 @@ Project.pre('save', function (next) {
         });
     };
 
-    const self = this;
     GenerateSafeName()
         .then(() => {
-            console.log(OldSafeName, project.safeName, this.safeName);
+            console.log(OldSafeName, project.safeName);
             if (OldSafeName) {
-                if (self.safeName !== OldSafeName) {
-
-                    //move
+                if (project.safeName !== OldSafeName) {
                     return MoveDirectory(OldSafeName, project.safeName)
                 } else {
                     next();
