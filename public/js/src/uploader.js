@@ -2,6 +2,7 @@ import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import Tus from '@uppy/tus';
 import ThumbnailGenerator from '@uppy/thumbnail-generator';
+import Swal from 'sweetalert2'
 
 const uploader = {
     init: function (inputSelector, captureID) {
@@ -42,12 +43,40 @@ const uploader = {
             console.log('successful files:', result.successful);
             console.log('failed files:', result.failed);
 
-            //TODO notify of success
-            //TODO notify of error
 
-            //TODO don't reload until user confirms notification
+            function displaySuccess() {
+                Swal.fire({
+                        title: 'Good job!',
+                        text: 'You clicked the button!',
+                        type: 'success',
+                        onAfterClose: function () {
+                            location.reload();
+                        }
+                    }
+                )
+            }
 
-            location.reload();
+            function displayFailed() {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: '' + result.failed + ' failed to upload',
+                    onAfterClose: function () {
+                        if (result.successful) {
+                            displaySuccess();
+                        } else {
+                            location.reload();
+                        }
+                    }
+                })
+            }
+
+            if (result.failed) {
+                displayFailed(); //calls success after if available
+            } else {
+                displaySuccess();
+            }
+
         });
     }
 };
