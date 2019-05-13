@@ -52,26 +52,22 @@ const File = require('./file');
 
 Capture.pre('save', function (next) {
     const capture = this;
-    const OldSafeName = capture.safeName
+    const OldSafeName = capture.safeName;
 
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
-            if (capture.safeName) {
-                return good();
-            } else {
-                Capture.run()
-                    .then(captures => {
-                        captures = captures.filter(a => a.id !== capture.id);
-                        Util.generateSafeName(capture.name, captures)
-                            .then(safeName => {
-                                capture.safeName = safeName;
-                                return good();
-                            })
-                    })
-                    .catch(err => {
-                        return bad(err);
-                    });
-            }
+            Capture.run()
+                .then(captures => {
+                    captures = captures.filter(a => a.id !== capture.id);
+                    Util.generateSafeName(capture.name, captures)
+                        .then(safeName => {
+                            capture.safeName = safeName;
+                            return good();
+                        })
+                })
+                .catch(err => {
+                    return bad(err);
+                });
         });
     };
 
