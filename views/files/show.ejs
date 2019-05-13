@@ -38,6 +38,12 @@
                     <label class="label">Description</label>
                     <p><%- file.description %></p>
                 <% } %>
+
+                <hr/>
+                <div class="content">
+                    <a class="button is-link"
+                       href="/browse/<%- file.capture.experiment.sample.project.group.safeName %>/<%- file.capture.experiment.sample.project.safeName %>/<%- file.capture.experiment.sample.safeName %>/<%- file.capture.experiment.safeName %>/<%- file.capture.safeName %>/<%- file.name %>/download">Download</a>
+                </div>
             </div>
         </div>
 
