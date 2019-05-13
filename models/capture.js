@@ -121,7 +121,7 @@ Capture.pre('save', function (next) {
 
     GenerateSafeName()
         .then(() => {
-            if (OldSafeName) {
+            if (typeof OldSafeName !== 'undefined') {
                 if (capture.safeName !== OldSafeName) {
                     return MoveDirectory(OldSafeName, capture.safeName)
                 } else {

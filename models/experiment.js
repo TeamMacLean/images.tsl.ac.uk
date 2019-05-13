@@ -109,7 +109,7 @@ Experiment.pre('save', function (next) {
 
     GenerateSafeName()
         .then(newSafeName => {
-            if (OldSafeName) {
+            if (typeof OldSafeName !== 'undefined') {
                 if (experiment.safeName !== OldSafeName) {
                     return MoveDirectory(experiment.safeName, newSafeName)
                 } else {
