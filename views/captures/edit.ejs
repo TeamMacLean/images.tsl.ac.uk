@@ -36,7 +36,7 @@ locals.breadcrumbs = [
         <form method="post"
               action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">
 
-            <input type="hidden" name="id" value="<%- capture.id %>" class="is-hidden">
+            <input type="hidden" name="id" value="<%- isEdit ? capture.id : '' %>" class="is-hidden">
 
             <div class="columns">
                 <div class="column is-6">
