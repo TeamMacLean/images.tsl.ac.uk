@@ -8,7 +8,7 @@ const passport = require('passport');
 const LdapStrategy = require('passport-ldapauth');
 const config = require('./config');
 
-const uploadFile = require('./lib/uploadFIle');
+const uploadFile = require('./lib/uploadFile');
 
 const session = require('express-session');
 const rethinkSession = require('session-rethinkdb')(session);

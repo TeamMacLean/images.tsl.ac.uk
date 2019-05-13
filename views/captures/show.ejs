@@ -70,6 +70,8 @@
                                     <div class="tags has-addons">
                                         <span class="tag">Type</span>
                                         <span class="tag is-primary"><%- file.type %></span>
+                                        <span class="tag">Ext</span>
+                                        <span class="tag is-primary"><%- file.extention() %></span>
                                     </div>
                                     <% if(file.description){ %>
                                         <p><%- file.description %></p>

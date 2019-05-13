@@ -62,6 +62,11 @@ File.define('getPath', function () {
     })
 });
 
+File.define('extention', function () {
+    const file = this;
+    return path.extname(file);
+});
+
 File.define('parsedName', function () {
     return path.parse(this.originalName).name;
 });
