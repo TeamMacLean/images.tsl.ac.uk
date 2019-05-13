@@ -124,7 +124,9 @@ Sample.pre('save', function (next) {
                 return MakeDirectory()
             }
         })
-        .then(next)
+        .then(function () {
+            return next();
+        })
         .catch(err => next(err));
 
 });

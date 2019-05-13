@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfb55bf8-7fcc-4683-bb98-2658e8df8c25" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/models/experiment.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/experiment.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/project.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/sample.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/sample.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,26 +18,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/experiment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1543">
-              <caret line="113" column="26" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
+            <state relative-caret-position="1060">
+              <caret line="123" column="10" selection-start-line="123" selection-start-column="10" selection-end-line="123" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/capture.js">
+        <entry file="file://$PROJECT_DIR$/models/file.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1150">
-              <caret line="112" selection-start-line="112" selection-end-line="112" />
+            <state relative-caret-position="737">
+              <caret line="70" selection-start-line="70" selection-end-line="70" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/capture.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1045">
+              <caret line="135" column="10" selection-start-line="135" selection-start-column="10" selection-end-line="135" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/project.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1007">
-              <caret line="111" column="43" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
+            <state relative-caret-position="1032">
+              <caret line="118" column="10" lean-forward="true" selection-start-line="116" selection-start-column="8" selection-end-line="118" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -43,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/sample.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="93" column="37" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="37" />
+            <state relative-caret-position="1032">
+              <caret line="128" column="10" selection-start-line="128" selection-start-column="10" selection-end-line="128" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -53,7 +64,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Project</find>
       <find>sampleID</find>
       <find>experi</find>
       <find>project</find>
@@ -81,8 +91,9 @@
       <find>newName</find>
       <find>OldSafeName</find>
       <find>GenerateSafeName</find>
-      <find>bad</find>
       <find>safeName</find>
+      <find>next</find>
+      <find>bad</find>
     </findStrings>
     <replaceStrings>
       <replace>Experiment</replace>
@@ -145,10 +156,10 @@
         <option value="$PROJECT_DIR$/controllers/experiments.js" />
         <option value="$PROJECT_DIR$/controllers/samples.js" />
         <option value="$PROJECT_DIR$/controllers/projects.js" />
+        <option value="$PROJECT_DIR$/models/project.js" />
+        <option value="$PROJECT_DIR$/models/sample.js" />
         <option value="$PROJECT_DIR$/models/experiment.js" />
         <option value="$PROJECT_DIR$/models/capture.js" />
-        <option value="$PROJECT_DIR$/models/sample.js" />
-        <option value="$PROJECT_DIR$/models/project.js" />
       </list>
     </option>
   </component>
@@ -667,38 +678,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/file.js">
+    <entry file="file://$PROJECT_DIR$/models/project.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="715">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/capture.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1150">
-          <caret line="112" selection-start-line="112" selection-end-line="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/experiment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1543">
-          <caret line="113" column="26" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
+        <state relative-caret-position="1032">
+          <caret line="118" column="10" lean-forward="true" selection-start-line="116" selection-start-column="8" selection-end-line="118" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/sample.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="93" column="37" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="37" />
+        <state relative-caret-position="1032">
+          <caret line="128" column="10" selection-start-line="128" selection-start-column="10" selection-end-line="128" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/project.js">
+    <entry file="file://$PROJECT_DIR$/models/file.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1007">
-          <caret line="111" column="43" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
+        <state relative-caret-position="737">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/experiment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1060">
+          <caret line="123" column="10" selection-start-line="123" selection-start-column="10" selection-end-line="123" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/capture.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="135" column="10" selection-start-line="135" selection-start-column="10" selection-end-line="135" selection-end-column="10" />
         </state>
       </provider>
     </entry>

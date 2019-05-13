@@ -104,7 +104,6 @@ Project.pre('save', function (next) {
 
     GenerateSafeName()
         .then(() => {
-            console.log(OldSafeName, project.safeName);
             if (OldSafeName) {
                 if (project.safeName !== OldSafeName) {
                     return MoveDirectory(OldSafeName, project.safeName)
@@ -115,7 +114,9 @@ Project.pre('save', function (next) {
                 return MakeDirectory()
             }
         })
-        .then(next)
+        .then(function () {
+            return next();
+        })
         .catch((err) => {
             console.error('error', err);
             next(err);
