@@ -109,7 +109,7 @@ Project.pre('save', function (next) {
                 if (project.safeName !== OldSafeName) {
                     return MoveDirectory(OldSafeName, project.safeName)
                 } else {
-                    next();
+                    return Promise.resolve();
                 }
             } else {
                 return MakeDirectory()
