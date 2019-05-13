@@ -83,9 +83,8 @@ File.pre('save', function (next) {
     file.MD5 = hash.read().toString('hex');
 
     file.getPath()
-        .then(path => {
-            //TODO move to new path
-            Util.move(oldPath, path)
+        .then(filePath => {
+            Util.move(oldPath, filePath)
                 .then(() => {
                     postUpload.notify(file);
                     next();
