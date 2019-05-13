@@ -43,7 +43,7 @@ const Capture = require('./capture');
 
 Experiment.pre('save', function (next) {
     const experiment = this;
-    const OldSafeName = experiment.safeName.toString();
+    const OldSafeName = experiment.safeName
 
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {

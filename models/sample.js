@@ -49,7 +49,7 @@ const Experiment = require('./experiment');
 
 Sample.pre('save', function (next) {
     const sample = this;
-    const OldSafeName = sample.safeName.toString();
+    const OldSafeName = sample.safeName
 
 
     const GenerateSafeName = function () {
