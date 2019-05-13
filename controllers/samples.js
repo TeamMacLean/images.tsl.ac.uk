@@ -7,9 +7,11 @@ module.exports = {
         const projectName = req.params.project;
         const groupName = req.params.group;
 
-        Project.filter({safeName: projectName})
-            .getJoin({group: true})
-            .run()
+        Project.find(groupName, projectName)
+
+        // Project.filter({safeName: projectName})
+        //     .getJoin({group: true})
+        //     .run()
             .then(projects => {
                 const projectsFiltered = projects.filter(p => p.group.safeName === groupName);
                 if (projectsFiltered && projectsFiltered.length) {
