@@ -113,6 +113,9 @@ Project.pre('save', function (next) {
         .then(() => {
             if (OldSafeName) {
                 if (self.safeName !== OldSafeName) {
+
+                    console.log(OldSafeName, safeName);
+
                     //move
                     return MoveDirectory(OldSafeName, this.safeName)
                 } else {
