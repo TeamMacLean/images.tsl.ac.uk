@@ -88,13 +88,13 @@ Project.pre('save', function (next) {
         })
     };
 
-    const MakeDirectory = function (newName) {
+    const MakeDirectory = function () {
         return new Promise((good, bad) => {
             Group.get(project.groupID)
                 .then(group => {
                     Util.ensureDir(`${config.rootPath}/${group.safeName}/${project.safeName}`)
                         .then(() => {
-                            good(newName)
+                            good()
                         })
                         .catch(err => {
                             console.error(err);
@@ -111,17 +111,17 @@ Project.pre('save', function (next) {
     const self = this;
     GenerateSafeName()
         .then(() => {
-            console.log(OldSafeName, safeName);
+            console.log(OldSafeName, project.safeName, this.safeName);
             if (OldSafeName) {
                 if (self.safeName !== OldSafeName) {
 
                     //move
-                    return MoveDirectory(OldSafeName, this.safeName)
+                    return MoveDirectory(OldSafeName, project.safeName)
                 } else {
                     next();
                 }
             } else {
-                return MakeDirectory(this.safeName)
+                return MakeDirectory()
             }
         })
         .then(next)
