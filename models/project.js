@@ -45,24 +45,19 @@ Project.pre('save', function (next) {
     const OldSafeName = project.safeName;
 
     const GenerateSafeName = function () {
-        console.log(project);
         return new Promise((good, bad) => {
-            if (project.safeName) {
-                return good();
-            } else {
-                Project.run()
-                    .then(projects => {
-                        projects = projects.filter(a => a.id !== project.id);
-                        Util.generateSafeName(project.name, projects)
-                            .then(safeName => {
-                                project.safeName = safeName;
-                                return good(safeName);
-                            })
-                    })
-                    .catch(err => {
-                        return bad(err);
-                    });
-            }
+            Project.run()
+                .then(projects => {
+                    projects = projects.filter(a => a.id !== project.id);
+                    Util.generateSafeName(project.name, projects)
+                        .then(safeName => {
+                            project.safeName = safeName;
+                            return good(safeName);
+                        })
+                })
+                .catch(err => {
+                    return bad(err);
+                });
         });
     };
 

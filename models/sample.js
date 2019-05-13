@@ -53,22 +53,18 @@ Sample.pre('save', function (next) {
 
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
-            if (sample.safeName) {
-                return good();
-            } else {
-                Sample.run()
-                    .then(samples => {
-                        samples = samples.filter(a => a.id !== sample.id);
-                        Util.generateSafeName(sample.name, samples)
-                            .then(safeName => {
-                                sample.safeName = safeName;
-                                return good(safeName);
-                            })
-                    })
-                    .catch(err => {
-                        return bad(err);
-                    });
-            }
+            Sample.run()
+                .then(samples => {
+                    samples = samples.filter(a => a.id !== sample.id);
+                    Util.generateSafeName(sample.name, samples)
+                        .then(safeName => {
+                            sample.safeName = safeName;
+                            return good(safeName);
+                        })
+                })
+                .catch(err => {
+                    return bad(err);
+                });
         });
     };
 
