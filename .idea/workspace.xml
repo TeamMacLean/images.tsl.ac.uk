@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfb55bf8-7fcc-4683-bb98-2658e8df8c25" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/models/experiment.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/experiment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/project.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/sample.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/sample.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -36,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/sample.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="880">
-              <caret line="123" column="21" lean-forward="true" selection-start-line="123" selection-start-column="21" selection-end-line="123" selection-end-column="21" />
+            <state relative-caret-position="500">
+              <caret line="53" column="36" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -699,8 +697,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/sample.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="123" column="21" lean-forward="true" selection-start-line="123" selection-start-column="21" selection-end-line="123" selection-end-column="21" />
+        <state relative-caret-position="500">
+          <caret line="53" column="36" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
         </state>
       </provider>
     </entry>
