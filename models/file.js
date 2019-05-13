@@ -64,7 +64,7 @@ File.define('getPath', function () {
 
 File.define('extention', function () {
     const file = this;
-    return path.extname(file);
+    return path.extname(file.originalName);
 });
 
 File.define('parsedName', function () {
