@@ -67,12 +67,24 @@
                                             <%- file.parsedName() %>
                                         </a>
                                     </p>
-                                    <div class="tags has-addons">
-                                        <span class="tag">Type</span>
-                                        <span class="tag is-primary"><%- file.type %></span>
-                                        <span class="tag">Ext</span>
-                                        <span class="tag is-primary"><%- file.extention() %></span>
+
+                                    <div class="field is-grouped is-grouped-multiline">
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag is-dark">type</span>
+                                                <span class="tag is-info"><%- file.type %></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag is-dark">ext</span>
+                                                <span class="tag is-success"><%- file.extention() %></span>
+                                            </div>
+                                        </div>
+
                                     </div>
+
                                     <% if(file.description){ %>
                                         <p><%- file.description %></p>
                                     <% } %>
