@@ -1,6 +1,6 @@
 <%
 isEdit = false;
-if (typeof capture !== 'undefined') {
+if (typeof capture !== 'undefined' && typeof capture.experiment !== 'undefined') {
     experiment = capture.experiment;
     isEdit = true;
 } else {

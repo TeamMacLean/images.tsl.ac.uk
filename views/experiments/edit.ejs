@@ -1,6 +1,6 @@
 <%
 isEdit = false;
-if (typeof experiment !== 'undefined') {
+if (typeof experiment !== 'undefined' && typeof experiment.sample !== 'undefined') {
     sample = experiment.sample;
     isEdit = true;
 } else {

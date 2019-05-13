@@ -1,6 +1,6 @@
 <%
 isEdit = false;
-if (typeof project !== 'undefined') {
+if (typeof project !== 'undefined' && typeof project.group !== 'undefined') {
     group = project.group;
     isEdit = true;
 } else {
@@ -11,6 +11,7 @@ locals.breadcrumbs = [
     {name: group.name, link: `/browse/${group.safeName}`},
     {name: 'New Project', active: true}
 ];
+
 %>
 <% include ../head.ejs %>
 
