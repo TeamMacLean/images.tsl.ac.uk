@@ -42,7 +42,7 @@ const Sample = require('./sample');
 
 Project.pre('save', function (next) {
     const project = this;
-    const OldSafeName = project.safeName;
+    const OldSafeName = String(project.safeName);
 
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
