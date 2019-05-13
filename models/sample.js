@@ -51,9 +51,6 @@ Sample.pre('save', function (next) {
     const sample = this;
     const OldSafeName = sample.safeName;
 
-    console.log('old', OldSafeName);
-
-
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
             if (sample.safeName) {
