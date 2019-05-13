@@ -116,7 +116,10 @@ Project.pre('save', function (next) {
             }
         })
         .then(next)
-        .catch(err => next(err));
+        .catch((err) => {
+            console.error('error', err);
+            next(err);
+        });
 });
 Project.ensureIndex("createdAt");
 
