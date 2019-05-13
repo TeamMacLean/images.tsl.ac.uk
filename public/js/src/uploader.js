@@ -47,7 +47,7 @@ const uploader = {
             function displaySuccess() {
                 Swal.fire({
                         title: 'Good job!',
-                        text: 'You clicked the button!',
+                        text: '' + JSON.stringify(result.failed) + ' successfully uploaded',
                         type: 'success',
                         onAfterClose: function () {
                             location.reload();
@@ -60,7 +60,7 @@ const uploader = {
                 Swal.fire({
                     type: 'error',
                     title: 'Oops...',
-                    text: '' + result.failed + ' failed to upload',
+                    text: '' + JSON.stringify(result.failed) + ' failed to upload',
                     onAfterClose: function () {
                         if (result.successful) {
                             displaySuccess();
