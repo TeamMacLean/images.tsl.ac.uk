@@ -54,7 +54,7 @@ Project.pre('save', function (next) {
                         projects = projects.filter(a => a.id !== project.id);
                         Util.generateSafeName(project.name, projects)
                             .then(safeName => {
-                                // project.safeName = safeName;
+                                project.safeName = safeName;
                                 return good(safeName);
                             })
                     })

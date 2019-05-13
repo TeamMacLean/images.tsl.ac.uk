@@ -52,7 +52,7 @@ Experiment.pre('save', function (next) {
                     experiments = experiments.filter(a => a.id !== experiment.id);
                     Util.generateSafeName(experiment.name, experiments)
                         .then(safeName => {
-                            // experiment.safeName = safeName;
+                            experiment.safeName = safeName;
                             return good(safeName);
                         })
                 })
