@@ -49,6 +49,9 @@ const Experiment = require('./experiment');
 
 Sample.pre('save', function (next) {
     const sample = this;
+    const OldSafeName = sample.safeName.toString();
+
+
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
             if (sample.safeName) {
@@ -56,9 +59,10 @@ Sample.pre('save', function (next) {
             } else {
                 Sample.run()
                     .then(samples => {
+                        samples = samples.filter(a => a.id !== sample.id);
                         Util.generateSafeName(sample.name, samples)
                             .then(safeName => {
-                                // sample.safeName = safeName;
+                                sample.safeName = safeName;
                                 return good(safeName);
                             })
                     })
@@ -117,20 +121,19 @@ Sample.pre('save', function (next) {
 
     const self = this;
     GenerateSafeName()
-        .then(newSafeName => {
-            if (self.safeName) {
-                if (self.safeName !== newSafeName) {
+        .then(() => {
+            if (OldSafeName) {
+                if (self.safeName !== OldSafeName) {
                     //move
-                    return MoveDirectory(self.safeName, newSafeName)
+                    return MoveDirectory(OldSafeName, this.safeName)
+                } else {
+                    next();
                 }
             } else {
-                return MakeDirectory(newSafeName)
+                return MakeDirectory(this.safeName)
             }
         })
-        .then(newSafeName => {
-            self.safeName = newSafeName;
-            next()
-        })
+        .then(next)
         .catch(err => next(err));
 
 });

@@ -46,12 +46,15 @@ Capture.defineStatic('find', function (groupName, projectName, sampleName, exper
     })
 });
 
-const Sample = require('./sample');
+// const Sample = require('./sample');
 const Experiment = require('./experiment');
 const File = require('./file');
 
 Capture.pre('save', function (next) {
     const capture = this;
+    const OldSafeName = capture.safeName.toString();
+
+
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
             if (capture.safeName) {
@@ -59,10 +62,11 @@ Capture.pre('save', function (next) {
             } else {
                 Capture.run()
                     .then(captures => {
+                        captures = captures.filter(a => a.id !== capture.id);
                         Util.generateSafeName(capture.name, captures)
                             .then(safeName => {
-                                // capture.safeName = safeName;
-                                return good(safeName);
+                                capture.safeName = safeName;
+                                return good();
                             })
                     })
                     .catch(err => {
@@ -72,14 +76,14 @@ Capture.pre('save', function (next) {
         });
     };
 
-    const MakeDirectory = function (newName) {
+    const MakeDirectory = function () {
         return new Promise((good, bad) => {
             Experiment.get(capture.experimentID)
                 .getJoin({sample: {project: {group: true}}})
                 .then(experiment => {
                     Util.ensureDir(`${config.rootPath}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}/${capture.safeName}`)
                         .then(() => {
-                            good(newName)
+                            good()
                         })
                         .catch(err => {
                             console.error(err);
@@ -104,7 +108,7 @@ Capture.pre('save', function (next) {
                         if (err) {
                             bad(err);
                         } else {
-                            good(newName)
+                            good()
                         }
 
                     })
@@ -118,21 +122,18 @@ Capture.pre('save', function (next) {
     };
 
 
-    const self = this;
     GenerateSafeName()
-        .then(newSafeName => {
-            if (self.safeName) {
-                if (self.safeName !== newSafeName) {
+        .then(() => {
+            if (OldSafeName) {
+                if (self.safeName !== OldSafeName) {
                     //move
-                    return MoveDirectory(self.safeName, newSafeName)
+                    return MoveDirectory(OldSafeName, capture.safeName)
+                } else {
+                    next();
                 }
             } else {
-                return MakeDirectory(newSafeName)
+                return MakeDirectory()
             }
-        })
-        .then(newSafeName => {
-            self.safeName = newSafeName;
-            next()
         })
         .then(next)
         .catch(err => next(err));

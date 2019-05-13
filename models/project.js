@@ -41,9 +41,9 @@ const Group = require('./group');
 const Sample = require('./sample');
 
 Project.pre('save', function (next) {
-
-
     const project = this;
+    const OldSafeName = project.safeName.toString();
+
     const GenerateSafeName = function () {
         return new Promise((good, bad) => {
             if (project.safeName) {
@@ -51,6 +51,7 @@ Project.pre('save', function (next) {
             } else {
                 Project.run()
                     .then(projects => {
+                        projects = projects.filter(a => a.id !== project.id);
                         Util.generateSafeName(project.name, projects)
                             .then(safeName => {
                                 // project.safeName = safeName;
@@ -109,19 +110,17 @@ Project.pre('save', function (next) {
 
     const self = this;
     GenerateSafeName()
-        .then(newSafeName => {
-            if (self.safeName) {
-                if (self.safeName !== newSafeName) {
+        .then(() => {
+            if (OldSafeName) {
+                if (self.safeName !== OldSafeName) {
                     //move
-                    return MoveDirectory(self.safeName, newSafeName)
+                    return MoveDirectory(OldSafeName, this.safeName)
+                } else {
+                    next();
                 }
             } else {
-                return MakeDirectory(newSafeName)
+                return MakeDirectory(this.safeName)
             }
-        })
-        .then(newSafeName=>{
-            self.safeName = newSafeName
-            next()
         })
         .then(next)
         .catch(err => next(err));
