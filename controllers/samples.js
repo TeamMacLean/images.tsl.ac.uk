@@ -12,10 +12,9 @@ module.exports = {
         // Project.filter({safeName: projectName})
         //     .getJoin({group: true})
         //     .run()
-            .then(projects => {
-                const projectsFiltered = projects.filter(p => p.group.safeName === groupName);
-                if (projectsFiltered && projectsFiltered.length) {
-                    return res.render('samples/edit', {project: projects[0]});
+            .then(project => {
+                if (project) {
+                    return res.render('samples/edit', {project: project});
                 } else {
                     return next();
                 }
