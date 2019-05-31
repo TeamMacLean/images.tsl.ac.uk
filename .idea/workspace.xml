@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfb55bf8-7fcc-4683-bb98-2658e8df8c25" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/public/style/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/captures/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/captures/edit.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/experiments/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/experiments/edit.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/images_data_model.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/help/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/help/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/projects/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/projects/edit.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/samples/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/samples/edit.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,8 +26,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/help/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1090">
-              <caret line="77" column="60" selection-start-line="77" selection-start-column="60" selection-end-line="77" selection-end-column="60" />
+            <state relative-caret-position="1105">
+              <caret line="79" column="119" selection-start-line="79" selection-start-column="119" selection-end-line="79" selection-end-column="119" />
             </state>
           </provider>
         </entry>
@@ -203,6 +199,12 @@
               <item name="images.tsl.ac.uk" type="b2602c69:ProjectViewProjectNode" />
               <item name="images.tsl.ac.uk" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="images.tsl.ac.uk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="images.tsl.ac.uk" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -258,6 +260,7 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="SearchEverywhereHistoryKey" value="foot&#9;FILE&#9;file:///Users/pagem/Documents/workspace/imageHog/views/foot.ejs&#10;head&#9;FILE&#9;file:///Users/pagem/Documents/workspace/imageHog/views/head.ejs&#10;st&#9;FILE&#9;file:///Users/pagem/Documents/workspace/imageHog/public/style/style.scss&#10;sty&#9;FILE&#9;file:///Users/pagem/Documents/workspace/imageHog/public/style/style.scss&#10;style&#9;FILE&#9;file:///Users/pagem/Documents/workspace/imageHog/public/style/style.scss" />
     <property name="add_unversioned_files" value="true" />
+    <property name="editor.config.ad.shown" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.11.0" />
@@ -272,19 +275,19 @@
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/img" />
+      <recent name="$PROJECT_DIR$/controllers" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/views" />
+      <recent name="$PROJECT_DIR$/models" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/js/dist" />
       <recent name="$PROJECT_DIR$/public/img/groups" />
       <recent name="$PROJECT_DIR$/public/style" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/public/img" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/controllers" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/views" />
-      <recent name="$PROJECT_DIR$/models" />
-      <recent name="$PROJECT_DIR$/views/auth" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -712,8 +715,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/help/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1090">
-          <caret line="77" column="60" selection-start-line="77" selection-start-column="60" selection-end-line="77" selection-end-column="60" />
+        <state relative-caret-position="1105">
+          <caret line="79" column="119" selection-start-line="79" selection-start-column="119" selection-end-line="79" selection-end-column="119" />
         </state>
       </provider>
     </entry>
