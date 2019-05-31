@@ -30,8 +30,16 @@ locals.breadcrumbs = [
 <section class="section">
     <div class="container">
 
+        <% if(isEdit){ %>
+            <h1 class="title has-text-centered">Edit: <%- capture.name %></h1>
+        <% } else { %>
+            <h1 class="title has-text-centered">New Capture</h1>
+        <% } %>
 
-        <h1 class="title has-text-centered">New Capture</h1>
+        <p class="subtitle">A `Capture` is the simplest heading. This is really the images themselves, and most
+            Experiments would have one capture. If multiple captures are present, then they would likely be technically
+            identical, even if they are different images. The experimental variables should be identical for all images
+            in the same capture.</p>
 
         <form method="post"
               action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">

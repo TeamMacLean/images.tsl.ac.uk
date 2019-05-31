@@ -26,6 +26,10 @@ locals.breadcrumbs = [
             <h1 class="title has-text-centered">New Sample</h1>
         <% } %>
 
+            <p class="subtitle">
+                A `Sample` is a rough heading that is meant to capture the basic biological variables and material of your image. Here we're looking at things like tissue, organelle or growth conditon. You'll be explicitly asked for the organism name and  NCBI Taxonomy ID to uniquely identify the main organism in the image, you can look it up at NCBI here https://www.ncbi.nlm.nih.gov/taxonomy . Some times it won't be clear exactly what should be in `Sample` and the next layer `Experiment`. The `Sample` should contain many `Experiments` so use this one to capture the rough aspects that aren't changing.
+            </p>
+
         <form method="post" action="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new">
             <input type="hidden" name="id" value="<%- isEdit ? sample.id : '' %>" class="is-hidden">
 

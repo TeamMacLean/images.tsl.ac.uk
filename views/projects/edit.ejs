@@ -11,7 +11,6 @@ locals.breadcrumbs = [
     {name: group.name, link: `/browse/${group.safeName}`},
     {name: 'New Project', active: true}
 ];
-
 %>
 <% include ../head.ejs %>
 
@@ -23,6 +22,12 @@ locals.breadcrumbs = [
         <% } else { %>
             <h1 class="title has-text-centered">New Project</h1>
         <% } %>
+
+            <p class="subtitle">A `Project` is pretty much equivalent to a research theme within your <span class="underline">group</span>. This is the
+            biggest umbrella group and many researchers will contribute to a single project. Although you may use the
+            word project to refer to one part of your PhD or post-doc, that's not how we're using it here. We mean
+            something more at the group level. It shouldn't take too many words to come up with a project name. If there
+            are existing projects in the database, see whether you can add to one rather than creating a new one.</p>
 
         <form method="post" action="/browse/<%- group.safeName %>/new">
             <input type="hidden" name="id" value="<%- isEdit ? project.id : '' %>" class="is-hidden">
