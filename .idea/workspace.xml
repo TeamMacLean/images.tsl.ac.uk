@@ -25,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/help/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+            <state relative-caret-position="420">
+              <caret line="28" column="11" lean-forward="true" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -53,8 +53,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rootPa</find>
-      <find>uppy</find>
       <find>cryptiles</find>
       <find>tus</find>
       <find>node-thumbnail</find>
@@ -83,10 +81,13 @@
       <find>uploadFile</find>
       <find>path</find>
       <find>capture</find>
+      <find>`</find>
+      <find>&lt;b&gt;</find>
     </findStrings>
     <replaceStrings>
       <replace>Experiment</replace>
       <replace>Sample</replace>
+      <replace>&lt;b&gt;</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/public/js</dir>
@@ -723,8 +724,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/help/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+        <state relative-caret-position="420">
+          <caret line="28" column="11" lean-forward="true" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
         </state>
       </provider>
     </entry>
