@@ -92,6 +92,11 @@ router.route('/browse/:group/:project/:sample/:experiment/:capture/:file/:downlo
     .all([isAuthenticated, isInGroup])
     .get(Files.download);
 
+router.route('*')
+    .get(function (req, res, next) {
+return res.render('404')
+    });
+
 
 module.exports = router;
 
