@@ -26,19 +26,23 @@ locals.breadcrumbs = [
             <h1 class="title has-text-centered">New Experiment</h1>
         <% } %>
 
-            <p class="subtitle">An <b>Experiment</b> is the next heading that captures the more relevant varying biological and technical variables (like the treatment or the biological replicate). There could be lots of <b>Experiments</b> for a sample. </p>
-
+        <section class="section">
+            <p>An <b>Experiment</b> is the next heading that captures the more relevant varying biological and technical
+                variables (like the treatment or the biological replicate). There could be lots of <b>Experiments</b>
+                for a sample. </p>
+        </section>
         <form method="post"
               action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
 
-            <input type="hidden" name="id" value="<%- isEdit ? experiment.id : ''%>" class="is-hidden">
+            <input type="hidden" name="id" value="<%- isEdit ? experiment.id : '' %>" class="is-hidden">
 
             <div class="columns">
                 <div class="column is-6">
                     <div class="field">
                         <label class="label">Experiment Name</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="New experiment name" name="name" maxlength="30"
+                            <input class="input" type="text" placeholder="New experiment name" name="name"
+                                   maxlength="30"
                                    value="<%- isEdit ? experiment.name : '' %>" required>
                         </div>
                         <p class="help">The name of your experiment</p>
