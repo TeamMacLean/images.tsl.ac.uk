@@ -37,7 +37,7 @@ locals.breadcrumbs = [
                     <div class="field">
                         <label class="label">Project Name</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="New project name" name="name"
+                            <input class="input" type="text" placeholder="New project name" name="name" maxlength="20"
                                    value="<%- isEdit ? project.name : '' %>" required>
                         </div>
                         <p class="help">The name of your project</p>
@@ -47,7 +47,7 @@ locals.breadcrumbs = [
                     <div class="field">
                         <label class="label">Short Description</label>
                         <div class="control">
-                <textarea class="input" placeholder="Short description" name="shortDescription"
+                <textarea class="input" placeholder="Short description" name="shortDescription" minlength="20" maxlength="100"
                           required><%- isEdit ? project.shortDescription : '' %></textarea>
                         </div>
                         <p class="help">a short description of the project. 20-100 characters</p>
@@ -59,7 +59,7 @@ locals.breadcrumbs = [
             <div class="field">
                 <label class="label">Long Description</label>
                 <div class="control">
-                <textarea class="input" placeholder="Long description"
+                <textarea class="input" placeholder="Long description" minlength="100"
                           name="longDescription"><%- isEdit ? project.longDescription : '' %></textarea>
                 </div>
                 <p class="help">a long description of the project. 100+ characters</p>
