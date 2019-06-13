@@ -23,7 +23,7 @@ locals.breadcrumbs = [
         name: experiment.name,
         link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}`
     },
-    {name: 'New Capture', active: true}
+    {name: isEdit?'Edit Capture':'New Capture', active: true}
 ]; %>
 <% include ../head.ejs %>
 
@@ -42,7 +42,7 @@ locals.breadcrumbs = [
                 technically
                 identical, even if they are different images. The experimental variables should be identical for all
                 images
-                in the same capture.  <a href="/help" target="_blank">read more.</a></p>
+                in the same capture.  <a onclick="openHelp()" target="_blank">read more.</a></p>
         </section>
 
         <form method="post"

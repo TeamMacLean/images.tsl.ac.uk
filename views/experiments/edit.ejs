@@ -13,7 +13,7 @@ locals.breadcrumbs = [
     {name: sample.project.group.name, link: `/browse/${sample.project.group.safeName}`},
     {name: sample.project.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}`},
     {name: sample.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}`},
-    {name: 'New Experiment', active: true}
+    {name: isEdit?'Edit Experiment':'New Experiment', active: true}
 ]; %>
 <% include ../head.ejs %>
 
@@ -29,7 +29,7 @@ locals.breadcrumbs = [
         <section class="section">
             <p>An <b>Experiment</b> is the next heading that captures the more relevant varying biological and technical
                 variables (like the treatment or the biological replicate). There could be lots of <b>Experiments</b>
-                for a sample. <a href="/help" target="_blank">read more.</a></p>
+                for a sample. <a onclick="openHelp()" target="_blank">read more.</a></p>
         </section>
         <form method="post"
               action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
