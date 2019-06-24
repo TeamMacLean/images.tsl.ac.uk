@@ -9,14 +9,17 @@ module.exports = {
         const projectName = req.params.project;
         const groupName = req.params.group;
 
-        Sample.filter({safeName: sampleName})
-            .getJoin({project: {group: true}})
-            .run()
-            .then(samples => {
-                const samplesFiltered = samples.filter(p => p.project.group.safeName === groupName
-                    && p.project.safeName === projectName);
-                if (samplesFiltered && samplesFiltered.length) {
-                    return res.render('experiments/edit', {sample: samples[0]});
+
+
+        Sample.find(groupName, projectName, sampleName)
+        // Sample.filter({safeName: sampleName})
+        //     .getJoin({project: {group: true}})
+        //     .run()
+            .then(sample => {
+                // const samplesFiltered = sample.filter(p => p.project.group.safeName === groupName
+                //     && p.project.safeName === projectName);
+                if (sample) {
+                    return res.render('experiments/edit', {sample: sample});
                 } else {
                     return next();
                     // renderError(res, new Error('Project does not exist'));

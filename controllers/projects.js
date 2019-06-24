@@ -6,9 +6,10 @@ module.exports = {
         const groupName = req.params.group;
         Group.filter({safeName: groupName})
             .run()
-            .then(groups => {
-                if (groups && groups.length) {
-                    return res.render('projects/edit', {group: groups[0]});
+            Group.find(groupName)
+            .then(group => {
+                if (group) {
+                    return res.render('projects/edit', {group: group});
                 } else {
                     next();
                 }

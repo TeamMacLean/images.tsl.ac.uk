@@ -10,16 +10,17 @@ module.exports = {
         const projectName = req.params.project;
         const groupName = req.params.group;
 
-        Experiment.filter({safeName: experimentName})
-            .getJoin({sample: {project: {group: true}}})
-            .run()
-            .then(experiments => {
-                const experimentsFiltered = experiments.filter(e => e.sample.project.group.safeName === groupName
-                    && e.sample.safeName === sampleName
-                    && e.sample.project.safeName === projectName);
+        // Experiment.filter({safeName: experimentName})
+        //     .getJoin({sample: {project: {group: true}}})
+        //     .run()
+            Experiment.find(groupName, projectName, sampleName, experimentName)
+            .then(experiment => {
+                // const experimentsFiltered = experiments.filter(e => e.sample.project.group.safeName === groupName
+                //     && e.sample.safeName === sampleName
+                //     && e.sample.project.safeName === projectName);
 
-                if (experimentsFiltered && experimentsFiltered.length) {
-                    return res.render('captures/edit', {experiment: experimentsFiltered[0]});
+                if (experiment) {
+                    return res.render('captures/edit', {experiment: experiment});
                 } else {
                     next();
                 }

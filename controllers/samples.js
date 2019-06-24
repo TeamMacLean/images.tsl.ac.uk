@@ -8,7 +8,6 @@ module.exports = {
         const groupName = req.params.group;
 
         Project.find(groupName, projectName)
-
         // Project.filter({safeName: projectName})
         //     .getJoin({group: true})
         //     .run()
