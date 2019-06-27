@@ -4,11 +4,10 @@ const renderError = require('../lib/renderError');
 module.exports = {
     new: (req, res, next) => {
         const groupName = req.params.group;
-        Group.filter({safeName: groupName})
-            .run()
-            Group.find(groupName)
+        Group.find(groupName)
             .then(group => {
                 if (group) {
+                    delete group.projects;
                     return res.render('projects/edit', {group: group});
                 } else {
                     next();

@@ -74,7 +74,6 @@ app.use(function (req, res, next) {
         }
 
         res.locals.config = {
-            // rootPath: config.rootPath,
             HPCRoot: config.HPCRoot
         };
     }

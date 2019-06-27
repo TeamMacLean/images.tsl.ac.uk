@@ -8,11 +8,9 @@ module.exports = {
         const groupName = req.params.group;
 
         Project.find(groupName, projectName)
-        // Project.filter({safeName: projectName})
-        //     .getJoin({group: true})
-        //     .run()
             .then(project => {
                 if (project) {
+                    delete project.samples;
                     return res.render('samples/edit', {project: project});
                 } else {
                     return next();

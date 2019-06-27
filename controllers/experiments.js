@@ -12,13 +12,9 @@ module.exports = {
 
 
         Sample.find(groupName, projectName, sampleName)
-        // Sample.filter({safeName: sampleName})
-        //     .getJoin({project: {group: true}})
-        //     .run()
             .then(sample => {
-                // const samplesFiltered = sample.filter(p => p.project.group.safeName === groupName
-                //     && p.project.safeName === projectName);
                 if (sample) {
+                    delete sample.experiments;
                     return res.render('experiments/edit', {sample: sample});
                 } else {
                     return next();

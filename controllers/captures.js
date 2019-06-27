@@ -1,4 +1,4 @@
-const Project = require('../models/project');
+// const Project = require('../models/project');
 const Capture = require('../models/capture');
 const Experiment = require('../models/experiment');
 const renderError = require('../lib/renderError');
@@ -10,16 +10,10 @@ module.exports = {
         const projectName = req.params.project;
         const groupName = req.params.group;
 
-        // Experiment.filter({safeName: experimentName})
-        //     .getJoin({sample: {project: {group: true}}})
-        //     .run()
             Experiment.find(groupName, projectName, sampleName, experimentName)
             .then(experiment => {
-                // const experimentsFiltered = experiments.filter(e => e.sample.project.group.safeName === groupName
-                //     && e.sample.safeName === sampleName
-                //     && e.sample.project.safeName === projectName);
-
                 if (experiment) {
+                    delete experiment.captures;
                     return res.render('captures/edit', {experiment: experiment});
                 } else {
                     next();
