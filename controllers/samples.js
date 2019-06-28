@@ -4,6 +4,10 @@ const renderError = require('../lib/renderError');
 module.exports = {
 
     new: (req, res, next) => {
+
+        console.log('wanted', req.url, 'got: NEW');
+
+
         const projectName = req.params.project;
         const groupName = req.params.group;
 
@@ -98,6 +102,8 @@ module.exports = {
 
     },
     edit: (req, res, next) => {
+        console.log('wanted', req.url, 'got: EDIT');
+
         const groupName = req.params.group;
         const projectName = req.params.project;
         const sampleName = req.params.sample;

@@ -4,6 +4,7 @@ const Experiment = require('../models/experiment');
 const renderError = require('../lib/renderError');
 module.exports = {
     new: (req, res, next) => {
+        console.log('wanted', req.url, 'got: NEW');
 
         const experimentName = req.params.experiment;
         const sampleName = req.params.sample;
@@ -81,6 +82,7 @@ module.exports = {
             });
     },
     edit: (req, res, next) => {
+        console.log('wanted', req.url, 'got: EDIT');
 
         const experimentName = req.params.experiment;
         const sampleName = req.params.sample;
