@@ -3,10 +3,10 @@ const type = thinky.type;
 const r = thinky.r;
 const Util = require('../lib/util');
 const config = require('../config');
-const MD5 = require('md5.js');
 const fs = require('fs');
 const path = require('path');
 const postUpload = require('../lib/postUpload');
+const md5File = require('md5-file')
 
 const File = thinky.createModel('File', {
     id: type.string(),
@@ -76,27 +76,33 @@ File.pre('save', function (next) {
 
     const oldPath = path.join(__dirname, '../', config.tusPath, file.name);
 
-    //TODO make md5
-    const buffer = fs.readFileSync(oldPath);
-    const hash = new MD5();
-    hash.end(buffer);
-    file.MD5 = hash.read().toString('hex');
+    md5File(oldPath, (err, hash) => {
 
-    file.getPath()
-        .then(filePath => {
-            Util.move(oldPath, filePath)
-                .then(() => {
-                    postUpload.notify(file);
-                    next();
-                })
-                .catch(err => {
-                    console.error(err);
-                    next(err);
-                })
-        })
-        .catch(err => {
-            next(err);
-        });
+        if (err) {
+            file.MD5 = 'UNKNOWN';
+        } else {
+            file.MD5 = hash;
+        }
+
+        file.getPath()
+            .then(filePath => {
+                Util.move(oldPath, filePath)
+                    .then(() => {
+                        postUpload.notify(file);
+                        next();
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        next(err);
+                    })
+            })
+            .catch(err => {
+                next(err);
+            });
+
+    })
+
+
 });
 //
 File.ensureIndex("createdAt");
