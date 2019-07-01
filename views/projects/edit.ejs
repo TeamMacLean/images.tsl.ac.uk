@@ -1,8 +1,10 @@
 <%
 
+
+
 locals.breadcrumbs = [
     {name: 'Home', link: '/'},
-    {name: group.name, link: `/browse/${group.safeName}`},
+    {name: group.name, link: `/browse/${project.group.safeName}`},
     {name: 'Edit Project', active: true}
 ];
 %>
