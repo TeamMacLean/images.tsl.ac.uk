@@ -23,7 +23,7 @@ locals.breadcrumbs = [
             are existing projects in the database, see whether you can add to one rather than creating a new one.  <a onclick="openHelp()" target="_blank">read more.</a></p>
             </section>
 
-        <form method="post" action="/browse/<%- group.safeName %>/new">
+        <form method="post" action="/browse/<%- project.group.safeName %>/new">
             <input type="hidden" name="id" value="<%- project.id %>" class="is-hidden">
 
             <div class="columns">
