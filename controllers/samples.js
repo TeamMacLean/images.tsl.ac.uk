@@ -15,7 +15,7 @@ module.exports = {
             .then(project => {
                 if (project) {
                     delete project.samples;
-                    return res.render('samples/edit', {project: project});
+                    return res.render('samples/new', {project: project});
                 } else {
                     return next();
                 }

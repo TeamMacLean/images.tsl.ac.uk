@@ -15,7 +15,7 @@ module.exports = {
             .then(experiment => {
                 if (experiment) {
                     delete experiment.captures;
-                    return res.render('captures/edit', {experiment: experiment});
+                    return res.render('captures/new', {experiment: experiment});
                 } else {
                     next();
                 }

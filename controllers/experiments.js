@@ -15,7 +15,7 @@ module.exports = {
             .then(sample => {
                 if (sample) {
                     delete sample.experiments;
-                    return res.render('experiments/edit', {sample: sample});
+                    return res.render('experiments/new', {sample: sample});
                 } else {
                     return next();
                     // renderError(res, new Error('Project does not exist'));

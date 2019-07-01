@@ -14,14 +14,14 @@ locals.breadcrumbs = [
         name: experiment.name,
         link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}`
     },
-    {name: 'Edit Capture', active: true}
+    {name: 'New Capture', active: true}
 ]; %>
 <% include ../head.ejs %>
 
 <section class="section">
     <div class="container">
 
-        <h1 class="title has-text-centered">Edit: <%- capture.name %></h1>
+            <h1 class="title has-text-centered">New Capture</h1>
 
         <section class="section">
             <p>A <b>Capture</b> is the simplest heading. This is really the images themselves, and most
@@ -29,13 +29,13 @@ locals.breadcrumbs = [
                 technically
                 identical, even if they are different images. The experimental variables should be identical for all
                 images
-                in the same capture. <a onclick="openHelp()" target="_blank">read more.</a></p>
+                in the same capture.  <a onclick="openHelp()" target="_blank">read more.</a></p>
         </section>
 
         <form method="post"
               action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">
 
-            <input type="hidden" name="id" value="<%- capture.id %>" class="is-hidden">
+            <input type="hidden" name="id" class="is-hidden">
 
             <div class="columns">
                 <div class="column is-6">
@@ -43,7 +43,7 @@ locals.breadcrumbs = [
                         <label class="label">Name</label>
                         <div class="control">
                             <input class="input" type="text" placeholder="New capture name" name="name" maxlength="30"
-                                   value="<%- capture.name %>" required>
+                                    required>
                         </div>
                         <p class="help">The name of your capture</p>
                     </div>
@@ -71,7 +71,7 @@ locals.breadcrumbs = [
 
                                 <select name="platformName">
                                     <% platforms.map(platform=>{ %>
-                                        <option <%- capture.platformName === platform ? 'selected' : '' %>><%- platform %></option>
+                                        <option><%- platform %></option>
                                     <% }) %>
                                 </select>
                             </div>
@@ -79,6 +79,7 @@ locals.breadcrumbs = [
                         <!--<p class="help">This is a help text</p>-->
                     </div>
                 </div>
+
 
             </div>
 

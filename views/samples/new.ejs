@@ -1,9 +1,10 @@
 <%
+
 locals.breadcrumbs = [
     {name: 'Home', link: '/'},
     {name: project.group.name, link: `/browse/${project.group.safeName}`},
     {name: project.name, link: `/browse/${project.group.safeName}/${project.safeName}`},
-    {name: isEdit ? 'Edit Sample' : 'New Sample', active: true}
+    {name: isEdit?'Edit Sample':'New Sample', active: true}
 ];
 %>
 <% include ../head.ejs %>
@@ -11,7 +12,7 @@ locals.breadcrumbs = [
 <section class="section">
     <div class="container">
 
-        <h1 class="title has-text-centered">Edit: <%- sample.name %></h1>
+            <h1 class="title has-text-centered">New Sample</h1>
 
         <section class="section">
             <p class="">
@@ -23,13 +24,11 @@ locals.breadcrumbs = [
                 can look it up at NCBI <a href="https://www.ncbi.nlm.nih.gov/taxonomy">here</a>. Some times it won't be
                 clear exactly what should be in <b>Sample</b> and the next layer <b>Experiment</b>. The <b>Sample</b>
                 should
-                contain many <b>Experiments</b> so use this one to capture the rough aspects that aren't changing. <a
-                        onclick="openHelp()" target="_blank">read more.</a>
+                contain many <b>Experiments</b> so use this one to capture the rough aspects that aren't changing. <a onclick="openHelp()" target="_blank">read more.</a>
             </p>
         </section>
 
         <form method="post" action="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new">
-            <input type="hidden" name="id" value="<%- sample.id %>" class="is-hidden">
 
             <div class="columns">
                 <div class="column">
@@ -38,7 +37,7 @@ locals.breadcrumbs = [
                         <div class="control">
                             <input class="input" type="text" placeholder="New experiment name" name="name"
                                    maxlength="30"
-                                   value="<%- sample.name %>" required>
+                                   required>
                         </div>
                         <p class="help">The name of your sample</p>
                     </div>
@@ -48,7 +47,7 @@ locals.breadcrumbs = [
                         <label class="label">Taxonomy ID</label>
                         <div class="control">
                             <input class="input" type="text" placeholder="NCBI Taxonomy ID" name="taxID"
-                                   value="<%- sample.taxID %>" required>
+                                   required>
                         </div>
                         <p class="help">This can be found <a href="https://www.ncbi.nlm.nih.gov/taxonomy">here</a></p>
                     </div>
@@ -60,7 +59,7 @@ locals.breadcrumbs = [
                         <label class="label">Scientific Name</label>
                         <div class="control">
                             <input class="input" type="text" placeholder="Scientific name" name="scientificName"
-                                   value="<%-  sample.scientificName  %>" required>
+                                  required>
                         </div>
                         <p class="help">Example: Magnaporthe oryzae</p>
                     </div>
@@ -70,7 +69,7 @@ locals.breadcrumbs = [
                         <label class="label">Common Name</label>
                         <div class="control">
                             <input class="input" type="text" placeholder="Common name" name="commonName"
-                                   value="<%- sample.commonName %>" required>
+                                   required>
                         </div>
                         <p class="help">Example: rice blast fungus</p>
                     </div>
@@ -81,12 +80,12 @@ locals.breadcrumbs = [
                 <label class="label">Protocol</label>
                 <div class="control">
                 <textarea class="input" placeholder="Protocol" name="protocol"
-                          required><%- sample.protocol %></textarea>
+                          required></textarea>
                 </div>
                 <p class="help">help text</p>
             </div>
             <div class="control">
-                <button class="button is-success">Update</button>
+                <button class="button is-success">Create</button>
             </div>
         </form>
 

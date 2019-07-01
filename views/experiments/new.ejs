@@ -4,14 +4,15 @@ locals.breadcrumbs = [
     {name: sample.project.group.name, link: `/browse/${sample.project.group.safeName}`},
     {name: sample.project.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}`},
     {name: sample.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}`},
-    {name: 'Edit Experiment', active: true}
+    {name: 'New Experiment', active: true}
 ]; %>
 <% include ../head.ejs %>
 
 <section class="section">
     <div class="container">
 
-        <h1 class="title has-text-centered">Edit: <%- experiment.name %></h1>
+        <h1 class="title has-text-centered">New Experiment</h1>
+
         <section class="section">
             <p>An <b>Experiment</b> is the next heading that captures the more relevant varying biological and technical
                 variables (like the treatment or the biological replicate). There could be lots of <b>Experiments</b>
@@ -20,7 +21,6 @@ locals.breadcrumbs = [
         <form method="post"
               action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
 
-            <input type="hidden" name="id" value="<%- experiment.id %>" class="is-hidden">
 
             <div class="columns">
                 <div class="column is-6">
@@ -29,15 +29,14 @@ locals.breadcrumbs = [
                         <div class="control">
                             <input class="input" type="text" placeholder="New experiment name" name="name"
                                    maxlength="30"
-                                   value="<%- experiment.name %>" required>
+                                   required>
                         </div>
                         <p class="help">The name of your experiment</p>
                     </div>
                     <div class="control">
-                        <button class="button is-success">Update</button>
+                        <button class="button is-success">Create</button>
                     </div>
                 </div>
-            </div>
         </form>
 
     </div>

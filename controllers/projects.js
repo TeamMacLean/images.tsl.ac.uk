@@ -10,7 +10,7 @@ module.exports = {
             .then(group => {
                 if (group) {
                     delete group.projects;
-                    return res.render('projects/edit', {group: group});
+                    return res.render('projects/new', {group: group});
                 } else {
                     next();
                 }
