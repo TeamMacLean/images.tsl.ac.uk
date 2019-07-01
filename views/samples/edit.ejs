@@ -1,8 +1,8 @@
 <%
 locals.breadcrumbs = [
     {name: 'Home', link: '/'},
-    {name: project.group.name, link: `/browse/${project.group.safeName}`},
-    {name: project.name, link: `/browse/${project.group.safeName}/${project.safeName}`},
+    {name: sample.project.group.name, link: `/browse/${sample.project.group.safeName}`},
+    {name: sample.project.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}`},
     {name: 'Edit Sample', active: true}
 ];
 %>
@@ -28,7 +28,7 @@ locals.breadcrumbs = [
             </p>
         </section>
 
-        <form method="post" action="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new">
+        <form method="post" action="/browse/<%- project.group.safeName %>/<%- sample.project.safeName %>/new">
             <input type="hidden" name="id" value="<%- sample.id %>" class="is-hidden">
 
             <div class="columns">
