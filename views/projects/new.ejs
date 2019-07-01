@@ -2,7 +2,7 @@
 locals.breadcrumbs = [
     {name: 'Home', link: '/'},
     {name: group.name, link: `/browse/${group.safeName}`},
-    {name: isEdit ? 'Edit Project' : 'New Project', active: true}
+    {name: 'New Project', active: true}
 ];
 %>
 <% include ../head.ejs %>
@@ -10,11 +10,7 @@ locals.breadcrumbs = [
 <section class="section">
     <div class="container">
 
-        <% if(isEdit){ %>
-            <h1 class="title has-text-centered">Edit: <%- project.name %></h1>
-        <% } else { %>
             <h1 class="title has-text-centered">New Project</h1>
-        <% } %>
 
         <section class="section">
             <p class="">A <b>Project</b> is pretty much equivalent to a research theme within your <span

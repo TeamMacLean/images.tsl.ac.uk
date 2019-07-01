@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfb55bf8-7fcc-4683-bb98-2658e8df8c25" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/captures.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/captures.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/projects.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/projects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/samples.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/samples.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/captures/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/captures/edit.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/experiments/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/experiments/edit.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/projects/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/projects/edit.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/samples/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/samples/edit.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/projects/new.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/projects/new.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,11 +13,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/experiments.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="246">
               <caret line="17" column="54" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/projects/new.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="201">
+              <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -59,8 +62,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>experimenr</find>
-      <find>experimentID</find>
       <find>files</find>
       <find>image</find>
       <find>Capture</find>
@@ -89,6 +90,8 @@
       <find>filesync</find>
       <find>MD5</find>
       <find>var</find>
+      <find>isEdi</find>
+      <find>isEd</find>
     </findStrings>
     <replaceStrings>
       <replace>Experiment</replace>
@@ -148,7 +151,6 @@
         <option value="$PROJECT_DIR$/views/experiments/edit.ejs" />
         <option value="$PROJECT_DIR$/views/captures/new.ejs" />
         <option value="$PROJECT_DIR$/views/captures/edit.ejs" />
-        <option value="$PROJECT_DIR$/views/projects/new.ejs" />
         <option value="$PROJECT_DIR$/views/samples/edit.ejs" />
         <option value="$PROJECT_DIR$/views/samples/new.ejs" />
         <option value="$PROJECT_DIR$/views/projects/edit.ejs" />
@@ -156,6 +158,7 @@
         <option value="$PROJECT_DIR$/controllers/projects.js" />
         <option value="$PROJECT_DIR$/controllers/captures.js" />
         <option value="$PROJECT_DIR$/controllers/experiments.js" />
+        <option value="$PROJECT_DIR$/views/projects/new.ejs" />
       </list>
     </option>
   </component>
@@ -691,13 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/projects/new.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="53" column="22" lean-forward="true" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/samples.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -721,8 +717,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/experiments.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
+        <state relative-caret-position="246">
           <caret line="17" column="54" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/projects/new.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
         </state>
       </provider>
     </entry>
