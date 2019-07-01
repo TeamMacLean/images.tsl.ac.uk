@@ -1,9 +1,9 @@
 <%
 locals.breadcrumbs = [
     {name: 'Home', link: '/'},
-    {name: sample.project.group.name, link: `/browse/${sample.project.group.safeName}`},
-    {name: sample.project.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}`},
-    {name: sample.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}`},
+    {name: experiment.sample.project.group.name, link: `/browse/${experiment.sample.project.group.safeName}`},
+    {name: experiment.sample.project.name, link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`},
+    {name: experiment.sample.name, link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`},
     {name: 'Edit Experiment', active: true}
 ]; %>
 <% include ../head.ejs %>
@@ -18,7 +18,7 @@ locals.breadcrumbs = [
                 for a sample. <a onclick="openHelp()" target="_blank">read more.</a></p>
         </section>
         <form method="post"
-              action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
+              action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/new">
 
             <input type="hidden" name="id" value="<%- experiment.id %>" class="is-hidden">
 
@@ -29,7 +29,7 @@ locals.breadcrumbs = [
                         <div class="control">
                             <input class="input" type="text" placeholder="New experiment name" name="name"
                                    maxlength="30"
-                                   value="<%- experiment.name %>" required>
+                                   value="<%- experiment.experiment.name %>" required>
                         </div>
                         <p class="help">The name of your experiment</p>
                     </div>
