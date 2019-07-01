@@ -1,18 +1,18 @@
 <%
 locals.breadcrumbs = [
     {name: 'Home', link: '/'},
-    {name: experiment.sample.project.group.name, link: `/browse/${experiment.sample.project.group.safeName}`},
+    {name: capture.experiment.sample.project.group.name, link: `/browse/${capture.experiment.sample.project.group.safeName}`},
     {
-        name: experiment.sample.project.name,
-        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`
+        name: capture.experiment.sample.project.name,
+        link: `/browse/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}`
     },
     {
-        name: experiment.sample.name,
-        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`
+        name: capture.experiment.sample.name,
+        link: `/browse/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}/${capture.experiment.sample.safeName}`
     },
     {
-        name: experiment.name,
-        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}`
+        name: capture.experiment.name,
+        link: `/browse/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}/${capture.experiment.sample.safeName}/${capture.experiment.safeName}`
     },
     {name: 'Edit Capture', active: true}
 ]; %>
@@ -33,7 +33,7 @@ locals.breadcrumbs = [
         </section>
 
         <form method="post"
-              action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">
+              action="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">
 
             <input type="hidden" name="id" value="<%- capture.id %>" class="is-hidden">
 
