@@ -4,7 +4,7 @@ locals.breadcrumbs = [
     {name: 'Home', link: '/'},
     {name: project.group.name, link: `/browse/${project.group.safeName}`},
     {name: project.name, link: `/browse/${project.group.safeName}/${project.safeName}`},
-    {name: isEdit?'Edit Sample':'New Sample', active: true}
+    {name: 'New Sample', active: true}
 ];
 %>
 <% include ../head.ejs %>
