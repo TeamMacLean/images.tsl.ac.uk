@@ -11,8 +11,6 @@ module.exports = {
         const projectName = req.params.project;
         const groupName = req.params.group;
 
-
-
         Sample.find(groupName, projectName, sampleName)
             .then(sample => {
                 if (sample) {

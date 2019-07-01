@@ -36,6 +36,20 @@ app.use(cookieParser());
 
 app.all([config.tusPath, config.tusPath + '/*', config.tusPath + '/*.*'], tusServer.handle.bind(tusServer));
 
+//TODO chche clear
+app.use(function noCacheForRoot(req, res, next) {
+    if (req.url === '/') {
+        res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+        res.header("Pragma", "no-cache");
+        res.header("Expires", 0);
+    }
+    next();
+});
+
+app.disable('view cache');
+
+
+
 app.use(sassMiddleware({
     /* Options */
     src: path.join(__dirname, 'public', 'style'),
@@ -124,12 +138,6 @@ config.groups.map(group => {
                     })
             }
         })
-});
-
-
-app.use(function (req, res, next) {
-    console.log(req.params);
-    return next();
 });
 
 app.use('/', router);
