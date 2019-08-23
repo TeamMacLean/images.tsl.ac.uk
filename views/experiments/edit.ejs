@@ -2,8 +2,14 @@
 locals.breadcrumbs = [
     {name: 'Home', link: '/'},
     {name: experiment.sample.project.group.name, link: `/browse/${experiment.sample.project.group.safeName}`},
-    {name: experiment.sample.project.name, link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`},
-    {name: experiment.sample.name, link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`},
+    {
+        name: experiment.sample.project.name,
+        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`
+    },
+    {
+        name: experiment.sample.name,
+        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`
+    },
     {name: 'Edit Experiment', active: true}
 ]; %>
 <% include ../head.ejs %>
@@ -33,10 +39,39 @@ locals.breadcrumbs = [
                         </div>
                         <p class="help">The name of your experiment</p>
                     </div>
-                    <div class="control">
-                        <button class="button is-success">Update</button>
-                    </div>
                 </div>
+
+                <!--NEW-->
+
+            </div>
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Description</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="description" name="description"
+                                   minlength="20"
+                                   value="<%- experiment.description %>" required>
+                        </div>
+                        <p class="help">A description of your experiment</p>
+                    </div>
+
+                </div>
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Protocol</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="protocol" name="protocol"
+                                   value="<%- experiment.protocol %>">
+                        </div>
+                        <p class="help">Your experiment protocol</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="control">
+                <button class="button is-success">Update</button>
             </div>
         </form>
 

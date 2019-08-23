@@ -13,6 +13,8 @@ const Experiment = thinky.createModel('Experiment', {
     updatedAt: type.date(),
     name: type.string().required(),
     safeName: type.string().required(),
+    protocol: type.string(),
+    description: type.string().required().default('')
 });
 
 module.exports = Experiment;

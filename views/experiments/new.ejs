@@ -22,21 +22,50 @@ locals.breadcrumbs = [
               action="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new">
 
 
+
             <div class="columns">
                 <div class="column is-6">
                     <div class="field">
                         <label class="label">Experiment Name</label>
                         <div class="control">
                             <input class="input" type="text" placeholder="New experiment name" name="name"
-                                   maxlength="30"
-                                   required>
+                                   maxlength="30"required>
                         </div>
                         <p class="help">The name of your experiment</p>
                     </div>
-                    <div class="control">
-                        <button class="button is-success">Create</button>
-                    </div>
                 </div>
+
+                <!--NEW-->
+
+            </div>
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Description</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="description" name="description"
+                                   minlength="20" required>
+                        </div>
+                        <p class="help">A description of your experiment</p>
+                    </div>
+
+                </div>
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Protocol</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="protocol" name="protocol"">
+                        </div>
+                        <p class="help">Your experiment protocol</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="control">
+                <button class="button is-success">Create</button>
+            </div>
+
         </form>
 
     </div>

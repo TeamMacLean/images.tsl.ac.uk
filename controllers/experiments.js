@@ -5,8 +5,6 @@ const renderError = require('../lib/renderError');
 module.exports = {
     new: (req, res, next) => {
 
-        console.log('wanted', req.url, 'got: NEW');
-
         const sampleName = req.params.sample;
         const projectName = req.params.project;
         const groupName = req.params.group;
@@ -29,6 +27,8 @@ module.exports = {
         const projectName = req.params.project;
         const sampleName = req.params.sample;
         const experimentName = req.body.name;
+        const protocol = req.body.protocol;
+        const description = req.body.description;
 
         Sample.find(groupName, projectName, sampleName)
             .then(sample => {
@@ -38,6 +38,8 @@ module.exports = {
                     Experiment.get(req.body.id)
                         .then(experiment => {
                             experiment.name = experimentName;
+                            experiment.protocol = protocol;
+                            experiment.description = description;
                             experiment.save()
                                 .then(savedExperiment => {
                                     return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
@@ -48,7 +50,7 @@ module.exports = {
 
                 } else {
 
-                    new Experiment({sampleID: sample.id, name: experimentName})
+                    new Experiment({sampleID: sample.id, name: experimentName, protocol, description})
                         .save()
                         .then(savedExperiment => {
                             return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
@@ -94,7 +96,6 @@ module.exports = {
 
     },
     edit: (req, res, next) => {
-        console.log('wanted', req.url, 'got: EDIT');
 
         const experimentName = req.params.experiment;
         const groupName = req.params.group;
