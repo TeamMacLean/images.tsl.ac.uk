@@ -24,11 +24,11 @@
         <div class="columns">
             <div class="column">
                 <label class="label">Description</label>
-                <p><%- experiment.description %></p>
+                <p><%- experiment.description || "N/A" %></p>
             </div>
             <div class="column">
                 <label class="label">Protocol</label>
-                <p><%- experiment.protocol %></p>
+                <p><%- experiment.protocol || "N/A" %></p>
             </div>
         </div>
 
