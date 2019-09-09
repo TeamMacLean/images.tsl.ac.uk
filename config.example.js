@@ -6,6 +6,7 @@ module.exports = {
     HPCRoot: "/tsl/data/image", //no trailing slash
     tmpDir: "/storage/uploads/",
     postChangesTo:'',
+    tusPath:'/tus',
     ldap: {
         url: "ldap://dc.example.org:389",
         bindDn: "",
