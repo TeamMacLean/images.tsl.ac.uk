@@ -37,7 +37,7 @@ app.use(cookieParser());
 
 const uploadApp = express();
 uploadApp.all('*', tusServer.handle.bind(tusServer));
-app.use(config.tusPath, uploadApp);
+app.use('/uploads', uploadApp);
 
 //app.all([config.tusPath, config.tusPath + '/*', config.tusPath + '/*.*'], tusServer.handle.bind(tusServer));
 
