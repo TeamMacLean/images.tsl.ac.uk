@@ -37,7 +37,7 @@ const uploader = {
                 ],
                 // browserBackButtonClose: true
             })
-            .use(Tus, {endpoint: '/files/'});
+            .use(Tus, {endpoint: '/uploads/'});
 
         uppy.on('complete', result => {
             console.log('successful files:', result.successful);
