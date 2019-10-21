@@ -35,11 +35,11 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 
-const uploadApp = express();
-uploadApp.all('*', tusServer.handle.bind(tusServer));
-app.use(config.tusPath, uploadApp);
+//const uploadApp = express();
+//uploadApp.all('*', tusServer.handle.bind(tusServer));
+//app.use(config.tusPath, uploadApp);
 
-//app.all([config.tusPath, config.tusPath + '/*', config.tusPath + '/*.*'], tusServer.handle.bind(tusServer));
+app.all([config.tusPath, config.tusPath + '/*', config.tusPath + '/*.*'], tusServer.handle.bind(tusServer));
 
 //TODO chche clear
 app.use(function noCacheForRoot(req, res, next) {
