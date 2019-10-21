@@ -15,7 +15,7 @@ const rethinkSession = require('session-rethinkdb')(session);
 const tus = require('tus-node-server');
 const tusServer = new tus.Server();
 tusServer.datastore = new tus.FileStore({
-    path: '/uploads'
+    path: '/files'
 });
 tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, (event) => {
     uploadFile.create(event);
