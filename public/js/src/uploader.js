@@ -17,7 +17,7 @@ const uploader = {
                 maxFileSize: 30000 * 1000000,
                 maxNumberOfFiles: 999,
                 minNumberOfFiles: 1,
-                allowedFileTypes: ['image/*', 'video/*', '.lifext']
+                allowedFileTypes: ['image/*', 'video/*', '.lif','.lifext']
             }
         })
             .use(ThumbnailGenerator, {
