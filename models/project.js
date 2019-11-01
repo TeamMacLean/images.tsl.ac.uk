@@ -13,7 +13,8 @@ const Project = thinky.createModel('Project', {
     updatedAt: type.date(),
     shortDescription: type.string().required(),
     longDescription: type.string().required(),
-    name: type.string().required()
+    name: type.string().required(),
+    user:type.string()
 });
 
 module.exports = Project;
