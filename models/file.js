@@ -17,7 +17,8 @@ const File = thinky.createModel('File', {
     originalName: type.string().required(),
     type: type.string().required(),
     description: type.string().default(''),
-    MD5: type.string().required()
+    MD5: type.string().required(),
+    user:type.string()
 });
 
 module.exports = File;
