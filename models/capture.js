@@ -19,6 +19,7 @@ const Capture = thinky.createModel('Capture', {
     // platformLens: type.string().required(),
     // platformCamera: type.string().required(),
     // platformGain: type.string().required()
+    user:type.string()
 });
 
 module.exports = Capture;
