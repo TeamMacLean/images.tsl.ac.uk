@@ -47,6 +47,7 @@ module.exports = {
                                 project.name = projectName;
                                 project.shortDescription = shortDescription;
                                 project.longDescription = longDescription;
+                            project.user = req.user.username
 
                                 project.save()
                                     .then(savedProject => {
