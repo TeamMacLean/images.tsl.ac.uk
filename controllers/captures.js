@@ -40,6 +40,7 @@ module.exports = {
                         .then(capture => {
                             capture.name = captureName;
                             capture.platformName = platformName;
+                        capture.user = req.user.username
                             capture.save()
                                 .then(savedCapture => {
                                     return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${experimentName}/${savedCapture.safeName}`)
