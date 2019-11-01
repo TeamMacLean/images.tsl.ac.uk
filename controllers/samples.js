@@ -56,7 +56,9 @@ module.exports = {
                                 sample.taxID = taxID;
                                 sample.scientificName = scientificName;
                                 sample.commonName = commonName;
-                                sample.user = req.user.username
+                                if(req && req.user && req.user.username){
+                                    sample.user = req.user.username
+                                }
 
                                 sample.save()
                                     .then(savedSample => {
