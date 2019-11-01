@@ -15,7 +15,8 @@ const Sample = thinky.createModel('Sample', {
     protocol: type.string().required(),
     taxID: type.string().required(),
     scientificName: type.string().required(),
-    commonName: type.string().required()
+    commonName: type.string().required(),
+    user:type.string()
 });
 
 module.exports = Sample;
