@@ -14,7 +14,8 @@ const Experiment = thinky.createModel('Experiment', {
     name: type.string().required(),
     safeName: type.string().required(),
     protocol: type.string(),
-    description: type.string().required().default('')
+    description: type.string().required().default(''),
+    user:type.string()
 });
 
 module.exports = Experiment;
