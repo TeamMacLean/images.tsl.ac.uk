@@ -40,6 +40,7 @@ module.exports = {
                             experiment.name = experimentName;
                             experiment.protocol = protocol;
                             experiment.description = description;
+                        experiment.user = req.user.username
                             experiment.save()
                                 .then(savedExperiment => {
                                     return res.redirect(`/browse/${groupName}/${projectName}/${sampleName}/${savedExperiment.safeName}`)
