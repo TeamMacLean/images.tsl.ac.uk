@@ -15,6 +15,15 @@
         <% include ../_hpc_path.ejs %>
         <hr>
 
+        <% if(sample.user){ %>
+            <div class="columns">
+                <div class="column">
+                    <label class="label">Created By</label>
+                    <p><%- sample.user || 'unknown' %></p>
+                </div>
+            </div>
+        <% } %>
+
         <div class="columns">
             <div class="column">
                 <label class="label">Sample Name</label>

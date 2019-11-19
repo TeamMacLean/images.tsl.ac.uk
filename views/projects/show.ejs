@@ -12,6 +12,14 @@
         <% include ../_hpc_path.ejs %>
         <hr>
 
+        <% if(project.user){ %>
+            <div class="columns">
+                <div class="column">
+                    <label class="label">Created By</label>
+                    <p><%- project.user || 'unknown' %></p>
+                </div>
+            </div>
+        <% } %>
         <div class="columns">
             <div class="column">
                 <label class="label">Project Name</label>

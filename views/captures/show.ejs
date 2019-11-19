@@ -26,12 +26,23 @@
         <% const HPCPath = `${locals.config.HPCRoot}/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}/${capture.experiment.sample.safeName}/${capture.experiment.safeName}/${capture.safeName}` %>
         <% include ../_hpc_path.ejs %>
         <hr>
+
+        <% if(capture.user){ %>
+            <div class="columns">
+                <div class="column">
+                    <label class="label">Created By</label>
+                    <p><%- capture.user || 'unknown' %></p>
+                </div>
+            </div>
+        <% } %>
+
         <div class="columns">
             <div class="column">
                 <label class="label">Platform Name</label>
                 <p><%- capture.platformName %></p>
             </div>
         </div>
+
 
         <hr>
         <a href="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- capture.experiment.sample.safeName %>/<%- capture.experiment.safeName %>/<%- capture.safeName %>/edit"
