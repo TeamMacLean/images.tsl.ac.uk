@@ -14,7 +14,7 @@ const uploader = {
                 captureID: captureID
             },
             restrictions: {
-                maxFileSize: 200 * 1000 * 1000000,
+                maxFileSize: 500 * 1000 * 1000000,
                 maxNumberOfFiles: 999,
                 minNumberOfFiles: 1,
                 allowedFileTypes: ['image/*', 'video/*', '.lif','.lifext']
