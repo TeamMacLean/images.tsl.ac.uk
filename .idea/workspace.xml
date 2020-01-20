@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dfb55bf8-7fcc-4683-bb98-2658e8df8c25" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/captures/show.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/captures/show.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/experiments/show.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/experiments/show.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/projects/show.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/projects/show.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/samples/show.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/samples/show.ejs" afterDir="false" />
-    </list>
+    <list default="true" id="dfb55bf8-7fcc-4683-bb98-2658e8df8c25" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
