@@ -43,8 +43,8 @@ module.exports = {
             .then(file => {
                 file.getPath()
                     .then(fullPath => {
-                        return downloadExperimental(fullPath, res)
-                        //return res.download(path, file.originalName);
+                        //return downloadExperimental(fullPath, res)
+                        return res.download(path, file.originalName);
                     })
                     .catch(err => {
                         next(err);
