@@ -33,11 +33,18 @@ module.exports = {
         const captureName = req.params.capture;
         const fileName = req.params.file;
 
+        
+        function downloadExperimental(fullPath, res) {
+            res.setHeader("Content-Type", "application/octet-stream");
+            return res.sendFile(fullPath);
+         }
+        
         File.find(groupName, projectName, sampleName, experimentName, captureName, fileName)
             .then(file => {
                 file.getPath()
-                    .then(path => {
-                        return res.download(path, file.originalName);
+                    .then(fullPath => {
+                        return downloadExperimental(fullPath, res)
+                        //return res.download(path, file.originalName);
                     })
                     .catch(err => {
                         next(err);
