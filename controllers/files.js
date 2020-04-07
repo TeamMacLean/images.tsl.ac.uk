@@ -42,9 +42,9 @@ module.exports = {
         File.find(groupName, projectName, sampleName, experimentName, captureName, fileName)
             .then(file => {
                 file.getPath()
-                    .then(fullPath => {
-                        //return downloadExperimental(fullPath, res)
-                        return res.download(path, file.originalName);
+                    .then(filePath => {
+                        //return downloadExperimental(filePath, res)
+                        return res.download(filePath, file.originalName);
                     })
                     .catch(err => {
                         next(err);
