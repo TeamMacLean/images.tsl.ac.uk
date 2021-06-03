@@ -22,6 +22,10 @@ module.exports = {
                         g.disabled = true;
                     }
 
+                    if (g.safeName && g.safeName === 'maw'){
+                        g.image = '/img/groups/maw.jpg';
+                    }
+
                     return g;
                 });
                 return res.render('groups/index', {groups});
