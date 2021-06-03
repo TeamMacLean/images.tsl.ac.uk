@@ -111,10 +111,11 @@ function isAuthenticated(req, res, next) {
 }
 
 function isInGroup(req, res, next) {
+    return next();
 
-    if (Util.canAccessGroup(req.params.group, req)) {
-        return next();
-    } else {
-        return next('you do not have permission to view this group');
-    }
+    // if (Util.canAccessGroup(req.params.group, req)) {
+    //     return next();
+    // } else {
+    //     return next('you do not have permission to view this group');
+    // }
 }
