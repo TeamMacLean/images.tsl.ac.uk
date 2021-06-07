@@ -33,10 +33,9 @@ module.exports = {
                         result.image = configGroup[0].image;
                     }
 
-                    // HACK / TODO: fix this
-                    // if (!!Util && !!(Util.canAccessGroup) && !Util.canAccessGroup(result.safeName, req)) {
-                    //     result.disabled = true;
-                    // }
+                    if (!!Util && !!(Util.canAccessGroup) && !Util.canAccessGroup(result.safeName, req)) {
+                        result.disabled = true;
+                    }
 
                     if (result.safeName && (result.safeName === 'maw')){
                         console.log('reset image for maw group');
