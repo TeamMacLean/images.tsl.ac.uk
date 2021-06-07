@@ -9,27 +9,27 @@ module.exports = {
 
                 //TODO if they cannot access the group, mark it as disabled
 
-                console.log('groups', groups);
-                console.log('config', config);
+                // console.log('groups', groups);
+                // console.log('config', config);
 
                 groups = groups.map(g => {
 
                     const result = {};
-                    console.log('objectkeys', Object.keys(g));
+                    //console.log('objectkeys', Object.keys(g));
                     Object.keys(g).forEach(key => {
                         result[key] = g[key]
                     })
-                    console.log('typeof new object', typeof(result));
+                    // console.log('typeof new object', typeof(result));
 
                     const configGroup = config.groups.filter(cf => {
-                        console.log('safename cf.', result.safeName, cf.safeName);
+                        // console.log('safename cf.', result.safeName, cf.safeName);
                         
                         return cf.safeName === result.safeName;
                     });
-                    console.log('configGroup', configGroup);
+                    // console.log('configGroup', configGroup);
                     
                     if (configGroup && configGroup.length && configGroup[0].image) {
-                        console.log('configGroup[0].image', configGroup[0].image)
+                        // console.log('configGroup[0].image', configGroup[0].image)
                         result.image = configGroup[0].image;
                     }
 
@@ -38,16 +38,16 @@ module.exports = {
                     }
 
                     if (result.safeName && (result.safeName === 'maw')){
-                        console.log('reset image for maw group');
+                        // console.log('reset image for maw group');
                         
                         result.image = '/img/groups/maw.jpg';
                     }
 
-                    console.log('after', result);
+                    // console.log('after', result);
                     
                     return result;
                 });
-                console.log('i have reached res.render groups/index');
+                // console.log('i have reached res.render groups/index');
                 
                 return res.render('groups/index', {groups});
             })
