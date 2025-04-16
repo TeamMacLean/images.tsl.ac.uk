@@ -1,93 +1,88 @@
-<%
-locals.breadcrumbs = [
-    {name: 'Home', link: '/'},
-    {name: experiment.sample.project.group.name, link: `/browse/${experiment.sample.project.group.safeName}`},
-    {
-        name: experiment.sample.project.name,
-        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`
-    },
-    {
-        name: experiment.sample.name,
-        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`
-    },
-    {
-        name: experiment.name,
-        link: `/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}`
-    },
-    {name: 'New Capture', active: true}
-]; %>
-<% include ../head.ejs %>
+<% locals.breadcrumbs = [ {name: 'Home', link: '/'}, {name:
+experiment.sample.project.group.name, link:
+`/browse/${experiment.sample.project.group.safeName}`}, { name:
+experiment.sample.project.name, link:
+`/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}`
+}, { name: experiment.sample.name, link:
+`/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}`
+}, { name: experiment.name, link:
+`/browse/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}`
+}, {name: 'New Capture', active: true} ]; %> <% include ../head.ejs %>
 
 <section class="section">
-    <div class="container">
+  <div class="container">
+    <h1 class="title has-text-centered">New Capture</h1>
 
-            <h1 class="title has-text-centered">New Capture</h1>
+    <section class="section">
+      <p>
+        A <b>Capture</b> is the simplest heading. This is really the images
+        themselves, and most Experiments would have one capture. If multiple
+        captures are present, then they would likely be technically identical,
+        even if they are different images. The experimental variables should be
+        identical for all images in the same capture.
+        <a onclick="openHelp()" target="_blank">read more.</a>
+      </p>
+    </section>
 
-        <section class="section">
-            <p>A <b>Capture</b> is the simplest heading. This is really the images themselves, and most
-                Experiments would have one capture. If multiple captures are present, then they would likely be
-                technically
-                identical, even if they are different images. The experimental variables should be identical for all
-                images
-                in the same capture.  <a onclick="openHelp()" target="_blank">read more.</a></p>
-        </section>
+    <form
+      method="post"
+      action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new"
+    >
+      <input type="hidden" name="id" class="is-hidden" />
 
-        <form method="post"
-              action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">
-
-            <input type="hidden" name="id" class="is-hidden">
-
-            <div class="columns">
-                <div class="column is-6">
-                    <div class="field">
-                        <label class="label">Name</label>
-                        <div class="control">
-                            <input class="input" type="text" placeholder="New capture name" name="name" maxlength="30"
-                                    required>
-                        </div>
-                        <p class="help">The name of your capture</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="columns">
-                <div class="column">
-                    <div class="field">
-                        <label class="label">Platform Name</label>
-                        <div class="control">
-                            <div class="select">
-
-                                <%
-                                const platforms = [
-                                    'Leica SP8',
-                                    'Spinning Disc',
-                                    'Zeiss 510',
-                                    'Lecia M205',
-                                    'Olympus IX81',
-                                    'Ziess',
-                                    'Axioskop2'
-                                ].sort();
-                                %>
-
-                                <select name="platformName">
-                                    <% platforms.map(platform=>{ %>
-                                        <option><%- platform %></option>
-                                    <% }) %>
-                                </select>
-                            </div>
-                        </div>
-                        <!--<p class="help">This is a help text</p>-->
-                    </div>
-                </div>
-
-
-            </div>
-
+      <div class="columns">
+        <div class="column is-6">
+          <div class="field">
+            <label class="label">Name</label>
             <div class="control">
-                <button class="button is-success">Create</button>
+              <input
+                class="input"
+                type="text"
+                placeholder="New capture name"
+                name="name"
+                maxlength="30"
+                required
+              />
             </div>
-        </form>
+            <p class="help">The name of your capture</p>
+          </div>
+        </div>
+      </div>
 
-    </div>
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <label class="label">Platform Name</label>
+            <div class="control">
+              <div class="select">
+                <!-- prettier-ignore -->
+                <% const platforms = [ 
+                    'Leica SP8', 
+                    'Leica Stellaris', 
+                    'Spinning Disc', 
+                    'Zeiss 510', 
+                    'Lecia M205', 
+                    'Olympus IX81', 
+                    'Ziess',
+                    'Axioskop2'
+                ].sort(); %>
+
+                <select name="platformName">
+                  <% platforms.map(platform=>{ %>
+                  <option><%- platform %></option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+            <!--<p class="help">This is a help text</p>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="control">
+        <button class="button is-success">Create</button>
+      </div>
+    </form>
+  </div>
 </section>
 <% include ../foot.ejs %>

@@ -1,114 +1,117 @@
 <%- include ../head.ejs %>
 <section class="section">
-    <div class="container">
-        <h1 class="title has-text-centered">Help</h1>
-        <hr>
+  <div class="container">
+    <h1 class="title has-text-centered">Help</h1>
+    <hr />
 
-        <h2 class="title is-4 has-text-centered">Naming stuff in this image database</h2>
+    <h2 class="title is-4 has-text-centered">
+      Naming stuff in this image database
+    </h2>
 
-        <p>
-            You're going to be asked to choose names at <span class="is-underlined">four</span> different levels to
-            store data in this tool.
-        </p>
+    <p>
+      You're going to be asked to choose names at
+      <span class="is-underlined">four</span> different levels to store data in
+      this tool.
+    </p>
 
-        <p>
-            The four levels are:
-        </p>
+    <p>The four levels are:</p>
 
-        <li>Project</li>
-        <li>Sample</li>
-        <li>Experiment</li>
-        <li>Capture</li>
+    <li>Project</li>
+    <li>Sample</li>
+    <li>Experiment</li>
+    <li>Capture</li>
 
-        <div class="has-text-centered">
-            <figure class="image is-inline-block">
-                <img src="/img/images_data_model.png" style="max-width:512px;">
-            </figure>
-        </div>
-
-        <p>
-            The data model the database uses is minimal, so there is a lot of flexibility in what you can choose at each
-            level. The emphasis here is to make it as straightforward as practical to make it possible for a worker in
-            your group in the future to find your work without you explicitly telling them where it is.
-
-            And we appreciate that choosing names is hard, but don't worry you can't get it wrong.
-
-            Here are some simple guidelines to help you
-
-        </p>
-
-        <section class="section">
-
-            <h3 class="title is-4 has-text-centered">Project</h3>
-
-            <p>
-                A <b>Project</b> is pretty much equivalent to a research theme within your <span class="is-underlined">group</span>. This is the biggest
-                umbrella
-                group and many researchers will contribute to a single project. Although you may use the word project to
-                refer
-                to one part of your PhD or post-doc, that's not how we're using it here. We mean something more at the
-                group
-                level. It shouldn't take too many words to come up with a project name. If there are existing projects
-                in
-                the
-                database, see whether you can add to one rather than creating a new one.
-            </p>
-        </section>
-
-        <section class="section">
-            <h3 class="title is-4 has-text-centered">Sample</h3>
-
-            <p>
-                A <b>Sample</b> is a rough heading that is meant to capture the basic biological variables and material
-                of
-                your
-                image. Here we're looking at things like tissue, organelle or growth conditon. You'll be explicitly
-                asked
-                for the organism name and NCBI Taxonomy ID to uniquely identify the main organism in the image, you can
-                look
-                it up at NCBI <a href="https://www.ncbi.nlm.nih.gov/taxonomy">here</a>. Some times it won't be clear exactly what
-                should
-                be in <b>Sample</b> and the next layer <b>Experiment</b>. The <b>Sample</b> should contain many <b>Experiments</b>
-                so use this
-                one to capture the rough aspects that aren't changing.
-            </p>
-        </section>
-
-        <section class="section">
-            <h3 class="title is-4 has-text-centered">Experiment</h3>
-
-            <p>
-                An <b>Experiment</b> is the next heading that captures the more relevant varying biological and
-                technical
-                variables (like the treatment or the biological replicate). There could be lots of <b>Experiments</b>
-                for a
-                sample.
-            </p>
-        </section>
-
-        <section class="section">
-            <h3 class="title is-4 has-text-centered">Capture</h3>
-
-            <p>
-                A <b>Capture</b> is the simplest heading. This is really the images themselves, and most Experiments
-                would
-                have
-                one capture. If multiple captures are present, then they would likely be technically identical, even if
-                they
-                are different images. The experimental variables should be identical for all images in the same capture.
-            </p>
-        </section>
-
-        <hr/>
-
-        <div class="card">
-            <div class="card-content">
-                <h3 class="title is-4 has-text-centered">If you have any doubts or questions</h3>
-                <p>Please contact us at <a href="mailto:bioinformatics.tsl.ac.uk">bioinformatics@tsl.ac.uk</a></p>
-                <p>Ask the bioinformatics team. You can't mess this database up, so don't worry about getting it
-                    wrong.</p>
-            </div>
-        </div>
+    <div class="has-text-centered">
+      <figure class="image is-inline-block">
+        <img src="/img/images_data_model.png" style="max-width: 512px" />
+      </figure>
     </div>
+
+    <p>
+      The data model the database uses is minimal, so there is a lot of
+      flexibility in what you can choose at each level. The emphasis here is to
+      make it as straightforward as practical to make it possible for a worker
+      in your group in the future to find your work without you explicitly
+      telling them where it is. And we appreciate that choosing names is hard,
+      but don't worry you can't get it wrong. Here are some simple guidelines to
+      help you
+    </p>
+
+    <section class="section">
+      <h3 class="title is-4 has-text-centered">Project</h3>
+
+      <p>
+        A <b>Project</b> is pretty much equivalent to a research theme within
+        your <b>Research Group</b>. This is the biggest umbrella group and many
+        researchers will contribute to a single project. Although you may use
+        the word project to refer to one part of your PhD or post-doc, that's
+        not how we're using it here. We mean something more at the group level.
+        It shouldn't take too many words to come up with a project name. If
+        there are existing projects in the database, see whether you can add to
+        one rather than creating a new one. As such using your own name as the
+        name for a project is a very bad idea! Your group and the research theme
+        will very likely outlast your tenure here so please use something
+        descriptive. It will help your group in the future.
+      </p>
+    </section>
+
+    <section class="section">
+      <h3 class="title is-4 has-text-centered">Sample</h3>
+
+      <p>
+        A <b>Sample</b> is a rough heading that is meant to capture the basic
+        biological variables and material of your image. Here we're looking at
+        things like tissue, organelle or growth conditon. You'll be explicitly
+        asked for the organism name and NCBI Taxonomy ID to uniquely identify
+        the main organism in the image, you can look it up at NCBI
+        <a href="https://www.ncbi.nlm.nih.gov/taxonomy">here</a>. Some times it
+        won't be clear exactly what should be in <b>Sample</b> and the next
+        layer <b>Experiment</b>. The <b>Sample</b> should contain many
+        <b>Experiments</b>
+        so use this one to capture the rough aspects that aren't changing.
+      </p>
+    </section>
+
+    <section class="section">
+      <h3 class="title is-4 has-text-centered">Experiment</h3>
+
+      <p>
+        An <b>Experiment</b> is the next heading that captures the more relevant
+        varying biological and technical variables (like the treatment or the
+        biological replicate). There could be lots of <b>Experiments</b>
+        for a sample.
+      </p>
+    </section>
+
+    <section class="section">
+      <h3 class="title is-4 has-text-centered">Capture</h3>
+
+      <p>
+        A <b>Capture</b> is the simplest heading. This is really the images
+        themselves, and most Experiments would have one capture. If multiple
+        captures are present, then they would likely be technically identical,
+        even if they are different images. The experimental variables should be
+        identical for all images in the same capture.
+      </p>
+    </section>
+
+    <hr />
+
+    <div class="card">
+      <div class="card-content">
+        <h3 class="title is-4 has-text-centered">
+          If you have any doubts or questions
+        </h3>
+        <p>
+          Please contact us at
+          <a href="mailto:bioinformatics.tsl.ac.uk">bioinformatics@tsl.ac.uk</a>
+        </p>
+        <p>
+          Ask the bioinformatics team. You can't mess this database up, so don't
+          worry about getting it wrong.
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 <%- include ../foot.ejs %>
