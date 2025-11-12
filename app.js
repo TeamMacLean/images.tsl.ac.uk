@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const sassMiddleware = require("node-sass-middleware");
+const sassMiddleware = require("sass-middleware");
 const logger = require("morgan");
 const passport = require("passport");
 const LdapStrategy = require("passport-ldapauth");
@@ -10,9 +10,9 @@ const uploadFile = require("./lib/uploadFile");
 const session = require("express-session");
 const rethinkSession = require("session-rethinkdb")(session);
 const tus = require("tus-node-server");
-const tusServer = new tus.Server();
+const tusServer = new tus.Server({ path: "/uploads" });
 
-tusServer.datastore = new tus.FileStore({ path: "/files" });
+tusServer.datastore = new tus.FileStore({ directory: "./files" });
 tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, (event) => {
   uploadFile.create(event);
   console.log("File upload complete:", event.file);
@@ -52,7 +52,7 @@ app.use(
     dest: path.join(__dirname, "public", "style"),
     outputStyle: "compressed",
     prefix: "/style/",
-  })
+  }),
 );
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -66,7 +66,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: store,
-  })
+  }),
 );
 
 app.use(passport.initialize());
@@ -116,8 +116,8 @@ passport.use(
       };
       console.log("LDAP user authenticated:", user);
       done(null, user);
-    }
-  )
+    },
+  ),
 );
 
 config.groups.map((group) => {
@@ -145,7 +145,7 @@ app.use(
     console.log("Received request for:", req.url);
     next();
   },
-  router
+  router,
 );
 
 app.use((req, res, next) => {

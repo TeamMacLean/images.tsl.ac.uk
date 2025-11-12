@@ -1,82 +1,70 @@
-<% locals.breadcrumbs = [ {name: 'Home', link: '/'}, {name: group.name, link:
-`/browse/${group.safeName}`}, {name: 'New Project', active: true} ]; %> <%
-include ../head.ejs %>
+<%
+locals.breadcrumbs = [
+    {name: 'Home', link: '/'},
+    {name: group.name, link: `/browse/${group.safeName}`},
+    {name: 'New Project', active: true}
+];
+%>
+<%-include('../head.ejs') %>
 
 <section class="section">
-  <div class="container">
-    <h1 class="title has-text-centered">New Project</h1>
+    <div class="container">
 
-    <section class="section">
-      <p>
-        A <b>Project</b> is pretty much equivalent to a research theme within
-        your <b>Research Group</b>. This is the biggest umbrella group and many
-        researchers will contribute to a single project. Although you may use
-        the word project to refer to one part of your PhD or post-doc, that's
-        not how we're using it here. We mean something more at the group level.
-        It shouldn't take too many words to come up with a project name. If
-        there are existing projects in the database, see whether you can add to
-        one rather than creating a new one. As such using your own name as the
-        name for a project is a very bad idea! Your group and the research theme
-        will very likely outlast your tenure here so please use something
-        descriptive. It will help your group in the future.
-      </p>
-    </section>
+            <h1 class="title has-text-centered">New Project</h1>
 
-    <form method="post" action="/browse/<%- group.safeName %>/new">
-      <div class="columns">
-        <div class="column">
-          <div class="field">
-            <label class="label">Project Name</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                placeholder="New project name"
-                name="name"
-                maxlength="30"
-                required
-              />
+        <section class="section">
+            <p class="">A <b>Project</b> is pretty much equivalent to a research theme within your <span
+                        class="underline">group</span>. This is the
+                biggest umbrella group and many researchers will contribute to a single project. Although you may use
+                the
+                word project to refer to one part of your PhD or post-doc, that's not how we're using it here. We mean
+                something more at the group level. It shouldn't take too many words to come up with a project name. If
+                there
+                are existing projects in the database, see whether you can add to one rather than creating a new one. <a
+                        onclick="openHelp()" target="_blank">read more.</a></p>
+        </section>
+
+        <form method="post" action="/browse/<%- group.safeName %>/new">
+
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Project Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="New project name" name="name" maxlength="30"
+                                   required>
+                        </div>
+                        <p class="help">The name of your project</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Short Description</label>
+                        <div class="control">
+                <textarea class="input" placeholder="Short description" name="shortDescription" minlength="20"
+                          maxlength="100"
+                          required></textarea>
+                        </div>
+                        <p class="help">a short description of the project. 20-100 characters</p>
+                    </div>
+                </div>
             </div>
-            <p class="help">The name of your project</p>
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <label class="label">Short Description</label>
-            <div class="control">
-              <textarea
-                class="input"
-                placeholder="Short description"
-                name="shortDescription"
-                minlength="20"
-                maxlength="100"
-                required
-              ></textarea>
+
+
+            <div class="field">
+                <label class="label">Long Description</label>
+                <div class="control">
+                <textarea class="input" placeholder="Long description" minlength="100"
+                          name="longDescription"></textarea>
+                </div>
+                <p class="help">a long description of the project. 100+ characters</p>
             </div>
-            <p class="help">
-              a short description of the project. 20-100 characters
-            </p>
-          </div>
-        </div>
-      </div>
 
-      <div class="field">
-        <label class="label">Long Description</label>
-        <div class="control">
-          <textarea
-            class="input"
-            placeholder="Long description"
-            minlength="100"
-            name="longDescription"
-          ></textarea>
-        </div>
-        <p class="help">a long description of the project. 100+ characters</p>
-      </div>
+            <div class="control">
+                <button class="button is-success">Create</button>
+            </div>
+        </form>
 
-      <div class="control">
-        <button class="button is-success">Create</button>
-      </div>
-    </form>
-  </div>
+    </div>
 </section>
-<% include ../foot.ejs %>
+<%-include('../foot.ejs') %>

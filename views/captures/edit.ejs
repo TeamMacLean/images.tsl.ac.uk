@@ -16,7 +16,7 @@ locals.breadcrumbs = [
     },
     {name: 'Edit Capture', active: true}
 ]; %>
-<% include ../head.ejs %>
+<%-include('../head.ejs') %>
 
 <section class="section">
     <div class="container">
@@ -60,9 +60,6 @@ locals.breadcrumbs = [
                                 <%
                                 const platforms = [
                                     'Leica SP8',
-                                    'DSLR Camera',
-                                    'Phone Camera',
-                                    'Leica Stellaris',
                                     'Spinning Disc',
                                     'Zeiss 510',
                                     'Lecia M205',
@@ -92,4 +89,4 @@ locals.breadcrumbs = [
 
     </div>
 </section>
-<% include ../foot.ejs %>
+<%-include('../foot.ejs') %>

@@ -11,14 +11,14 @@
     },
     {name: experiment.name, active: true}
 ]; %>
-<% include ../head.ejs %>
+<%-include('../head.ejs') %>
 
 <section class="section">
     <div class="container">
 
         <h1 class="title has-text-centered"><%- experiment.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${experiment.sample.project.group.safeName}/${experiment.sample.project.safeName}/${experiment.sample.safeName}/${experiment.safeName}` %>
-        <% include ../_hpc_path.ejs %>
+        <%-include('../_hpc_path.ejs') %>
         <hr>
 
         <% if(experiment.user){ %>
@@ -88,4 +88,4 @@
         <% } %>
     </div>
 </section>
-<% include ../foot.ejs %>
+<%-include('../foot.ejs') %>

@@ -3,13 +3,13 @@
     {name: project.group.name, link: `/browse/${project.group.safeName}`},
     {name: project.name, active: true}
 ]; %>
-<% include ../head.ejs %>
+<%-include('../head.ejs') %>
 
 <section class="section">
     <div class="container">
         <h1 class="title has-text-centered"><%- project.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${project.group.safeName}/${project.safeName}` %>
-        <% include ../_hpc_path.ejs %>
+        <%-include('../_hpc_path.ejs') %>
         <hr>
 
         <% if(project.user){ %>
@@ -80,4 +80,4 @@
         </div>
     </div>
 </section>
-<% include ../foot.ejs %>
+<%-include('../foot.ejs') %>

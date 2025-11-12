@@ -6,7 +6,7 @@ locals.breadcrumbs = [
     {name: sample.name, link: `/browse/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}`},
     {name: 'New Experiment', active: true}
 ]; %>
-<% include ../head.ejs %>
+<%-include('../head.ejs') %>
 
 <section class="section">
     <div class="container">
@@ -70,4 +70,4 @@ locals.breadcrumbs = [
 
     </div>
 </section>
-<% include ../foot.ejs %>
+<%-include('../foot.ejs') %>

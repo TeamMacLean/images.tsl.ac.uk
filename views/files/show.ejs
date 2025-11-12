@@ -18,13 +18,13 @@
     },
     {name: file.name, active: true}
 ]; %>
-<% include ../head.ejs %>
+<%-include('../head.ejs') %>
 <section class="section">
     <div class="container">
 
         <h1 class="title has-text-centered"><%- file.originalName %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${file.capture.experiment.sample.project.group.safeName}/${file.capture.experiment.sample.project.safeName}/${file.capture.experiment.sample.safeName}/${file.capture.experiment.safeName}/${file.capture.safeName}/${file.safeName}` %>
-        <% include ../_hpc_path.ejs %>
+        <%-include('../_hpc_path.ejs') %>
         <hr>
         <div class="columns">
             <div class="column">
@@ -45,4 +45,4 @@
 
     </div>
 </section>
-<% include ../foot.ejs %>
+<%-include('../foot.ejs') %>
