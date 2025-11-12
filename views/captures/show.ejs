@@ -24,7 +24,7 @@
 
         <h1 class="title has-text-centered"><%- capture.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}/${capture.experiment.sample.safeName}/${capture.experiment.safeName}/${capture.safeName}` %>
-        <%-include('../_hpc_path.ejs') %>
+        <%-include('../_hpc_path.ejs', { HPCPath }) %>
         <hr>
 
         <% if(capture.user){ %>
@@ -56,7 +56,7 @@
 
 
         <div class="section">
-            <%-include('../_uploadFile.ejs') %>
+            <%-include('../_uploadFile.ejs', { capture }) %>
         </div>
 
         <div class="columns">
