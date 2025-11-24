@@ -56,6 +56,11 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "public")));
+// Serve the Parcel-built JS files from public/js/dist under the /js/dist path
+app.use(
+  "/js/dist",
+  express.static(path.join(__dirname, "public", "js", "dist")),
+);
 app.use("/font-awesome", express.static("./node_modules/font-awesome"));
 
 const r = require("./lib/thinky").r;
