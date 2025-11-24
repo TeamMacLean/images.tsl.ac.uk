@@ -16,12 +16,14 @@
     "test:frontend": "playwright test tests/frontpage.spec.js",
     "test:help": "playwright test tests/help.spec.js",
     "test:help-integration": "playwright test tests/help-integration.spec.js",
+    "test:help-popup": "playwright test tests/help-popup.spec.js",
     "test:all": "playwright test tests/*.spec.js",
     "test:uppy:headed": "playwright test tests/uppy.spec.js --headed",
     "test:thinky:headed": "playwright test tests/thinky.spec.js --headed",
     "test:uploader:headed": "playwright test tests/uploader-module.spec.js --headed",
     "test:help:headed": "playwright test tests/help.spec.js --headed",
     "test:help-integration:headed": "playwright test tests/help-integration.spec.js --headed",
+    "test:help-popup:headed": "playwright test tests/help-popup.spec.js --headed",
     "test:runner": "node run-tests.js"
   },
   "dependencies": {

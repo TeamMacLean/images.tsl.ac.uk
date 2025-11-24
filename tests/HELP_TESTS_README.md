@@ -3,7 +3,9 @@
 ## Overview
 This document describes the tests for the Help page (`/help`) of the TSL Image Data application.
 
-## Issue Fixed
+## Issues Fixed
+
+### Issue 1: Include Statement Syntax
 The help page was not loading due to incorrect EJS include statements. The issue was in `/views/help/index.ejs`:
 
 **Before (Broken):**
@@ -17,6 +19,21 @@ The help page was not loading due to incorrect EJS include statements. The issue
 <%-include('../head.ejs') %>
 <%-include('../foot.ejs') %>
 ```
+
+### Issue 2: Mailto Link Syntax Error
+The help popup showed "SyntaxError: Unexpected token '.'" when clicking "read more" from project pages. The issue was an incorrect mailto link format:
+
+**Before (Broken):**
+```html
+<a href="mailto:bioinformatics.tsl.ac.uk">bioinformatics@tsl.ac.uk</a>
+```
+
+**After (Fixed):**
+```html
+<a href="mailto:bioinformatics@tsl.ac.uk">bioinformatics@tsl.ac.uk</a>
+```
+
+The mailto link was missing the @ symbol in the href attribute, causing EJS parsing errors when the help page was loaded in a popup.
 
 ## Test Files
 
@@ -42,6 +59,17 @@ Integration tests that require actual authentication and a running server.
 - Error handling
 - Performance metrics
 
+### 3. `help-popup.spec.js`
+Tests for the help popup functionality triggered from "read more" links.
+
+**Tests included:**
+- openHelp() function availability
+- Popup window opening from project pages
+- Content rendering in popup dimensions
+- Mailto link correctness
+- JavaScript error monitoring
+- Popup window parameters verification
+
 ## Running the Tests
 
 ### Prerequisites
@@ -64,6 +92,17 @@ npm run test:help
 Run with visible browser:
 ```bash
 npm run test:help:headed
+```
+
+### Popup Tests
+Run the help popup tests:
+```bash
+npm run test:help-popup
+```
+
+Run with visible browser:
+```bash
+npm run test:help-popup:headed
 ```
 
 ### Integration Tests (Authentication Required)
@@ -122,6 +161,12 @@ The help page tests verify:
    - Page load time
    - Image loading
 
+6. **Popup Functionality**
+   - openHelp() JavaScript function
+   - Popup window parameters
+   - Content rendering in popup
+   - No JavaScript errors when opening
+
 ## Troubleshooting
 
 ### Tests Skip Due to Authentication
@@ -139,9 +184,11 @@ If tests fail due to missing `/img/images_data_model.png`:
 
 ### EJS Template Errors
 If you see template compilation errors:
-1. Verify the include syntax uses quotes and parentheses
+1. Verify the include syntax uses quotes and parentheses: `<%-include('../file.ejs') %>`
 2. Check that all included files exist
 3. Ensure proper path resolution from the view directory
+4. Verify mailto links have @ symbol: `mailto:email@domain.com`
+5. Check for any dots in unexpected places that could cause "Unexpected token '.'" errors
 
 ## Continuous Integration
 
@@ -172,3 +219,6 @@ When modifying the help page:
 - `/controllers/help.js` - Help page controller
 - `/routes.js` - Route definitions including `/help`
 - `/public/img/images_data_model.png` - Data model diagram
+- `/verify-mailto-fix.js` - Script to verify the mailto link fix
+- `/verify-help-page.js` - Script for manual help page verification
+- `/test-help-ejs.js` - EJS template validation script

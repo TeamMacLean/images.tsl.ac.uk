@@ -1,9 +1,7 @@
 const { test, expect } = require("@playwright/test");
 
 test.describe("Help Page Tests", () => {
-  test("should redirect to signin when not authenticated", async ({
-    page,
-  }) => {
+  test("should redirect to signin when not authenticated", async ({ page }) => {
     // Try to navigate to help page without authentication
     await page.goto("/help");
 
@@ -39,7 +37,7 @@ test.describe("Help Page Tests", () => {
     if (page.url().includes("/signin")) {
       test.skip(
         true,
-        "Skipping authenticated test - requires valid session. Run with a running server and valid auth."
+        "Skipping authenticated test - requires valid session. Run with a running server and valid auth.",
       );
       return;
     }
@@ -74,13 +72,11 @@ test.describe("Help Page Tests", () => {
     }
 
     // Check main title
-    await expect(
-      page.locator('h1.title:has-text("Help")')
-    ).toBeVisible();
+    await expect(page.locator('h1.title:has-text("Help")')).toBeVisible();
 
     // Check section titles
     await expect(
-      page.locator('h2:has-text("Naming stuff in this image database")')
+      page.locator('h2:has-text("Naming stuff in this image database")'),
     ).toBeVisible();
 
     // Check the four levels are listed
@@ -97,7 +93,7 @@ test.describe("Help Page Tests", () => {
 
     // Check contact section
     await expect(
-      page.locator('h3:has-text("If you have any doubts or questions")')
+      page.locator('h3:has-text("If you have any doubts or questions")'),
     ).toBeVisible();
   });
 
@@ -154,14 +150,14 @@ test.describe("Help Page Tests", () => {
       return;
     }
 
-    // Check email link
-    const emailLink = page.locator('a[href="mailto:bioinformatics.tsl.ac.uk"]');
+    // Check email link - verify correct mailto format with @ symbol
+    const emailLink = page.locator('a[href="mailto:bioinformatics@tsl.ac.uk"]');
     await expect(emailLink).toBeVisible();
     await expect(emailLink).toHaveText("bioinformatics@tsl.ac.uk");
 
-    // Check correct mailto format
+    // Check correct mailto format (should have @ symbol)
     const href = await emailLink.getAttribute("href");
-    expect(href).toBe("mailto:bioinformatics.tsl.ac.uk");
+    expect(href).toBe("mailto:bioinformatics@tsl.ac.uk");
   });
 
   test("should have NCBI taxonomy link", async ({ page }) => {
@@ -185,7 +181,9 @@ test.describe("Help Page Tests", () => {
     }
 
     // Check NCBI link
-    const ncbiLink = page.locator('a[href="https://www.ncbi.nlm.nih.gov/taxonomy"]');
+    const ncbiLink = page.locator(
+      'a[href="https://www.ncbi.nlm.nih.gov/taxonomy"]',
+    );
     await expect(ncbiLink).toBeVisible();
     await expect(ncbiLink).toHaveText("here");
 
@@ -265,7 +263,9 @@ test.describe("Help Page Tests", () => {
     expect(page.url()).toBeTruthy();
   });
 
-  test("should verify all text content is properly formatted", async ({ page }) => {
+  test("should verify all text content is properly formatted", async ({
+    page,
+  }) => {
     await page.context().addCookies([
       {
         name: "connect.sid",
