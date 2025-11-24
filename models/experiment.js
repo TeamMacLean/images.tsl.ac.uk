@@ -1,134 +1,149 @@
-const thinky = require('../lib/thinky');
-const type = thinky.type;
+const thinky = require("../lib/thinky");
+
 const r = thinky.r;
-const Util = require('../lib/util');
-const config = require('../config');
+const Util = require("../lib/util");
+const config = require("../config");
 
-const fs = require('fs');
+const fs = require("fs");
 
-const Experiment = thinky.createModel('Experiment', {
-    id: type.string(),
-    sampleID: type.string().required(),
-    createdAt: type.date().default(r.now()),
-    updatedAt: type.date(),
-    name: type.string().required(),
-    safeName: type.string().required(),
-    protocol: type.string(),
-    description: type.string().required().default(''),
-    user:type.string()
+const Experiment = thinky.createModel("Experiment", {
+  id: thinky.type.string(),
+  sampleID: thinky.type.string().required(),
+  createdAt: thinky.type.date().default(r.now()),
+  updatedAt: thinky.type.date(),
+  name: thinky.type.string().required(),
+  safeName: thinky.type.string().required(),
+  protocol: thinky.type.string(),
+  description: thinky.type.string().required().default(""),
+  user: thinky.type.string(),
 });
 
 module.exports = Experiment;
 
-Experiment.defineStatic('find', function (groupName, projectName, sampleName, experimentName) {
+Experiment.find = function (
+  groupName,
+  projectName,
+  sampleName,
+  experimentName,
+) {
+  return new Promise((good, bad) => {
+    Experiment.filter({ safeName: experimentName })
+      .getJoin({
+        sample: { project: { group: true }, files: true },
+        captures: true,
+      })
+      .then((experiments) => {
+        const samplesExperiments = experiments.filter(
+          (e) =>
+            e.sample.project.group.safeName === groupName &&
+            e.sample.project.safeName === projectName &&
+            e.sample.safeName === sampleName,
+        );
+
+        if (samplesExperiments && samplesExperiments.length) {
+          return good(samplesExperiments[0]);
+        } else {
+          return bad(new Error("Experiment not found"));
+        }
+      })
+      .catch((err) => {
+        return bad(err);
+      });
+  });
+};
+
+const Sample = require("./sample");
+const Capture = require("./capture");
+
+Experiment.preSave = function () {
+  const experiment = this;
+  const OldSafeName = experiment.safeName;
+
+  const GenerateSafeName = function () {
     return new Promise((good, bad) => {
-        Experiment.filter({safeName: experimentName})
-            .getJoin({sample: {project: {group: true}, files: true}, captures: true})
-            .then(experiments => {
-                const samplesExperiments = experiments.filter(e => e.sample.project.group.safeName === groupName
-                    && e.sample.project.safeName === projectName
-                    && e.sample.safeName === sampleName);
+      Experiment.run()
+        .then((experiments) => {
+          experiments = experiments.filter((a) => a.id !== experiment.id);
+          Util.generateSafeName(experiment.name, experiments).then(
+            (safeName) => {
+              experiment.safeName = safeName;
+              return good(safeName);
+            },
+          );
+        })
+        .catch((err) => {
+          return bad(err);
+        });
+      // }
+    });
+  };
 
-                if (samplesExperiments && samplesExperiments.length) {
-                    return good(samplesExperiments[0]);
-                } else {
-                    return bad(new Error('Experiment not found'));
-                }
+  const MakeDirectory = function () {
+    return new Promise((good, bad) => {
+      Sample.get(experiment.sampleID)
+        .getJoin({ project: { group: true } })
+        .then((sample) => {
+          Util.ensureDir(
+            `${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${experiment.safeName}`,
+          )
+            .then(() => {
+              good();
             })
-            .catch(err => {
-                return bad(err);
+            .catch((err) => {
+              console.error(err);
+              bad(err);
             });
-    })
-});
-
-const Sample = require('./sample');
-const Capture = require('./capture');
-
-Experiment.pre('save', function (next) {
-    const experiment = this;
-    const OldSafeName = experiment.safeName;
-
-    const GenerateSafeName = function () {
-        return new Promise((good, bad) => {
-            Experiment.run()
-                .then(experiments => {
-                    experiments = experiments.filter(a => a.id !== experiment.id);
-                    Util.generateSafeName(experiment.name, experiments)
-                        .then(safeName => {
-                            experiment.safeName = safeName;
-                            return good(safeName);
-                        })
-                })
-                .catch(err => {
-                    return bad(err);
-                });
-            // }
-        });
-    };
-
-    const MakeDirectory = function () {
-        return new Promise((good, bad) => {
-            Sample.get(experiment.sampleID)
-                .getJoin({project: {group: true}})
-                .then(sample => {
-                    Util.ensureDir(`${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${experiment.safeName}`)
-                        .then(() => {
-                            good()
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            bad(err);
-                        })
-                })
-                .catch(err => {
-                    console.error(err);
-                    bad(err);
-                })
-        });
-    };
-
-    const MoveDirectory = function (oldName, newName) {
-        return new Promise((good, bad) => {
-            Sample.get(experiment.sampleID)
-                .getJoin({project: {group: true}})
-                .then(sample => {
-                    const oldFullPath = `${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${oldName}`;
-                    const newFullPath = `${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${newName}`;
-                    fs.rename(oldFullPath, newFullPath, function (err) {
-                        if (err) {
-                            bad(err);
-                        } else {
-                            good(newName)
-                        }
-
-                    })
-                })
-                .catch(err => {
-                    console.error(err);
-                    bad(err);
-                })
         })
-    };
+        .catch((err) => {
+          console.error(err);
+          bad(err);
+        });
+    });
+  };
 
-    GenerateSafeName()
-        .then(newSafeName => {
-            if (typeof OldSafeName !== 'undefined') {
-                if (experiment.safeName !== OldSafeName) {
-                    return MoveDirectory(OldSafeName, experiment.safeName)
-                } else {
-                    next();
-                }
+  const MoveDirectory = function (oldName, newName) {
+    return new Promise((good, bad) => {
+      Sample.get(experiment.sampleID)
+        .getJoin({ project: { group: true } })
+        .then((sample) => {
+          const oldFullPath = `${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${oldName}`;
+          const newFullPath = `${config.rootPath}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}/${newName}`;
+          fs.rename(oldFullPath, newFullPath, function (err) {
+            if (err) {
+              bad(err);
             } else {
-                return MakeDirectory()
+              good(newName);
             }
+          });
         })
-        .then(function () {
-            return next();
-        })
-        .catch(err => next(err));
-});
+        .catch((err) => {
+          console.error(err);
+          bad(err);
+        });
+    });
+  };
+
+  return GenerateSafeName().then(() => {
+    if (typeof OldSafeName !== "undefined") {
+      if (experiment.safeName !== OldSafeName) {
+        return MoveDirectory(OldSafeName, experiment.safeName);
+      } else {
+        return Promise.resolve();
+      }
+    } else {
+      return MakeDirectory();
+    }
+  });
+};
+
+const originalSave = Experiment.prototype.save;
+Experiment.prototype.save = function (...args) {
+  return Experiment.preSave.call(this).then(() => {
+    return originalSave.apply(this, args);
+  });
+};
 
 Experiment.ensureIndex("createdAt");
 
-Experiment.belongsTo(Sample, 'sample', 'sampleID', 'id');
-Experiment.hasMany(Capture, 'captures', 'id', 'experimentID');
+Experiment.belongsTo(Sample, "sample", "sampleID", "id");
+Experiment.hasMany(Capture, "captures", "id", "experimentID");

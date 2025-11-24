@@ -14,23 +14,34 @@ const Group = thinky.createModel("Group", {
 
 module.exports = Group;
 
-Group.pre("save", function (next) {
+Group.preSave = function () {
   const dirPath = config.rootPath + "/" + this.safeName;
-  Util.ensureDir(dirPath)
-    .then(() => {
-      console.log(`✓ Group directory ready: ${dirPath}`);
-      next();
-    })
-    .catch((err) => {
-      console.error(`✗ Failed to create group directory: ${dirPath}`);
-      console.error("Error details:", err.message);
-      // Continue anyway - directory will be created on first file upload
-      console.log("→ Continuing without directory (will be created on demand)");
-      next();
-    });
-});
+  return new Promise((resolve) => {
+    Util.ensureDir(dirPath)
+      .then(() => {
+        console.log(`✓ Group directory ready: ${dirPath}`);
+        resolve();
+      })
+      .catch((err) => {
+        console.error(`✗ Failed to create group directory: ${dirPath}`);
+        console.error("Error details:", err.message);
+        // Continue anyway - directory will be created on first file upload
+        console.log(
+          "→ Continuing without directory (will be created on demand)",
+        );
+        resolve();
+      });
+  });
+};
 
-Group.defineStatic("find", function (groupName) {
+const originalSave = Group.prototype.save;
+Group.prototype.save = function (...args) {
+  return Group.preSave.call(this).then(() => {
+    return originalSave.apply(this, args);
+  });
+};
+
+Group.find = function (groupName) {
   return new Promise((good, bad) => {
     Group.filter({ safeName: groupName })
       .getJoin({ projects: true })
@@ -45,7 +56,7 @@ Group.defineStatic("find", function (groupName) {
         bad(err);
       });
   });
-});
+};
 
 Group.ensureIndex("createdAt");
 
