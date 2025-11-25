@@ -139,7 +139,7 @@ config.groups.map((group) => {
             console.error("Error creating group:", err);
           });
       } else {
-        console.log("Group already exists:", group.safeName);
+        //console.log("Group already exists:", group.safeName);
       }
     });
 });

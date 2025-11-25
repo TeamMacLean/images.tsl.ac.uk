@@ -12,6 +12,7 @@ const Files = require("./controllers/files");
 const Help = require("./controllers/help");
 
 const Util = require("./lib/util");
+const config = require("./config");
 
 router
   .route("/")
@@ -98,7 +99,7 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}`,
     );
     next();
   }, Samples.show);
@@ -108,7 +109,7 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/edit`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/edit`,
     );
     next();
   }, Samples.edit);
@@ -118,13 +119,13 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/new`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/new`,
     );
     next();
   }, Experiments.new)
   .post((req, res, next) => {
     console.log(
-      `POST /browse/${req.params.group}/${req.params.project}/${req.params.sample}/new`
+      `POST /browse/${req.params.group}/${req.params.project}/${req.params.sample}/new`,
     );
     next();
   }, Experiments.save);
@@ -134,7 +135,7 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}`,
     );
     next();
   }, Experiments.show);
@@ -144,7 +145,7 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/edit`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/edit`,
     );
     next();
   }, Experiments.edit);
@@ -154,13 +155,13 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/new`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/new`,
     );
     next();
   }, Captures.new)
   .post((req, res, next) => {
     console.log(
-      `POST /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/new`
+      `POST /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/new`,
     );
     next();
   }, Captures.save);
@@ -170,7 +171,7 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}`,
     );
     next();
   }, Captures.show);
@@ -180,7 +181,7 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/edit`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/edit`,
     );
     next();
   }, Captures.edit);
@@ -190,7 +191,7 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/${req.params.file}`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/${req.params.file}`,
     );
     next();
   }, Files.show);
@@ -200,7 +201,7 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/${req.params.edit}`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/${req.params.edit}`,
     );
     next();
   }, Files.edit);
@@ -210,14 +211,14 @@ router
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/${req.params.file}/download`
+      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/${req.params.file}/download`,
     );
     next();
   }, Files.download);
 
 router.route("*").get((req, res, next) => {
   console.log("GET * - Rendering 404 for:", req.url);
-  return res.render("404");
+  return res.status(404).render("404");
 });
 
 module.exports = router;
@@ -235,7 +236,12 @@ function isAuthenticated(req, res, next) {
 
 function isInGroup(req, res, next) {
   console.log(`Checking group access for group: ${req.params.group}`);
-  return next();
+
+  // In development mode, allow access to all groups
+  if (config.developmentMode) {
+    console.log("Development mode: Allowing access to all groups");
+    return next();
+  }
 
   if (Util.canAccessGroup(req.params.group, req)) {
     console.log(`User has access to group: ${req.params.group}`);

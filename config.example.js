@@ -1,5 +1,6 @@
 module.exports = {
   appName: "Image Data",
+  developmentMode: false, // Set to true for local development (bypasses LDAP)
   rethinkdb: {
     host: "localhost", // default host
     port: 28015, // default port

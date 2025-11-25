@@ -33,13 +33,12 @@ locals.breadcrumbs = [
             <div class="columns">
                 <div class="column">
                     <div class="field">
-                        <label class="label">Sample Name</label>
+                        <label class="label">Sample Nickname</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="New experiment name" name="name"
-                                   maxlength="30"
-                                   required>
+                            <input class="input" type="text" placeholder="Optional shorthand reference" name="name"
+                                   maxlength="30">
                         </div>
-                        <p class="help">The name of your sample</p>
+                        <p class="help">Optional shorthand reference for your sample (defaults to scientific name if not provided)</p>
                     </div>
                 </div>
                 <div class="column">
@@ -76,14 +75,6 @@ locals.breadcrumbs = [
                 </div>
             </div>
 
-            <div class="field">
-                <label class="label">Protocol</label>
-                <div class="control">
-                <textarea class="input" placeholder="Protocol" name="protocol"
-                          required></textarea>
-                </div>
-                <p class="help">help text</p>
-            </div>
             <div class="control">
                 <button class="button is-success">Create</button>
             </div>

@@ -46,8 +46,10 @@
             </div>
         </div>
 
-        <label class="label">Protocol</label>
-        <p><%- sample.protocol %></p>
+        <% if(sample.protocol){ %>
+            <label class="label">Protocol</label>
+            <p><%- sample.protocol %></p>
+        <% } %>
 
         <hr>
         <a href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/edit"

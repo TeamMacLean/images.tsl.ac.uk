@@ -44,6 +44,12 @@
             <div class="column is-6 is-offset-3">
                 <h3 class="title has-text-grey">Login</h3>
                 <p class="subtitle has-text-grey">Please login to proceed.</p>
+                <% if (typeof developmentMode !== 'undefined' && developmentMode) { %>
+                <div class="notification is-warning">
+                    <strong>Development Mode:</strong> Any username/password will work<br>
+                    <small>Use username from config.admins list (e.g., "deeks") for admin access</small>
+                </div>
+                <% } %>
                 <div class="box">
                     <!--<figure class="avatar">-->
                     <!--<img src="https://placehold.it/128x128">-->
