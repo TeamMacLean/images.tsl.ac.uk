@@ -14,7 +14,7 @@ playwright-report/
 playwright/.cache/
 
 # Uploaded files (runtime data)
-files/
+files/*
 
 # Babel config (if generated)
 .babelrc
@@ -23,3 +23,5 @@ babel.config.js
 # Lock files (optional - uncomment if you want to ignore them)
 # package-lock.json
 public/style/style.css
+
+NPM_RUN_BUILD_TOO_GEORGEY
