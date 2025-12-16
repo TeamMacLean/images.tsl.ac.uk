@@ -12,6 +12,7 @@ const Sample = thinky.createModel("Sample", {
   createdAt: type.date().default(r.now()),
   updatedAt: type.date(),
   name: type.string().required(),
+  safeName: type.string().required(),
   protocol: type.string(),
   taxID: type.string().required(),
   scientificName: type.string().required(),
@@ -49,7 +50,7 @@ Sample.defineStatic("find", function (groupName, projectName, sampleName) {
 const Project = require("./project");
 const Experiment = require("./experiment");
 
-Sample.pre("save", function (next) {
+Sample.preSave = function () {
   const sample = this;
   const OldSafeName = sample.safeName;
 
@@ -114,23 +115,25 @@ Sample.pre("save", function (next) {
     });
   };
 
-  GenerateSafeName()
-    .then(() => {
-      if (typeof OldSafeName !== "undefined") {
-        if (sample.safeName !== OldSafeName) {
-          return MoveDirectory(OldSafeName, sample.safeName);
-        } else {
-          next();
-        }
+  return GenerateSafeName().then(() => {
+    if (typeof OldSafeName !== "undefined") {
+      if (sample.safeName !== OldSafeName) {
+        return MoveDirectory(OldSafeName, sample.safeName);
       } else {
-        return MakeDirectory();
+        return Promise.resolve();
       }
-    })
-    .then(function () {
-      return next();
-    })
-    .catch((err) => next(err));
-});
+    } else {
+      return MakeDirectory();
+    }
+  });
+};
+
+const originalSave = Sample.prototype.save;
+Sample.prototype.save = function (...args) {
+  return Sample.preSave.call(this).then(() => {
+    return originalSave.apply(this, args);
+  });
+};
 Sample.ensureIndex("createdAt");
 
 Sample.belongsTo(Project, "project", "projectID", "id");
