@@ -12,7 +12,7 @@ const Sample = thinky.createModel("Sample", {
   createdAt: type.date().default(r.now()),
   updatedAt: type.date(),
   name: type.string().required(),
-  safeName: type.string().required(),
+  safeName: type.string().default(""),
   protocol: type.string(),
   taxID: type.string().required(),
   scientificName: type.string().required(),

@@ -14,7 +14,7 @@ const Project = thinky.createModel("Project", {
   shortDescription: type.string().required(),
   longDescription: type.string().required(),
   name: type.string().required(),
-  safeName: type.string().required(),
+  safeName: type.string().default(""),
   user: type.string(),
 });
 

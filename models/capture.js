@@ -11,7 +11,7 @@ const Capture = thinky.createModel("Capture", {
   createdAt: thinky.type.date().default(r.now()),
   updatedAt: thinky.type.date(),
   name: thinky.type.string().required(),
-  safeName: thinky.type.string().required(),
+  safeName: thinky.type.string().default(""),
 
   platformName: thinky.type.string().required(),
   // platformLens: type.string().required(),

@@ -12,7 +12,7 @@ const Experiment = thinky.createModel("Experiment", {
   createdAt: thinky.type.date().default(r.now()),
   updatedAt: thinky.type.date(),
   name: thinky.type.string().required(),
-  safeName: thinky.type.string().required(),
+  safeName: thinky.type.string().default(""),
   protocol: thinky.type.string(),
   description: thinky.type.string().required().default(""),
   user: thinky.type.string(),
