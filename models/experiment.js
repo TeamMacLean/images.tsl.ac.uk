@@ -55,7 +55,7 @@ Experiment.find = function (
 const Sample = require("./sample");
 const Capture = require("./capture");
 
-Experiment.preSave = function () {
+Experiment.pre("save", function (next) {
   const experiment = this;
   const OldSafeName = experiment.safeName;
 
@@ -74,7 +74,6 @@ Experiment.preSave = function () {
         .catch((err) => {
           return bad(err);
         });
-      // }
     });
   };
 
@@ -123,25 +122,21 @@ Experiment.preSave = function () {
     });
   };
 
-  return GenerateSafeName().then(() => {
-    if (OldSafeName) {
-      if (experiment.safeName !== OldSafeName) {
-        return MoveDirectory(OldSafeName, experiment.safeName);
+  GenerateSafeName()
+    .then(() => {
+      if (OldSafeName) {
+        if (experiment.safeName !== OldSafeName) {
+          return MoveDirectory(OldSafeName, experiment.safeName);
+        } else {
+          return Promise.resolve();
+        }
       } else {
-        return Promise.resolve();
+        return MakeDirectory();
       }
-    } else {
-      return MakeDirectory();
-    }
-  });
-};
-
-const originalSave = Experiment.prototype.save;
-Experiment.prototype.save = function (...args) {
-  return Experiment.preSave.call(this).then(() => {
-    return originalSave.apply(this, args);
-  });
-};
+    })
+    .then(() => next())
+    .catch((err) => next(err));
+});
 
 Experiment.ensureIndex("createdAt");
 

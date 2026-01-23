@@ -59,7 +59,7 @@ Capture.find = function (
 const Experiment = require("./experiment");
 const File = require("./file");
 
-Capture.preSave = function () {
+Capture.pre("save", function (next) {
   const capture = this;
   const OldSafeName = capture.safeName;
 
@@ -124,25 +124,21 @@ Capture.preSave = function () {
     });
   };
 
-  return GenerateSafeName().then(() => {
-    if (OldSafeName) {
-      if (capture.safeName !== OldSafeName) {
-        return MoveDirectory(OldSafeName, capture.safeName);
+  GenerateSafeName()
+    .then(() => {
+      if (OldSafeName) {
+        if (capture.safeName !== OldSafeName) {
+          return MoveDirectory(OldSafeName, capture.safeName);
+        } else {
+          return Promise.resolve();
+        }
       } else {
-        return Promise.resolve();
+        return MakeDirectory();
       }
-    } else {
-      return MakeDirectory();
-    }
-  });
-};
-
-const originalSave = Capture.prototype.save;
-Capture.prototype.save = function (...args) {
-  return Capture.preSave.call(this).then(() => {
-    return originalSave.apply(this, args);
-  });
-};
+    })
+    .then(() => next())
+    .catch((err) => next(err));
+});
 
 Capture.ensureIndex("createdAt");
 

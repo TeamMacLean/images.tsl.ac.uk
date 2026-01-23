@@ -14,32 +14,21 @@ const Group = thinky.createModel("Group", {
 
 module.exports = Group;
 
-Group.preSave = function () {
+Group.pre("save", function (next) {
   const dirPath = config.rootPath + "/" + this.safeName;
-  return new Promise((resolve) => {
-    Util.ensureDir(dirPath)
-      .then(() => {
-        console.log(`✓ Group directory ready: ${dirPath}`);
-        resolve();
-      })
-      .catch((err) => {
-        console.error(`✗ Failed to create group directory: ${dirPath}`);
-        console.error("Error details:", err.message);
-        // Continue anyway - directory will be created on first file upload
-        console.log(
-          "→ Continuing without directory (will be created on demand)",
-        );
-        resolve();
-      });
-  });
-};
-
-const originalSave = Group.prototype.save;
-Group.prototype.save = function (...args) {
-  return Group.preSave.call(this).then(() => {
-    return originalSave.apply(this, args);
-  });
-};
+  Util.ensureDir(dirPath)
+    .then(() => {
+      console.log(`✓ Group directory ready: ${dirPath}`);
+      next();
+    })
+    .catch((err) => {
+      console.error(`✗ Failed to create group directory: ${dirPath}`);
+      console.error("Error details:", err.message);
+      // Continue anyway - directory will be created on first file upload
+      console.log("→ Continuing without directory (will be created on demand)");
+      next();
+    });
+});
 
 Group.find = function (groupName) {
   return new Promise((good, bad) => {

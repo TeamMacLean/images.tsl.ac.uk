@@ -50,7 +50,7 @@ Sample.defineStatic("find", function (groupName, projectName, sampleName) {
 const Project = require("./project");
 const Experiment = require("./experiment");
 
-Sample.preSave = function () {
+Sample.pre("save", function (next) {
   const sample = this;
   const OldSafeName = sample.safeName;
 
@@ -115,25 +115,21 @@ Sample.preSave = function () {
     });
   };
 
-  return GenerateSafeName().then(() => {
-    if (OldSafeName) {
-      if (sample.safeName !== OldSafeName) {
-        return MoveDirectory(OldSafeName, sample.safeName);
+  GenerateSafeName()
+    .then(() => {
+      if (OldSafeName) {
+        if (sample.safeName !== OldSafeName) {
+          return MoveDirectory(OldSafeName, sample.safeName);
+        } else {
+          return Promise.resolve();
+        }
       } else {
-        return Promise.resolve();
+        return MakeDirectory();
       }
-    } else {
-      return MakeDirectory();
-    }
-  });
-};
-
-const originalSave = Sample.prototype.save;
-Sample.prototype.save = function (...args) {
-  return Sample.preSave.call(this).then(() => {
-    return originalSave.apply(this, args);
-  });
-};
+    })
+    .then(() => next())
+    .catch((err) => next(err));
+});
 Sample.ensureIndex("createdAt");
 
 Sample.belongsTo(Project, "project", "projectID", "id");

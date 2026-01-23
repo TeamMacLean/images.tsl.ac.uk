@@ -235,7 +235,7 @@ function isAuthenticated(req, res, next) {
 }
 
 function isInGroup(req, res, next) {
-  console.log(`Checking group access for group: ${req.params.group}`);
+  //console.log(`Checking group access for group: ${req.params.group}`);
 
   // In development mode, allow access to all groups
   if (config.developmentMode) {

@@ -43,7 +43,7 @@ Project.find = function (groupName, projectName) {
 const Group = require("./group");
 const Sample = require("./sample");
 
-Project.preSave = function () {
+Project.pre("save", function (next) {
   const project = this;
   const OldSafeName = project.safeName;
 
@@ -106,25 +106,21 @@ Project.preSave = function () {
     });
   };
 
-  return GenerateSafeName().then(() => {
-    if (OldSafeName) {
-      if (project.safeName !== OldSafeName) {
-        return MoveDirectory(OldSafeName, project.safeName);
+  GenerateSafeName()
+    .then(() => {
+      if (OldSafeName) {
+        if (project.safeName !== OldSafeName) {
+          return MoveDirectory(OldSafeName, project.safeName);
+        } else {
+          return Promise.resolve();
+        }
       } else {
-        return Promise.resolve();
+        return MakeDirectory();
       }
-    } else {
-      return MakeDirectory();
-    }
-  });
-};
-
-const originalSave = Project.prototype.save;
-Project.prototype.save = function (...args) {
-  return Project.preSave.call(this).then(() => {
-    return originalSave.apply(this, args);
-  });
-};
+    })
+    .then(() => next())
+    .catch((err) => next(err));
+});
 Project.ensureIndex("createdAt");
 
 Project.belongsTo(Group, "group", "groupID", "id");
