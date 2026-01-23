@@ -125,7 +125,7 @@ Capture.preSave = function () {
   };
 
   return GenerateSafeName().then(() => {
-    if (typeof OldSafeName !== "undefined") {
+    if (OldSafeName) {
       if (capture.safeName !== OldSafeName) {
         return MoveDirectory(OldSafeName, capture.safeName);
       } else {

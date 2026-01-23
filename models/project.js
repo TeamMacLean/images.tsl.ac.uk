@@ -107,7 +107,7 @@ Project.preSave = function () {
   };
 
   return GenerateSafeName().then(() => {
-    if (typeof OldSafeName !== "undefined") {
+    if (OldSafeName) {
       if (project.safeName !== OldSafeName) {
         return MoveDirectory(OldSafeName, project.safeName);
       } else {

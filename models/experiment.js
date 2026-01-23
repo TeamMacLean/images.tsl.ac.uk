@@ -124,7 +124,7 @@ Experiment.preSave = function () {
   };
 
   return GenerateSafeName().then(() => {
-    if (typeof OldSafeName !== "undefined") {
+    if (OldSafeName) {
       if (experiment.safeName !== OldSafeName) {
         return MoveDirectory(OldSafeName, experiment.safeName);
       } else {
