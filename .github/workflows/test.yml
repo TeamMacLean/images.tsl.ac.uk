@@ -24,10 +24,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: npm
+          cache: yarn
 
       - name: Install dependencies
-        run: npm ci
+        # --frozen-lockfile is yarn's `npm ci`: fail rather than silently
+        # updating yarn.lock if it disagrees with package.json.
+        run: yarn install --frozen-lockfile
 
       # config.js is deliberately not in the repo. The tests stub their own
       # config, but app.js and the models require the real file at load time.
@@ -35,11 +37,11 @@ jobs:
         run: cp config.example.js config.js
 
       - name: Build client bundles
-        run: npm run build
+        run: yarn build
 
       - name: Run tests
-        run: npm test
+        run: yarn test
 
       - name: Coverage summary
-        run: npm run test:coverage
+        run: yarn test:coverage
         continue-on-error: true

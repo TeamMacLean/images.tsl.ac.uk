@@ -8,7 +8,7 @@
 ## Tests
 
 ```bash
-npm test
+yarn test
 ```
 
 Runs the whole `node:test` suite. No browser and no configuration needed: the
@@ -17,24 +17,24 @@ tests stub `config.js` with their own fixture, so they do not depend on the
 
 | command | what it runs |
 | --- | --- |
-| `npm test` | everything below except the browser tests |
-| `npm run test:unit` | `tests/unit` and `tests/http` — pure logic, views, and the Express app over real HTTP with the models stubbed |
-| `npm run test:integration` | `tests/integration` — the thinky model save hooks against a real RethinkDB |
-| `npm run test:coverage` | as `npm test`, with a coverage summary |
-| `npm run test:watch` | re-runs on change |
-| `npm run test:e2e` | the Playwright browser tests in `tests/*.spec.js` |
+| `yarn test` | everything below except the browser tests |
+| `yarn test:unit` | `tests/unit` and `tests/http` — pure logic, views, and the Express app over real HTTP with the models stubbed |
+| `yarn test:integration` | `tests/integration` — the thinky model save hooks against a real RethinkDB |
+| `yarn test:coverage` | as `yarn test`, with a coverage summary |
+| `yarn test:watch` | re-runs on change |
+| `yarn test:e2e` | the Playwright browser tests in `tests/*.spec.js` |
 
 Notes:
 
 * **The integration tests skip themselves** when RethinkDB is not listening on
-  `localhost:28015`, so `npm test` stays green on a machine without a database.
+  `localhost:28015`, so `yarn test` stays green on a machine without a database.
   They use a separate `imagehog_test` database and a temporary directory, and
   never touch the `imagehog` database or `rootPath`.
 * **Application logging is silenced** during tests. Set `TEST_VERBOSE=1` to get
-  it back: `TEST_VERBOSE=1 npm test`.
-* **`npm run test:e2e` needs browsers installed** once per machine:
+  it back: `TEST_VERBOSE=1 yarn test`.
+* **`yarn test:e2e` needs browsers installed** once per machine:
   ```bash
-  npx playwright install chromium
+  yarn playwright install chromium
   ```
   It also needs RethinkDB running, because it drives the real server.
 
@@ -51,7 +51,7 @@ tests/
 
 Playwright owns `*.spec.js`; `node:test` owns `*.test.js`.
 
-CI runs `npm test` on every push and pull request
+CI runs `yarn test` on every push and pull request
 (`.github/workflows/test.yml`), with RethinkDB as a service container so the
 integration tests run there rather than skipping.
 
@@ -69,5 +69,5 @@ submissions will be refused with a 403:
 ```
 
 `tests/http/csrf.test.js` walks every form page and fails if one is missing the
-token, so a forgotten include is caught by `npm test` rather than in the browser.
+token, so a forgotten include is caught by `yarn test` rather than in the browser.
 

@@ -2,6 +2,7 @@
   "name": "imagehog",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "start": "node server.js",
     "build": "esbuild public/js/src/main.js public/js/src/uploader.js --bundle --outdir=public/js/dist/ --format=iife --minify --target=es2020",

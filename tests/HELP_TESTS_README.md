@@ -75,34 +75,34 @@ Tests for the help popup functionality triggered from "read more" links.
 ### Prerequisites
 1. Ensure all dependencies are installed:
 ```bash
-npm install
+yarn install
 ```
 
 2. For integration tests, ensure the server is running:
 ```bash
-npm start
+yarn start
 ```
 
 ### Basic Tests (No Authentication Required)
 Run the basic help page tests:
 ```bash
-npm run test:help
+yarn test:help
 ```
 
 Run with visible browser:
 ```bash
-npm run test:help:headed
+yarn test:help:headed
 ```
 
 ### Popup Tests
 Run the help popup tests:
 ```bash
-npm run test:help-popup
+yarn test:help-popup
 ```
 
 Run with visible browser:
 ```bash
-npm run test:help-popup:headed
+yarn test:help-popup:headed
 ```
 
 ### Integration Tests (Authentication Required)
@@ -118,18 +118,18 @@ set TEST_USERNAME=your_username
 set TEST_PASSWORD=your_password
 
 # Run the integration tests
-npm run test:help-integration
+yarn test:help-integration
 ```
 
 Run with visible browser:
 ```bash
-npm run test:help-integration:headed
+yarn test:help-integration:headed
 ```
 
 ### Running All Tests
 To run all tests in the project:
 ```bash
-npm run test:all
+yarn test:all
 ```
 
 ## Test Coverage
@@ -195,15 +195,15 @@ If you see template compilation errors:
 For CI/CD pipelines, you can run tests without headed mode:
 ```bash
 # Run all tests
-npm test
+yarn test
 
 # Run specific test suite
-npm run test:help
+yarn test:help
 ```
 
 For environments where authentication is available:
 ```bash
-TEST_USERNAME=ci_user TEST_PASSWORD=ci_pass npm run test:help-integration
+TEST_USERNAME=ci_user TEST_PASSWORD=ci_pass yarn test:help-integration
 ```
 
 ## Contributing

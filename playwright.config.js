@@ -6,7 +6,7 @@ const { defineConfig, devices } = require("@playwright/test");
 module.exports = defineConfig({
   testDir: "./tests",
   // Playwright owns *.spec.js only. The *.test.js files under tests/unit,
-  // tests/http and tests/integration are run by `npm test` via node:test.
+  // tests/http and tests/integration are run by `yarn test` via node:test.
   testMatch: "**/*.spec.js",
   testIgnore: [
     "**/tests/thinky.spec.js",
@@ -51,7 +51,7 @@ module.exports = defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "npm run start-for-tests",
+    command: "yarn start-for-tests",
     url: "http://localhost:3071",
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
