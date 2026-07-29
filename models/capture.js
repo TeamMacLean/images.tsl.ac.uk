@@ -1,6 +1,7 @@
 const thinky = require("../lib/thinky");
 const r = thinky.r;
 const Util = require("../lib/util");
+const safeName = require("../lib/safeName");
 const config = require("../config");
 
 const fs = require("fs");
@@ -63,15 +64,25 @@ Capture.pre("save", function (next) {
   const capture = this;
   const OldSafeName = capture.safeName;
 
+  const scope = `capture/${capture.experimentID}`;
+
   const GenerateSafeName = function () {
+    // Only siblings in the same experiment can collide; see models/project.js.
+    // Captures are the highest-volume records here, so this was the worst of
+    // the four full-table scans.
     return new Promise((good, bad) => {
-      Capture.run()
+      const siblings = capture.experimentID
+        ? Capture.getAll(capture.experimentID, { index: "experimentID" }).run()
+        : Promise.resolve([]);
+
+      siblings
         .then((captures) => {
           captures = captures.filter((a) => a.id !== capture.id);
-          Util.generateSafeName(capture.name, captures).then((safeName) => {
-            capture.safeName = safeName;
-            return good();
-          });
+          return safeName.claim(scope, capture.name, capture.id, captures);
+        })
+        .then((claimed) => {
+          capture.safeName = claimed;
+          return good(claimed);
         })
         .catch((err) => {
           return bad(err);
@@ -128,7 +139,10 @@ Capture.pre("save", function (next) {
     .then(() => {
       if (OldSafeName) {
         if (capture.safeName !== OldSafeName) {
-          return MoveDirectory(OldSafeName, capture.safeName);
+          return MoveDirectory(OldSafeName, capture.safeName).then(() =>
+            // The old name is free again now the directory has moved.
+            safeName.release(scope, OldSafeName),
+          );
         } else {
           return Promise.resolve();
         }
@@ -137,7 +151,25 @@ Capture.pre("save", function (next) {
       }
     })
     .then(() => next())
-    .catch((err) => next(err));
+    .catch((err) => {
+      // The save is going to fail, so don't sit on a name nobody is using.
+      if (capture.safeName && capture.safeName !== OldSafeName) {
+        return safeName
+          .release(scope, capture.safeName)
+          .then(() => next(err))
+          .catch(() => next(err));
+      }
+      return next(err);
+    });
+});
+
+// A brand new record has no id until it is written; record it on the lock
+// afterwards so a later re-save recognises the name as its own.
+Capture.post("save", function (next) {
+  safeName
+    .assignOwner(`capture/${this.experimentID}`, this.safeName, this.id)
+    .then(() => next())
+    .catch(() => next());
 });
 
 Capture.ensureIndex("createdAt");

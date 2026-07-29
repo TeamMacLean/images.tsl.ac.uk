@@ -17,16 +17,17 @@ locals.breadcrumbs = [
 <section class="section">
     <div class="container">
 
-        <h1 class="title has-text-centered">Edit: <%- experiment.name %></h1>
+        <h1 class="title has-text-centered">Edit: <%= experiment.name %></h1>
         <section class="section">
             <p>An <b>Experiment</b> is the next heading that captures the more relevant varying biological and technical
                 variables (like the treatment or the biological replicate). There could be lots of <b>Experiments</b>
                 for a sample. <a onclick="openHelp()" target="_blank">read more.</a></p>
         </section>
         <form method="post"
-              action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/new">
+              action="/browse/<%= experiment.sample.project.group.safeName %>
+            <%-include('../_csrf.ejs') %>/<%= experiment.sample.project.safeName %>/<%= experiment.sample.safeName %>/new">
 
-            <input type="hidden" name="id" value="<%- experiment.id %>" class="is-hidden">
+            <input type="hidden" name="id" value="<%= experiment.id %>" class="is-hidden">
 
             <div class="columns">
                 <div class="column is-6">
@@ -35,7 +36,7 @@ locals.breadcrumbs = [
                         <div class="control">
                             <input class="input" type="text" placeholder="New experiment name" name="name"
                                    maxlength="30"
-                                   value="<%- experiment.name %>" required>
+                                   value="<%= experiment.name %>" required>
                         </div>
                         <p class="help">The name of your experiment</p>
                     </div>
@@ -51,7 +52,7 @@ locals.breadcrumbs = [
                         <div class="control">
                             <input class="input" type="text" placeholder="description" name="description"
                                    minlength="20"
-                                   value="<%- experiment.description %>" required>
+                                   value="<%= experiment.description %>" required>
                         </div>
                         <p class="help">A description of your experiment</p>
                     </div>
@@ -62,7 +63,7 @@ locals.breadcrumbs = [
                         <label class="label">Protocol</label>
                         <div class="control">
                             <input class="input" type="text" placeholder="protocol" name="protocol"
-                                   value="<%- experiment.protocol %>">
+                                   value="<%= experiment.protocol %>">
                         </div>
                         <p class="help">Your experiment protocol</p>
                     </div>

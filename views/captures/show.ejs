@@ -22,7 +22,7 @@
 <section class="section">
     <div class="container">
 
-        <h1 class="title has-text-centered"><%- capture.name %></h1>
+        <h1 class="title has-text-centered"><%= capture.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${capture.experiment.sample.project.group.safeName}/${capture.experiment.sample.project.safeName}/${capture.experiment.sample.safeName}/${capture.experiment.safeName}/${capture.safeName}` %>
         <%-include('../_hpc_path.ejs', { HPCPath }) %>
         <hr>
@@ -31,7 +31,7 @@
             <div class="columns">
                 <div class="column">
                     <label class="label">Created By</label>
-                    <p><%- capture.user || 'unknown' %></p>
+                    <p><%= capture.user || 'unknown' %></p>
                 </div>
             </div>
         <% } %>
@@ -39,13 +39,13 @@
         <div class="columns">
             <div class="column">
                 <label class="label">Platform Name</label>
-                <p><%- capture.platformName %></p>
+                <p><%= capture.platformName %></p>
             </div>
         </div>
 
 
         <hr>
-        <a href="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- capture.experiment.sample.safeName %>/<%- capture.experiment.safeName %>/<%- capture.safeName %>/edit"
+        <a href="/browse/<%= capture.experiment.sample.project.group.safeName %>/<%= capture.experiment.sample.project.safeName %>/<%= capture.experiment.sample.safeName %>/<%= capture.experiment.safeName %>/<%= capture.safeName %>/edit"
            class="button is-info">Edit Capture</a>
 
     </div>
@@ -74,28 +74,28 @@
                             <div class="media ">
                                 <div class="media-content">
                                     <p class="title is-5">
-                                        <!--<a href="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- capture.experiment.sample.safeName %>/<%- capture.experiment.safeName %>/<%- capture.safeName %>/<%- file.name %>">-->
-                                        <%- file.parsedName() %>
+                                        <!--<a href="/browse/<%= capture.experiment.sample.project.group.safeName %>/<%= capture.experiment.sample.project.safeName %>/<%= capture.experiment.sample.safeName %>/<%= capture.experiment.safeName %>/<%= capture.safeName %>/<%= file.name %>">-->
+                                        <%= file.parsedName() %>
                                         <!--</a>-->
                                     </p>
 
                                     <div class="subtitle field is-grouped is-grouped-multiline">
                                         <div class="control">
                                             <div class="tags">
-                                                <span class="tag"><%- file.type %></span>
+                                                <span class="tag"><%= file.type %></span>
                                             </div>
                                         </div>
 
                                         <div class="control">
                                             <div class="tags">
-                                                <span class="tag"><%- file.extention() %></span>
+                                                <span class="tag"><%= file.extention() %></span>
                                             </div>
                                         </div>
 
                                     </div>
 
                                     <% if(file.description){ %>
-                                        <p><%- file.description %></p>
+                                        <p><%= file.description %></p>
                                     <% } %>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                             <hr/>
                             <div class="content">
                                 <a class="button is-link"
-                                   href="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- capture.experiment.sample.safeName %>/<%- capture.experiment.safeName %>/<%- capture.safeName %>/<%- file.name %>/download">Download</a>
+                                   href="/browse/<%= capture.experiment.sample.project.group.safeName %>/<%= capture.experiment.sample.project.safeName %>/<%= capture.experiment.sample.safeName %>/<%= capture.experiment.safeName %>/<%= capture.safeName %>/<%= file.name %>/download">Download</a>
                             </div>
 
                         </div>

@@ -61,8 +61,44 @@ function onListening() {
   debug("Listening on " + bind);
 }
 
-// Middleware to log requests
-app.use((req, res, next) => {
-  console.log(`Received request: ${req.method} ${req.url}`);
-  next();
+// A rejection that nothing handles terminates the process by default, so a
+// single bad request could take the whole site down. Log it and keep serving:
+// one broken request must not become an outage.
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled promise rejection:", reason);
 });
+
+// An uncaught exception leaves the process in an undefined state, so this only
+// buys time to finish in-flight requests before exiting for the supervisor to
+// restart us.
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught exception:", err);
+  shutdown("uncaughtException", 1);
+});
+
+let shuttingDown = false;
+
+function shutdown(signal, exitCode = 0) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log(`Received ${signal}, shutting down`);
+
+  const timer = setTimeout(() => {
+    console.error("Shutdown timed out, forcing exit");
+    process.exit(exitCode || 1);
+  }, 10000);
+  // Don't let the timer itself hold the event loop open.
+  timer.unref();
+
+  server.close((err) => {
+    if (err) {
+      console.error("Error while closing server:", err);
+      process.exit(1);
+    }
+    console.log("Closed out remaining connections");
+    process.exit(exitCode);
+  });
+}
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));

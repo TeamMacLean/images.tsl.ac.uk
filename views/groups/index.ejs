@@ -16,17 +16,17 @@
 
                     <div class="column is-one-third">
 
-                        <div class="card is-rounded <%- group.disabled ? 'is-disabled' : '' %>">
+                        <div class="card is-rounded <%= group.disabled ? 'is-disabled' : '' %>">
                             <div class="card-image">
                                 <figure class="image is-4by2">
-                                    <img src="<%- group.image %>" alt="Placeholder image">
+                                    <img src="<%= group.image %>" alt="Placeholder image">
                                 </figure>
                             </div>
                             <div class="card-content">
                                 <div class="media">
                                     <div class="media-content">
-                                        <p class="title is-4"><%- group.name %></p>
-                                        <p class="subtitle is-6"><%- group.safeName %></p>
+                                        <p class="title is-4"><%= group.name %></p>
+                                        <p class="subtitle is-6"><%= group.safeName %></p>
                                     </div>
                                 </div>
 
@@ -35,7 +35,7 @@
                                     <% if(group.disabled){ %>
                                         <a class="button is-link is-outlined" disabled>View Projects</a>
                                     <% }else{ %>
-                                        <a class="button is-link is-outlined" href="/browse/<%- group.safeName %>">View
+                                        <a class="button is-link is-outlined" href="/browse/<%= group.safeName %>">View
                                             Projects</a>
                                     <% } %>
 

@@ -196,18 +196,12 @@ router
     next();
   }, Files.show);
 
-router
-  .route("/browse/:group/:project/:sample/:experiment/:capture/:edit")
-  .all([isAuthenticated, isInGroup])
-  .get((req, res, next) => {
-    console.log(
-      `GET /browse/${req.params.group}/${req.params.project}/${req.params.sample}/${req.params.experiment}/${req.params.capture}/${req.params.edit}`,
-    );
-    next();
-  }, Files.edit);
+// NOTE: there used to be a `.../:capture/:edit` route here mapped to
+// Files.edit. It matched exactly the same pattern as the `:file` route above,
+// so it was unreachable, and Files.edit never sent a response anyway.
 
 router
-  .route("/browse/:group/:project/:sample/:experiment/:capture/:file/:download")
+  .route("/browse/:group/:project/:sample/:experiment/:capture/:file/download")
   .all([isAuthenticated, isInGroup])
   .get((req, res, next) => {
     console.log(
@@ -222,6 +216,10 @@ router.route("*").get((req, res, next) => {
 });
 
 module.exports = router;
+// Exported so the access rules can be tested directly, without standing up a
+// session and an LDAP directory.
+module.exports.isAuthenticated = isAuthenticated;
+module.exports.isInGroup = isInGroup;
 
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -248,6 +246,10 @@ function isInGroup(req, res, next) {
     return next();
   } else {
     console.log(`User does not have access to group: ${req.params.group}`);
-    return next("you do not have permission to view this group");
+    // next(<string>) reaches Express as an error and surfaced as a 500.
+    // Denied access is a 403.
+    return res
+      .status(403)
+      .render("error", { error: "You do not have permission to view this group" });
   }
 }

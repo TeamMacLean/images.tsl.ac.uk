@@ -14,9 +14,20 @@ module.exports = {
     });
   },
   signInPost: (req, res, next) => {
+    // req.logIn regenerates the session to prevent session fixation, which
+    // discards returnTo. Read it before logging in, not after.
+    const returnTo = safeReturnTo(req.session.returnTo);
+
     // Development mode bypass - any username/password works
     if (config.developmentMode) {
       const username = req.body.username;
+
+      if (!username) {
+        return res.status(400).render("error", {
+          error: "A username is required",
+        });
+      }
+
       const isAdmin = config.admins.includes(username);
 
       const devUser = {
@@ -37,11 +48,7 @@ module.exports = {
           username,
           isAdmin ? "(ADMIN)" : "",
         );
-        if (req.session.returnTo) {
-          return res.redirect(req.session.returnTo);
-        } else {
-          return res.redirect("/");
-        }
+        return res.redirect(returnTo);
       });
       return;
     }
@@ -66,12 +73,21 @@ module.exports = {
           return next(err);
         }
         //take them to the page they wanted before signing in :)
-        if (req.session.returnTo) {
-          return res.redirect(req.session.returnTo);
-        } else {
-          return res.redirect("/");
-        }
+        return res.redirect(returnTo);
       });
     })(req, res, next);
   },
 };
+
+/**
+ * Only ever redirect to a path on this site. returnTo is set from req.path so
+ * it is already local, but a value that ever became attacker-controlled would
+ * otherwise turn the login form into an open redirect.
+ */
+function safeReturnTo(returnTo) {
+  if (typeof returnTo !== "string") return "/";
+  if (!returnTo.startsWith("/")) return "/";
+  // "//evil.example" and "/\evil.example" are protocol-relative URLs.
+  if (returnTo.startsWith("//") || returnTo.startsWith("/\\")) return "/";
+  return returnTo;
+}

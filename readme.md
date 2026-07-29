@@ -3,4 +3,71 @@
 
 ## Help
 * To change the upload limit modify `public/src/uploader:maxFileSize` to be `LIMIT_IN_GB * 1000 * 1000000`. You will also need to modify the reverse proxy (if used), on the tsl server this can be found in `/etc/nginx/conf.d/`
-* 
+*
+
+## Tests
+
+```bash
+npm test
+```
+
+Runs the whole `node:test` suite. No browser and no configuration needed: the
+tests stub `config.js` with their own fixture, so they do not depend on the
+`config.js` on the machine running them, on LDAP, or on the developer's data.
+
+| command | what it runs |
+| --- | --- |
+| `npm test` | everything below except the browser tests |
+| `npm run test:unit` | `tests/unit` and `tests/http` — pure logic, views, and the Express app over real HTTP with the models stubbed |
+| `npm run test:integration` | `tests/integration` — the thinky model save hooks against a real RethinkDB |
+| `npm run test:coverage` | as `npm test`, with a coverage summary |
+| `npm run test:watch` | re-runs on change |
+| `npm run test:e2e` | the Playwright browser tests in `tests/*.spec.js` |
+
+Notes:
+
+* **The integration tests skip themselves** when RethinkDB is not listening on
+  `localhost:28015`, so `npm test` stays green on a machine without a database.
+  They use a separate `imagehog_test` database and a temporary directory, and
+  never touch the `imagehog` database or `rootPath`.
+* **Application logging is silenced** during tests. Set `TEST_VERBOSE=1` to get
+  it back: `TEST_VERBOSE=1 npm test`.
+* **`npm run test:e2e` needs browsers installed** once per machine:
+  ```bash
+  npx playwright install chromium
+  ```
+  It also needs RethinkDB running, because it drives the real server.
+
+### Layout
+
+```
+tests/
+  helpers/      stubs for config, the thinky models, and an HTTP client
+  unit/         lib/, view rendering, and the access-control middleware
+  http/         the real Express app, served over a real socket
+  integration/  thinky models against a real RethinkDB
+  *.spec.js     Playwright browser tests (run separately, via test:e2e)
+```
+
+Playwright owns `*.spec.js`; `node:test` owns `*.test.js`.
+
+CI runs `npm test` on every push and pull request
+(`.github/workflows/test.yml`), with RethinkDB as a service container so the
+integration tests run there rather than skipping.
+
+## Adding a form
+
+Every state-changing request is checked for a CSRF token by `lib/csrf.js`, so
+**a new `<form method="post">` must include the token partial** or its
+submissions will be refused with a 403:
+
+```ejs
+<form method="post" action="...">
+    <%-include('../_csrf.ejs') %>
+    ...
+</form>
+```
+
+`tests/http/csrf.test.js` walks every form page and fails if one is missing the
+token, so a forgotten include is caught by `npm test` rather than in the browser.
+

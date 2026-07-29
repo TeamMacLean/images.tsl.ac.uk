@@ -7,7 +7,7 @@
 
 <section class="section">
     <div class="container">
-        <h1 class="title has-text-centered"><%- project.name %></h1>
+        <h1 class="title has-text-centered"><%= project.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${project.group.safeName}/${project.safeName}` %>
         <%-include('../_hpc_path.ejs', { HPCPath }) %>
         <hr>
@@ -16,26 +16,26 @@
             <div class="columns">
                 <div class="column">
                     <label class="label">Created By</label>
-                    <p><%- project.user || 'unknown' %></p>
+                    <p><%= project.user || 'unknown' %></p>
                 </div>
             </div>
         <% } %>
         <div class="columns">
             <div class="column">
                 <label class="label">Project Name</label>
-                <p><%- project.name %></p>
+                <p><%= project.name %></p>
             </div>
             <div class="column">
                 <label class="label">Short Description</label>
-                <p><%- project.shortDescription %></p>
+                <p><%= project.shortDescription %></p>
             </div>
         </div>
 
         <label class="label">Long Description</label>
-        <p><%- project.longDescription %></p>
+        <p><%= project.longDescription %></p>
 
         <hr>
-        <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/edit" class="button is-info">Edit
+        <a href="/browse/<%= project.group.safeName %>/<%= project.safeName %>/edit" class="button is-info">Edit
             Project</a>
     </div>
 </section>
@@ -43,7 +43,7 @@
     <div class="container">
         <h2 class="title has-text-centered is-4">Samples</h2>
 
-        <a href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/new"
+        <a href="/browse/<%= project.group.safeName %>/<%= project.safeName %>/new"
            class="button is-success">New Sample</a>
         <hr>
 
@@ -61,14 +61,14 @@
 
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-4"><%- sample.name %></p>
+                                    <p class="title is-4"><%= sample.name %></p>
 
                                 </div>
                             </div>
                             <div class="content">
-                                <p><%- sample.safeName %></p>
+                                <p><%= sample.safeName %></p>
                                 <a class="button is-link is-outlined"
-                                   href="/browse/<%- project.group.safeName %>/<%- project.safeName %>/<%- sample.safeName %>">View
+                                   href="/browse/<%= project.group.safeName %>/<%= project.safeName %>/<%= sample.safeName %>">View
                                     Sample</a>
                             </div>
 

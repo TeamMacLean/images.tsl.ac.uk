@@ -20,8 +20,10 @@ module.exports = {
 
 
     },
+    // Not implemented. Must still hand control on, otherwise the request hangs
+    // until the client times out.
     edit: (req, res, next) => {
-
+        return next();
     },
     download: (req, res, next) => {
 

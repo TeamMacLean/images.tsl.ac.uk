@@ -2,8 +2,10 @@
 
 <section class="section">
     <div class="container">
-        <h1 class="title"><%- error %></h1>
-        <pre><%- error.stack %></pre>
+        <h1 class="title"><%= (error && error.message) || error || 'Something went wrong' %></h1>
+        <% if (locals.showStack && error && error.stack) { %>
+            <pre><%= error.stack %></pre>
+        <% } %>
     </div>
 </section>
 

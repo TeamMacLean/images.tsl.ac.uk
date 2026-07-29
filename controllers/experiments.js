@@ -18,6 +18,10 @@ module.exports = {
                     return next();
                     // renderError(res, new Error('Project does not exist'));
                 }
+            })
+            .catch(err => {
+                console.error(err);
+                return next();
             });
 
 

@@ -33,7 +33,8 @@ locals.breadcrumbs = [
         </section>
 
         <form method="post"
-              action="/browse/<%- experiment.sample.project.group.safeName %>/<%- experiment.sample.project.safeName %>/<%- experiment.sample.safeName %>/<%- experiment.safeName %>/new">
+              action="/browse/<%= experiment.sample.project.group.safeName %>
+            <%-include('../_csrf.ejs') %>/<%= experiment.sample.project.safeName %>/<%= experiment.sample.safeName %>/<%= experiment.safeName %>/new">
 
             <input type="hidden" name="id" class="is-hidden">
 
@@ -72,7 +73,7 @@ locals.breadcrumbs = [
 
                                 <select name="platformName">
                                     <% platforms.map(platform=>{ %>
-                                        <option><%- platform %></option>
+                                        <option><%= platform %></option>
                                     <% }) %>
                                 </select>
                             </div>

@@ -27,7 +27,11 @@ module.exports = {
       name: "Nick's Group",
       safeName: "ngroup",
       image: "/img/groups/nick.jpg",
-      adGroups: [""],
+      // Must be called groupsWithAccess: this is the list of LDAP group DNs
+      // lib/util.js checks membership against.
+      groupsWithAccess: [
+        "CN=example_group,OU=groups,OU=allgroups,dc=example,dc=org",
+      ],
     },
   ],
 };

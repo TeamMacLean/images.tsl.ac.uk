@@ -55,6 +55,7 @@
                     <!--<img src="https://placehold.it/128x128">-->
                     <!--</figure>-->
                     <form method="post" action="/signin">
+            <%-include('../_csrf.ejs') %>
                         <div class="field has-addons">
                             <p class="control" style="width:100%">
                                 <input class="input" type="text" placeholder="Username" name="username">

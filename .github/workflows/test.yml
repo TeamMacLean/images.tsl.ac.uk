@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      # The integration tests skip themselves when this is unreachable, so the
+      # job still means something if the image ever goes away, but on CI we
+      # want them to actually run.
+      rethinkdb:
+        image: rethinkdb:2.4
+        ports:
+          - 28015:28015
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # config.js is deliberately not in the repo. The tests stub their own
+      # config, but app.js and the models require the real file at load time.
+      - name: Provide a config
+        run: cp config.example.js config.js
+
+      - name: Build client bundles
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
+
+      - name: Coverage summary
+        run: npm run test:coverage
+        continue-on-error: true

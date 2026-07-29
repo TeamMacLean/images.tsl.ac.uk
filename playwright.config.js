@@ -5,6 +5,9 @@ const { defineConfig, devices } = require("@playwright/test");
  */
 module.exports = defineConfig({
   testDir: "./tests",
+  // Playwright owns *.spec.js only. The *.test.js files under tests/unit,
+  // tests/http and tests/integration are run by `npm test` via node:test.
+  testMatch: "**/*.spec.js",
   testIgnore: [
     "**/tests/thinky.spec.js",
     "**/tests/uploader-module.spec.js",

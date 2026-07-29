@@ -78,7 +78,7 @@
                 <% if(locals.signedInUser){ %>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
-                            <%- locals.signedInUser.name %>
+                            <%= locals.signedInUser.name %>
                         </a>
 
                         <div class="navbar-dropdown">
@@ -127,9 +127,9 @@
                     <% locals.breadcrumbs.map(breadcrumb=>{ %>
 
                         <% if(breadcrumb.active){ %>
-                            <li class="is-active"><a href="#" aria-current="page"><%- breadcrumb.name %></a></li>
+                            <li class="is-active"><a href="#" aria-current="page"><%= breadcrumb.name %></a></li>
                         <% } else { %>
-                            <li><a href="<%- breadcrumb.link %>"><%- breadcrumb.name %></a></li>
+                            <li><a href="<%= breadcrumb.link %>"><%= breadcrumb.name %></a></li>
                         <% } %>
                     <% }) %>
                 </ul>

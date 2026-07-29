@@ -1,6 +1,11 @@
 const { test, expect } = require("@playwright/test");
 
+const { signIn } = require("./helpers/e2eAuth");
 test.describe("Basic Help Popup Tests", () => {
+  test.beforeEach(async ({ page }) => {
+    await signIn(page);
+  });
+
   test.beforeEach(async ({ page }) => {
     // Set a reasonable timeout
     test.setTimeout(20000);
@@ -69,18 +74,6 @@ test.describe("Basic Help Popup Tests", () => {
   });
 
   test("should test help page mailto link directly", async ({ page }) => {
-    // Add mock authentication to access help page
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
 
     // Navigate to help page
     await page.goto("/help");
@@ -259,18 +252,6 @@ test.describe("Basic Help Popup Tests", () => {
   test("should verify help content structure when accessible", async ({
     page,
   }) => {
-    // Add mock authentication
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
 
     await page.goto("/help");
 

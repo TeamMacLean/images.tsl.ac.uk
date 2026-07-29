@@ -71,20 +71,18 @@ File.define("getPath", function () {
     Capture.get(file.captureID)
       .getJoin({ experiment: { sample: { project: { group: true } } } })
       .then((capture) => {
+        // Absolute: res.sendFile/res.download reject relative paths outright,
+        // so a relative config.rootPath breaks every download.
         return good(
-          config.rootPath +
-            "/" +
-            capture.experiment.sample.project.group.safeName +
-            "/" +
-            capture.experiment.sample.project.safeName +
-            "/" +
-            capture.experiment.sample.safeName +
-            "/" +
-            capture.experiment.safeName +
-            "/" +
-            capture.safeName +
-            "/" +
+          path.resolve(
+            config.rootPath,
+            capture.experiment.sample.project.group.safeName,
+            capture.experiment.sample.project.safeName,
+            capture.experiment.sample.safeName,
+            capture.experiment.safeName,
+            capture.safeName,
             file.name,
+          ),
         );
       })
       .catch((err) => {
@@ -104,6 +102,13 @@ File.define("parsedName", function () {
 
 File.pre("save", function (next) {
   const file = this;
+
+  // Only the first save moves the upload out of the tus staging directory.
+  // Re-running this on an update would overwrite a good MD5 with "UNKNOWN",
+  // re-notify the downstream hook, and then fail on the missing staged file.
+  if (file.isSaved()) {
+    return next();
+  }
 
   const oldPath = path.join(__dirname, "../", config.tusPath, file.name);
 

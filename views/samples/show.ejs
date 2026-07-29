@@ -10,7 +10,7 @@
 <%-include('../head.ejs') %>
 <section class="section">
     <div class="container">
-        <h1 class="title has-text-centered"><%- sample.name %></h1>
+        <h1 class="title has-text-centered"><%= sample.name %></h1>
         <% const HPCPath = `${locals.config.HPCRoot}/${sample.project.group.safeName}/${sample.project.safeName}/${sample.safeName}` %>
         <%-include('../_hpc_path.ejs', { HPCPath }) %>
         <hr>
@@ -19,7 +19,7 @@
             <div class="columns">
                 <div class="column">
                     <label class="label">Created By</label>
-                    <p><%- sample.user || 'unknown' %></p>
+                    <p><%= sample.user || 'unknown' %></p>
                 </div>
             </div>
         <% } %>
@@ -27,32 +27,32 @@
         <div class="columns">
             <div class="column">
                 <label class="label">Sample Name</label>
-                <p><%- sample.name %></p>
+                <p><%= sample.name %></p>
             </div>
             <div class="column">
                 <label class="label">Taxonomy ID</label>
-                <p><%- sample.taxID %></p>
+                <p><%= sample.taxID %></p>
             </div>
         </div>
 
         <div class="columns">
             <div class="column">
                 <label class="label">Scientific Name</label>
-                <p><%- sample.scientificName %></p>
+                <p><%= sample.scientificName %></p>
             </div>
             <div class="column">
                 <label class="label">Common Name</label>
-                <p><%- sample.commonName %></p>
+                <p><%= sample.commonName %></p>
             </div>
         </div>
 
         <% if(sample.protocol){ %>
             <label class="label">Protocol</label>
-            <p><%- sample.protocol %></p>
+            <p><%= sample.protocol %></p>
         <% } %>
 
         <hr>
-        <a href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/edit"
+        <a href="/browse/<%= sample.project.group.safeName %>/<%= sample.project.safeName %>/<%= sample.safeName %>/edit"
            class="button is-info">Edit
             Sample</a>
 
@@ -62,7 +62,7 @@
     <div class="container">
         <h2 class="title has-text-centered is-4">Experiments</h2>
 
-        <a href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/new"
+        <a href="/browse/<%= sample.project.group.safeName %>/<%= sample.project.safeName %>/<%= sample.safeName %>/new"
            class="button is-success">New Experiment</a>
 
         <hr>
@@ -81,14 +81,14 @@
 
                                 <div class="media">
                                     <div class="media-content">
-                                        <p class="title is-4"><%- experiment.name %></p>
+                                        <p class="title is-4"><%= experiment.name %></p>
 
                                     </div>
                                 </div>
                                 <div class="content">
-                                    <p><%- experiment.safeName %></p>
+                                    <p><%= experiment.safeName %></p>
                                     <a class="button is-link is-outlined"
-                                       href="/browse/<%- sample.project.group.safeName %>/<%- sample.project.safeName %>/<%- sample.safeName %>/<%- experiment.safeName %>">View
+                                       href="/browse/<%= sample.project.group.safeName %>/<%= sample.project.safeName %>/<%= sample.safeName %>/<%= experiment.safeName %>">View
                                         Experiment</a>
                                 </div>
 

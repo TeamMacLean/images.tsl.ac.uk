@@ -8,14 +8,19 @@ module.exports = {
     const projectName = req.params.project;
     const groupName = req.params.group;
 
-    Project.find(groupName, projectName).then((project) => {
-      if (project) {
-        delete project.samples;
-        return res.render("samples/new", { project: project });
-      } else {
+    Project.find(groupName, projectName)
+      .then((project) => {
+        if (project) {
+          delete project.samples;
+          return res.render("samples/new", { project: project });
+        } else {
+          return next();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
         return next();
-      }
-    });
+      });
   },
   save: (req, res, next) => {
     const groupName = req.params.group;
@@ -35,7 +40,8 @@ module.exports = {
 
         if (projectsFiltered && projectsFiltered.length) {
           if (req.body.id) {
-            Sample.get(req.body.id).then((sample) => {
+            Sample.get(req.body.id)
+              .then((sample) => {
               // sample.update({
               //     projectID: projectsFiltered[0].id,
               //     name: sampleName,
@@ -61,7 +67,8 @@ module.exports = {
                   );
                 })
                 .catch((err) => renderError(res, err));
-            });
+              })
+              .catch((err) => renderError(res, err));
           } else {
             new Sample({
               projectID: projectsFiltered[0].id,
@@ -81,6 +88,9 @@ module.exports = {
         } else {
           return next();
         }
+      })
+      .catch((err) => {
+        return next(err);
       });
   },
   show: (req, res, next) => {
@@ -93,7 +103,9 @@ module.exports = {
         return res.render("samples/show", { sample });
       })
       .catch((err) => {
-        return next(err);
+        // A missing sample is a 404, not a 500, as everywhere else.
+        console.error(err);
+        return next();
       });
   },
   edit: (req, res, next) => {

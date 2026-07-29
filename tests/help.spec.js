@@ -1,7 +1,15 @@
 const { test, expect } = require("@playwright/test");
 
+const { signIn } = require("./helpers/e2eAuth");
 test.describe("Help Page Tests", () => {
-  test("should redirect to signin when not authenticated", async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
+    await signIn(page);
+  });
+
+  test("should redirect to signin when not authenticated", async ({ page, context }) => {
+    // beforeEach signs in; this test is specifically about *not* being signed in.
+    await context.clearCookies();
+
     // Try to navigate to help page without authentication
     await page.goto("/help");
 
@@ -16,19 +24,6 @@ test.describe("Help Page Tests", () => {
   test("should load help page correctly when authenticated", async ({
     page,
   }) => {
-    // Mock authentication by setting a session cookie
-    // In a real scenario, you would login first or use proper auth setup
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
 
     // Navigate to help page
     const response = await page.goto("/help");
@@ -50,18 +45,6 @@ test.describe("Help Page Tests", () => {
   });
 
   test("should display all help content sections", async ({ page }) => {
-    // Setup mock authentication
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
 
     await page.goto("/help");
 
@@ -98,18 +81,6 @@ test.describe("Help Page Tests", () => {
   });
 
   test("should display data model image", async ({ page }) => {
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
-
     await page.goto("/help");
 
     if (page.url().includes("/signin")) {
@@ -131,18 +102,6 @@ test.describe("Help Page Tests", () => {
   });
 
   test("should have correct contact information", async ({ page }) => {
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
-
     await page.goto("/help");
 
     if (page.url().includes("/signin")) {
@@ -161,18 +120,6 @@ test.describe("Help Page Tests", () => {
   });
 
   test("should have NCBI taxonomy link", async ({ page }) => {
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
-
     await page.goto("/help");
 
     if (page.url().includes("/signin")) {
@@ -193,18 +140,6 @@ test.describe("Help Page Tests", () => {
   });
 
   test("should have responsive layout", async ({ page }) => {
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
-
     await page.goto("/help");
 
     if (page.url().includes("/signin")) {
@@ -237,18 +172,6 @@ test.describe("Help Page Tests", () => {
       }
     });
 
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
-
     await page.goto("/help");
 
     // Give the page a moment to fully load
@@ -266,18 +189,6 @@ test.describe("Help Page Tests", () => {
   test("should verify all text content is properly formatted", async ({
     page,
   }) => {
-    await page.context().addCookies([
-      {
-        name: "connect.sid",
-        value: "test-session-id",
-        domain: "localhost",
-        path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
-      },
-    ]);
-
     await page.goto("/help");
 
     if (page.url().includes("/signin")) {
@@ -286,14 +197,14 @@ test.describe("Help Page Tests", () => {
     }
 
     // Check that important keywords are properly formatted
-    await expect(page.locator('b:has-text("Project")')).toBeVisible();
-    await expect(page.locator('b:has-text("Research Group")')).toBeVisible();
-    await expect(page.locator('b:has-text("Sample")')).toBeVisible();
-    await expect(page.locator('b:has-text("Experiment")')).toBeVisible();
-    await expect(page.locator('b:has-text("Experiments")')).toBeVisible();
-    await expect(page.locator('b:has-text("Capture")')).toBeVisible();
+    await expect(page.locator('b:has-text(\"Project\")').first()).toBeVisible();
+    await expect(page.locator('b:has-text(\"Research Group\")').first()).toBeVisible();
+    await expect(page.locator('b:has-text(\"Sample\")').first()).toBeVisible();
+    await expect(page.locator('b:has-text(\"Experiment\")').first()).toBeVisible();
+    await expect(page.locator('b:has-text(\"Experiments\")').first()).toBeVisible();
+    await expect(page.locator('b:has-text(\"Capture\")').first()).toBeVisible();
 
     // Check underlined text
-    await expect(page.locator('.is-underlined:has-text("four")')).toBeVisible();
+    await expect(page.locator('.is-underlined:has-text("four")').first()).toBeVisible();
   });
 });

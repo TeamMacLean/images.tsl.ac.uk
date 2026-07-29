@@ -57,7 +57,7 @@ test.describe("File Upload - md5-file compatibility", () => {
     await expect(result).rejects.toThrow();
   });
 
-  test("md5-file should not have callback API (v5+ behavior)", () => {
+  test("md5-file should not have callback API (v5+ behavior)", async () => {
     // In md5-file v5+, passing a callback should not work as expected
     // The function should return a promise regardless
     const testPath = "/some/path";
@@ -68,5 +68,9 @@ test.describe("File Upload - md5-file compatibility", () => {
 
     // Even with a callback provided, it returns a promise in v5+
     expect(result).toBeInstanceOf(Promise);
+
+    // The path does not exist, so that promise rejects. Leaving it unhandled
+    // surfaced as an error outside any test and polluted every run.
+    await expect(result).rejects.toThrow();
   });
 });

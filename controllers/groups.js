@@ -1,6 +1,5 @@
 const Group = require("../models/group");
 const config = require("../config");
-const renderError = require("../lib/renderError");
 const Util = require("../lib/util");
 module.exports = {
   index: (req, res, next) => {
@@ -54,7 +53,7 @@ module.exports = {
         return res.render("groups/index", { groups });
       })
       .catch((err) => {
-        renderError(err);
+        return next(err);
       });
   },
   show: (req, res, next) => {

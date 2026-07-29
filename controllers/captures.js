@@ -19,6 +19,10 @@ module.exports = {
                 } else {
                     next();
                 }
+            })
+            .catch(err => {
+                console.error(err);
+                return next();
             });
     },
     save: (req, res, next) => {
@@ -51,6 +55,7 @@ module.exports = {
                                 })
                                 .catch(err => renderError(res, err));
                         })
+                        .catch(err => renderError(res, err));
                 } else {
                     new Capture({
                         experimentID: experiment.id,

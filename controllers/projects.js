@@ -14,6 +14,10 @@ module.exports = {
                 } else {
                     next();
                 }
+            })
+            .catch(err => {
+                console.error(err);
+                return next();
             });
 
 

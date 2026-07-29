@@ -11,7 +11,7 @@ locals.breadcrumbs = [
 <section class="section">
     <div class="container">
 
-            <h1 class="title has-text-centered">Edit: <%- project.name %></h1>
+            <h1 class="title has-text-centered">Edit: <%= project.name %></h1>
 
             <section class="section">
             <p class="">A <b>Project</b> is pretty much equivalent to a research theme within your <span class="underline">group</span>. This is the
@@ -21,8 +21,9 @@ locals.breadcrumbs = [
             are existing projects in the database, see whether you can add to one rather than creating a new one.  <a onclick="openHelp()" target="_blank">read more.</a></p>
             </section>
 
-        <form method="post" action="/browse/<%- project.group.safeName %>/new">
-            <input type="hidden" name="id" value="<%- project.id %>" class="is-hidden">
+        <form method="post" action="/browse/<%= project.group.safeName %>
+            <%-include('../_csrf.ejs') %>/new">
+            <input type="hidden" name="id" value="<%= project.id %>" class="is-hidden">
 
             <div class="columns">
                 <div class="column">
@@ -30,7 +31,7 @@ locals.breadcrumbs = [
                         <label class="label">Project Name</label>
                         <div class="control">
                             <input class="input" type="text" placeholder="New project name" name="name" maxlength="50"
-                                   value="<%-project.name %>" required>
+                                   value="<%=project.name %>" required>
                         </div>
                         <p class="help">The name of your project</p>
                     </div>
@@ -40,7 +41,7 @@ locals.breadcrumbs = [
                         <label class="label">Short Description</label>
                         <div class="control">
                 <textarea class="input" placeholder="Short description" name="shortDescription" minlength="20" maxlength="100"
-                          required><%- project.shortDescription  %></textarea>
+                          required><%= project.shortDescription  %></textarea>
                         </div>
                         <p class="help">a short description of the project. 20-100 characters</p>
                     </div>
@@ -52,7 +53,7 @@ locals.breadcrumbs = [
                 <label class="label">Long Description</label>
                 <div class="control">
                 <textarea class="input" placeholder="Long description" minlength="100"
-                          name="longDescription"><%- project.longDescription %></textarea>
+                          name="longDescription"><%= project.longDescription %></textarea>
                 </div>
                 <p class="help">a long description of the project. 100+ characters</p>
             </div>

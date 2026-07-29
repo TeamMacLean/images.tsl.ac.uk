@@ -2,6 +2,7 @@ const thinky = require("../lib/thinky");
 
 const r = thinky.r;
 const Util = require("../lib/util");
+const safeName = require("../lib/safeName");
 const config = require("../config");
 
 const fs = require("fs");
@@ -59,17 +60,23 @@ Experiment.pre("save", function (next) {
   const experiment = this;
   const OldSafeName = experiment.safeName;
 
+  const scope = `experiment/${experiment.sampleID}`;
+
   const GenerateSafeName = function () {
+    // Only siblings in the same sample can collide; see models/project.js.
     return new Promise((good, bad) => {
-      Experiment.run()
+      const siblings = experiment.sampleID
+        ? Experiment.getAll(experiment.sampleID, { index: "sampleID" }).run()
+        : Promise.resolve([]);
+
+      siblings
         .then((experiments) => {
           experiments = experiments.filter((a) => a.id !== experiment.id);
-          Util.generateSafeName(experiment.name, experiments).then(
-            (safeName) => {
-              experiment.safeName = safeName;
-              return good(safeName);
-            },
-          );
+          return safeName.claim(scope, experiment.name, experiment.id, experiments);
+        })
+        .then((claimed) => {
+          experiment.safeName = claimed;
+          return good(claimed);
         })
         .catch((err) => {
           return bad(err);
@@ -126,7 +133,10 @@ Experiment.pre("save", function (next) {
     .then(() => {
       if (OldSafeName) {
         if (experiment.safeName !== OldSafeName) {
-          return MoveDirectory(OldSafeName, experiment.safeName);
+          return MoveDirectory(OldSafeName, experiment.safeName).then(() =>
+            // The old name is free again now the directory has moved.
+            safeName.release(scope, OldSafeName),
+          );
         } else {
           return Promise.resolve();
         }
@@ -135,7 +145,25 @@ Experiment.pre("save", function (next) {
       }
     })
     .then(() => next())
-    .catch((err) => next(err));
+    .catch((err) => {
+      // The save is going to fail, so don't sit on a name nobody is using.
+      if (experiment.safeName && experiment.safeName !== OldSafeName) {
+        return safeName
+          .release(scope, experiment.safeName)
+          .then(() => next(err))
+          .catch(() => next(err));
+      }
+      return next(err);
+    });
+});
+
+// A brand new record has no id until it is written; record it on the lock
+// afterwards so a later re-save recognises the name as its own.
+Experiment.post("save", function (next) {
+  safeName
+    .assignOwner(`experiment/${this.sampleID}`, this.safeName, this.id)
+    .then(() => next())
+    .catch(() => next());
 });
 
 Experiment.ensureIndex("createdAt");

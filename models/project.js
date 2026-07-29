@@ -2,6 +2,7 @@ const thinky = require("../lib/thinky");
 const type = thinky.type;
 const r = thinky.r;
 const Util = require("../lib/util");
+const safeName = require("../lib/safeName");
 const config = require("../config");
 
 const fs = require("fs");
@@ -47,15 +48,27 @@ Project.pre("save", function (next) {
   const project = this;
   const OldSafeName = project.safeName;
 
+  const scope = `project/${project.groupID}`;
+
   const GenerateSafeName = function () {
+    // Only siblings in the same group can collide: a project is always looked
+    // up through its group, and its directory lives inside the group's
+    // directory. Scanning the whole table cost O(every project in the system)
+    // in time and memory on every single save.
     return new Promise((good, bad) => {
-      Project.run()
+      const siblings = project.groupID
+        ? Project.getAll(project.groupID, { index: "groupID" }).run()
+        : Promise.resolve([]);
+
+      siblings
         .then((projects) => {
           projects = projects.filter((a) => a.id !== project.id);
-          Util.generateSafeName(project.name, projects).then((safeName) => {
-            project.safeName = safeName;
-            return good(safeName);
-          });
+          // Reserves the name, so two concurrent saves cannot both take it.
+          return safeName.claim(scope, project.name, project.id, projects);
+        })
+        .then((claimed) => {
+          project.safeName = claimed;
+          return good(claimed);
         })
         .catch((err) => {
           return bad(err);
@@ -110,7 +123,10 @@ Project.pre("save", function (next) {
     .then(() => {
       if (OldSafeName) {
         if (project.safeName !== OldSafeName) {
-          return MoveDirectory(OldSafeName, project.safeName);
+          return MoveDirectory(OldSafeName, project.safeName).then(() =>
+            // The old name is free again now the directory has moved.
+            safeName.release(scope, OldSafeName),
+          );
         } else {
           return Promise.resolve();
         }
@@ -119,7 +135,25 @@ Project.pre("save", function (next) {
       }
     })
     .then(() => next())
-    .catch((err) => next(err));
+    .catch((err) => {
+      // The save is going to fail, so don't sit on a name nobody is using.
+      if (project.safeName && project.safeName !== OldSafeName) {
+        return safeName
+          .release(scope, project.safeName)
+          .then(() => next(err))
+          .catch(() => next(err));
+      }
+      return next(err);
+    });
+});
+
+// A brand new record has no id until it is written; record it on the lock
+// afterwards so a later re-save recognises the name as its own.
+Project.post("save", function (next) {
+  safeName
+    .assignOwner(`project/${this.groupID}`, this.safeName, this.id)
+    .then(() => next())
+    .catch(() => next());
 });
 Project.ensureIndex("createdAt");
 

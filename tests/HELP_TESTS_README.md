@@ -219,6 +219,3 @@ When modifying the help page:
 - `/controllers/help.js` - Help page controller
 - `/routes.js` - Route definitions including `/help`
 - `/public/img/images_data_model.png` - Data model diagram
-- `/verify-mailto-fix.js` - Script to verify the mailto link fix
-- `/verify-help-page.js` - Script for manual help page verification
-- `/test-help-ejs.js` - EJS template validation script

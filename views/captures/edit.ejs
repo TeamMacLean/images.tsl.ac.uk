@@ -21,7 +21,7 @@ locals.breadcrumbs = [
 <section class="section">
     <div class="container">
 
-        <h1 class="title has-text-centered">Edit: <%- capture.name %></h1>
+        <h1 class="title has-text-centered">Edit: <%= capture.name %></h1>
 
         <section class="section">
             <p>A <b>Capture</b> is the simplest heading. This is really the images themselves, and most
@@ -33,9 +33,10 @@ locals.breadcrumbs = [
         </section>
 
         <form method="post"
-              action="/browse/<%- capture.experiment.sample.project.group.safeName %>/<%- capture.experiment.sample.project.safeName %>/<%- capture.experiment.sample.safeName %>/<%- capture.experiment.safeName %>/new">
+              action="/browse/<%= capture.experiment.sample.project.group.safeName %>
+            <%-include('../_csrf.ejs') %>/<%= capture.experiment.sample.project.safeName %>/<%= capture.experiment.sample.safeName %>/<%= capture.experiment.safeName %>/new">
 
-            <input type="hidden" name="id" value="<%- capture.id %>" class="is-hidden">
+            <input type="hidden" name="id" value="<%= capture.id %>" class="is-hidden">
 
             <div class="columns">
                 <div class="column is-6">
@@ -43,7 +44,7 @@ locals.breadcrumbs = [
                         <label class="label">Name</label>
                         <div class="control">
                             <input class="input" type="text" placeholder="New capture name" name="name" maxlength="30"
-                                   value="<%- capture.name %>" required>
+                                   value="<%= capture.name %>" required>
                         </div>
                         <p class="help">The name of your capture</p>
                     </div>
@@ -72,7 +73,7 @@ locals.breadcrumbs = [
 
                                 <select name="platformName">
                                     <% platforms.map(platform=>{ %>
-                                        <option <%- capture.platformName === platform ? 'selected' : '' %>><%- platform %></option>
+                                        <option <%= capture.platformName === platform ? 'selected' : '' %>><%= platform %></option>
                                     <% }) %>
                                 </select>
                             </div>

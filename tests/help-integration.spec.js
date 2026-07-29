@@ -1,34 +1,24 @@
 const { test, expect } = require("@playwright/test");
 
+const { signIn } = require("./helpers/e2eAuth");
 test.describe("Help Page Integration Tests", () => {
-  // Helper function to perform login
-  async function loginUser(page, username, password) {
-    await page.goto("/signin");
-    await page.fill('input[name="username"]', username);
-    await page.fill('input[name="password"]', password);
-    await page.click('button:has-text("Login")');
-
-    // Wait for navigation after login
-    await page.waitForLoadState("networkidle");
-  }
-
   test.beforeEach(async ({ page }) => {
-    // Set a longer timeout for integration tests
+    await signIn(page);
+  });
+
+  test.beforeEach(() => {
+    // Integration tests do more navigation than the rest.
     test.setTimeout(30000);
   });
 
   test("should access help page after successful login", async ({ page }) => {
-    // Skip this test if no test credentials are provided
-    const testUsername = process.env.TEST_USERNAME || "";
-    const testPassword = process.env.TEST_PASSWORD || "";
-
-    if (!testUsername || !testPassword) {
-      test.skip(true, "Test credentials not provided. Set TEST_USERNAME and TEST_PASSWORD environment variables.");
+    // beforeEach already signed in; only skip if this server would not
+    // accept our credentials (a real LDAP deployment with no TEST_USERNAME).
+    await page.goto("/help");
+    if (page.url().includes("/signin")) {
+      test.skip(true, "Could not sign in; set TEST_USERNAME and TEST_PASSWORD.");
       return;
     }
-
-    // Perform login
-    await loginUser(page, testUsername, testPassword);
 
     // Navigate to help page
     await page.goto("/help");
@@ -58,7 +48,9 @@ test.describe("Help Page Integration Tests", () => {
     await expect(dataModelImage).toBeVisible();
 
     // Verify contact information
-    const emailLink = page.locator('a[href="mailto:bioinformatics.tsl.ac.uk"]');
+    // The address needs its @; this assertion predated the fix and, because
+    // the test always skipped, never caught up with it.
+    const emailLink = page.locator('a[href="mailto:bioinformatics@tsl.ac.uk"]');
     await expect(emailLink).toBeVisible();
     await expect(emailLink).toHaveText("bioinformatics@tsl.ac.uk");
 
@@ -83,16 +75,13 @@ test.describe("Help Page Integration Tests", () => {
   });
 
   test("should navigate from home to help page", async ({ page }) => {
-    const testUsername = process.env.TEST_USERNAME || "";
-    const testPassword = process.env.TEST_PASSWORD || "";
-
-    if (!testUsername || !testPassword) {
-      test.skip(true, "Test credentials not provided");
+    // beforeEach already signed in; only skip if this server would not
+    // accept our credentials (a real LDAP deployment with no TEST_USERNAME).
+    await page.goto("/help");
+    if (page.url().includes("/signin")) {
+      test.skip(true, "Could not sign in; set TEST_USERNAME and TEST_PASSWORD.");
       return;
     }
-
-    // Login first
-    await loginUser(page, testUsername, testPassword);
 
     // Go to home page (should show groups)
     await page.goto("/");
@@ -116,33 +105,32 @@ test.describe("Help Page Integration Tests", () => {
   });
 
   test("should display all help content correctly", async ({ page }) => {
-    const testUsername = process.env.TEST_USERNAME || "";
-    const testPassword = process.env.TEST_PASSWORD || "";
-
-    if (!testUsername || !testPassword) {
-      test.skip(true, "Test credentials not provided");
+    // beforeEach already signed in; only skip if this server would not
+    // accept our credentials (a real LDAP deployment with no TEST_USERNAME).
+    await page.goto("/help");
+    if (page.url().includes("/signin")) {
+      test.skip(true, "Could not sign in; set TEST_USERNAME and TEST_PASSWORD.");
       return;
     }
 
-    await loginUser(page, testUsername, testPassword);
     await page.goto("/help");
 
     // Check Project section content
-    const projectSection = page.locator('section:has(h3:has-text("Project"))');
+    const projectSection = page.locator('section:has(h3:has-text("Project"))').first();
     await expect(projectSection).toContainText("research theme");
     await expect(projectSection).toContainText("Research Group");
 
     // Check Sample section content
-    const sampleSection = page.locator('section:has(h3:has-text("Sample"))');
+    const sampleSection = page.locator('section:has(h3:has-text("Sample"))').first();
     await expect(sampleSection).toContainText("biological variables");
     await expect(sampleSection).toContainText("NCBI Taxonomy ID");
 
     // Check Experiment section content
-    const experimentSection = page.locator('section:has(h3:has-text("Experiment"))');
+    const experimentSection = page.locator('section:has(h3:has-text("Experiment"))').first();
     await expect(experimentSection).toContainText("biological and technical variables");
 
     // Check Capture section content
-    const captureSection = page.locator('section:has(h3:has-text("Capture"))');
+    const captureSection = page.locator('section:has(h3:has-text("Capture"))').first();
     await expect(captureSection).toContainText("images themselves");
 
     // Check contact card
@@ -153,30 +141,29 @@ test.describe("Help Page Integration Tests", () => {
   });
 
   test("should verify help page responsive design", async ({ page, viewport }) => {
-    const testUsername = process.env.TEST_USERNAME || "";
-    const testPassword = process.env.TEST_PASSWORD || "";
-
-    if (!testUsername || !testPassword) {
-      test.skip(true, "Test credentials not provided");
+    // beforeEach already signed in; only skip if this server would not
+    // accept our credentials (a real LDAP deployment with no TEST_USERNAME).
+    await page.goto("/help");
+    if (page.url().includes("/signin")) {
+      test.skip(true, "Could not sign in; set TEST_USERNAME and TEST_PASSWORD.");
       return;
     }
 
-    await loginUser(page, testUsername, testPassword);
     await page.goto("/help");
 
     // Test desktop view
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await expect(page.locator('.container')).toBeVisible();
+    await expect(page.locator('.container').first()).toBeVisible();
     await expect(page.locator('h1.title')).toBeVisible();
 
     // Test tablet view
     await page.setViewportSize({ width: 768, height: 1024 });
-    await expect(page.locator('.container')).toBeVisible();
+    await expect(page.locator('.container').first()).toBeVisible();
     await expect(page.locator('h1.title')).toBeVisible();
 
     // Test mobile view
     await page.setViewportSize({ width: 375, height: 667 });
-    await expect(page.locator('.container')).toBeVisible();
+    await expect(page.locator('.container').first()).toBeVisible();
     await expect(page.locator('h1.title')).toBeVisible();
 
     // Verify image scales properly on mobile
@@ -187,15 +174,14 @@ test.describe("Help Page Integration Tests", () => {
   });
 
   test("should handle help page errors gracefully", async ({ page }) => {
-    const testUsername = process.env.TEST_USERNAME || "";
-    const testPassword = process.env.TEST_PASSWORD || "";
-
-    if (!testUsername || !testPassword) {
-      test.skip(true, "Test credentials not provided");
+    // beforeEach already signed in; only skip if this server would not
+    // accept our credentials (a real LDAP deployment with no TEST_USERNAME).
+    await page.goto("/help");
+    if (page.url().includes("/signin")) {
+      test.skip(true, "Could not sign in; set TEST_USERNAME and TEST_PASSWORD.");
       return;
     }
 
-    await loginUser(page, testUsername, testPassword);
 
     // Intercept the help request to simulate an error
     await page.route("/help", (route) => {
@@ -213,15 +199,14 @@ test.describe("Help Page Integration Tests", () => {
   });
 
   test("should validate help page performance", async ({ page }) => {
-    const testUsername = process.env.TEST_USERNAME || "";
-    const testPassword = process.env.TEST_PASSWORD || "";
-
-    if (!testUsername || !testPassword) {
-      test.skip(true, "Test credentials not provided");
+    // beforeEach already signed in; only skip if this server would not
+    // accept our credentials (a real LDAP deployment with no TEST_USERNAME).
+    await page.goto("/help");
+    if (page.url().includes("/signin")) {
+      test.skip(true, "Could not sign in; set TEST_USERNAME and TEST_PASSWORD.");
       return;
     }
 
-    await loginUser(page, testUsername, testPassword);
 
     // Measure page load performance
     const startTime = Date.now();

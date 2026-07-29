@@ -2,6 +2,7 @@ const thinky = require("../lib/thinky");
 const type = thinky.type;
 const r = thinky.r;
 const Util = require("../lib/util");
+const safeName = require("../lib/safeName");
 const config = require("../config");
 
 const fs = require("fs");
@@ -54,15 +55,23 @@ Sample.pre("save", function (next) {
   const sample = this;
   const OldSafeName = sample.safeName;
 
+  const scope = `sample/${sample.projectID}`;
+
   const GenerateSafeName = function () {
+    // Only siblings in the same project can collide; see models/project.js.
     return new Promise((good, bad) => {
-      Sample.run()
+      const siblings = sample.projectID
+        ? Sample.getAll(sample.projectID, { index: "projectID" }).run()
+        : Promise.resolve([]);
+
+      siblings
         .then((samples) => {
           samples = samples.filter((a) => a.id !== sample.id);
-          Util.generateSafeName(sample.name, samples).then((safeName) => {
-            sample.safeName = safeName;
-            return good(safeName);
-          });
+          return safeName.claim(scope, sample.name, sample.id, samples);
+        })
+        .then((claimed) => {
+          sample.safeName = claimed;
+          return good(claimed);
         })
         .catch((err) => {
           return bad(err);
@@ -119,7 +128,10 @@ Sample.pre("save", function (next) {
     .then(() => {
       if (OldSafeName) {
         if (sample.safeName !== OldSafeName) {
-          return MoveDirectory(OldSafeName, sample.safeName);
+          return MoveDirectory(OldSafeName, sample.safeName).then(() =>
+            // The old name is free again now the directory has moved.
+            safeName.release(scope, OldSafeName),
+          );
         } else {
           return Promise.resolve();
         }
@@ -128,7 +140,25 @@ Sample.pre("save", function (next) {
       }
     })
     .then(() => next())
-    .catch((err) => next(err));
+    .catch((err) => {
+      // The save is going to fail, so don't sit on a name nobody is using.
+      if (sample.safeName && sample.safeName !== OldSafeName) {
+        return safeName
+          .release(scope, sample.safeName)
+          .then(() => next(err))
+          .catch(() => next(err));
+      }
+      return next(err);
+    });
+});
+
+// A brand new record has no id until it is written; record it on the lock
+// afterwards so a later re-save recognises the name as its own.
+Sample.post("save", function (next) {
+  safeName
+    .assignOwner(`sample/${this.projectID}`, this.safeName, this.id)
+    .then(() => next())
+    .catch(() => next());
 });
 Sample.ensureIndex("createdAt");
 
