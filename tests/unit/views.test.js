@@ -213,6 +213,57 @@ test("error view", async (t) => {
   });
 });
 
+test("every form is well formed and carries its token in the body", async (t) => {
+  // The CSRF include was once inserted into the middle of a multi-line <form>
+  // tag, landing inside the action attribute. The token was present, so a test
+  // that only grepped for name="_csrf" passed, while every form in the app
+  // pointed at a garbage URL and could not be submitted at all.
+  const formViews = [
+    ["auth/signin.ejs", { developmentMode: false }],
+    ["projects/new.ejs", { group: makeGroup() }],
+    ["projects/edit.ejs", { project: makeProject() }],
+    ["samples/new.ejs", { project: makeProject() }],
+    ["samples/edit.ejs", { sample: makeSample() }],
+    ["experiments/new.ejs", { sample: makeSample() }],
+    ["experiments/edit.ejs", { experiment: makeExperiment() }],
+    ["captures/new.ejs", { experiment: makeExperiment() }],
+    ["captures/edit.ejs", { capture: makeCapture() }],
+  ];
+
+  for (const [view, locals] of formViews) {
+    await t.test(view, async () => {
+      const html = await render(view, { ...locals, csrfToken: "t".repeat(64) });
+
+      const openTag = html.match(/<form\b[^>]*>/);
+      assert.ok(openTag, `${view} rendered no <form> tag`);
+
+      const action = openTag[0].match(/action="([^"]*)"/);
+      assert.ok(action, `${view}: form has no action attribute`);
+      assert.ok(
+        action[1].startsWith("/"),
+        `${view}: action "${action[1]}" is not a site-relative path`,
+      );
+      assert.ok(
+        !/[<>\n%]/.test(action[1]),
+        `${view}: action "${action[1]}" contains markup, so the tag is malformed`,
+      );
+
+      // The token must be an element inside the form, not text in the tag.
+      const tokenIndex = html.indexOf('name="_csrf"');
+      assert.ok(tokenIndex > -1, `${view}: no _csrf field`);
+      assert.ok(
+        tokenIndex > openTag.index + openTag[0].length,
+        `${view}: the _csrf field is inside the <form> tag itself`,
+      );
+      assert.match(
+        html.slice(tokenIndex - 60, tokenIndex + 120),
+        /<input[^>]+name="_csrf"[^>]+value="t{64}"/,
+        `${view}: the _csrf field did not render as an input with the token`,
+      );
+    });
+  }
+});
+
 test("groups/show tolerates a project with no description", async () => {
   // .substring() on a missing shortDescription threw and 500'd the group page.
   const group = makeGroup();

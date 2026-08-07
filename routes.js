@@ -10,6 +10,7 @@ const Captures = require("./controllers/captures");
 const Samples = require("./controllers/samples");
 const Files = require("./controllers/files");
 const Help = require("./controllers/help");
+const Support = require("./controllers/support");
 
 const Util = require("./lib/util");
 const config = require("./config");
@@ -37,6 +38,13 @@ router.route("/signout").get((req, res, next) => {
   console.log("GET /signout");
   next();
 }, Auth.signOut);
+
+// Deliberately not behind isAuthenticated: someone who cannot sign in is
+// exactly the person who needs to report it. Capped and rate limited instead.
+router.route("/support/feedback").post((req, res, next) => {
+  console.log("POST /support/feedback");
+  next();
+}, Support.feedback);
 
 router
   .route("/help")

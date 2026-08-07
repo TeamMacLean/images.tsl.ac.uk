@@ -28,7 +28,9 @@ app.set("view engine", "ejs");
 app.disable("x-powered-by");
 // The app runs behind an nginx reverse proxy in production; without this,
 // req.secure is always false and HTTPS-only session cookies never get set.
-app.set("trust proxy", 1);
+// Set config.trustProxy to the number of proxies in front of Node if it is not
+// exactly one, otherwise client IPs and req.secure will be wrong.
+app.set("trust proxy", config.trustProxy === undefined ? 1 : config.trustProxy);
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -104,6 +106,13 @@ app.use(passport.session());
 app.use(require("./lib/csrf"));
 
 app.use((req, res, next) => {
+  // Only values that are safe to render into a page. Note supportEnabled is a
+  // boolean: the webhook URL itself must never reach the browser.
+  res.locals.config = {
+    HPCRoot: config.HPCRoot,
+    supportEnabled: !!config.supportWebhook,
+  };
+
   if (req.user != null) {
     res.locals.signedInUser = {
       username: req.user.username,
@@ -112,7 +121,6 @@ app.use((req, res, next) => {
       isAdmin: config.admins.indexOf(req.user.username) > -1,
     };
     req.user.isAdmin = res.locals.signedInUser.isAdmin;
-    res.locals.config = { HPCRoot: config.HPCRoot };
     console.log("User signed in:", res.locals.signedInUser);
   }
   next();

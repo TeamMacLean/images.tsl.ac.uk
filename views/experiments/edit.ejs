@@ -24,8 +24,8 @@ locals.breadcrumbs = [
                 for a sample. <a onclick="openHelp()" target="_blank">read more.</a></p>
         </section>
         <form method="post"
-              action="/browse/<%= experiment.sample.project.group.safeName %>
-            <%-include('../_csrf.ejs') %>/<%= experiment.sample.project.safeName %>/<%= experiment.sample.safeName %>/new">
+              action="/browse/<%= experiment.sample.project.group.safeName %>/<%= experiment.sample.project.safeName %>/<%= experiment.sample.safeName %>/new">
+            <%-include('../_csrf.ejs') %>
 
             <input type="hidden" name="id" value="<%= experiment.id %>" class="is-hidden">
 

@@ -24,8 +24,8 @@ locals.breadcrumbs = [
                         onclick="openHelp()" target="_blank">read more.</a></p>
         </section>
 
-        <form method="post" action="/browse/<%= group.safeName %>
-            <%-include('../_csrf.ejs') %>/new">
+        <form method="post" action="/browse/<%= group.safeName %>/new">
+            <%-include('../_csrf.ejs') %>
 
             <div class="columns">
                 <div class="column">

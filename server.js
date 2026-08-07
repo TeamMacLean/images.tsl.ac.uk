@@ -1,7 +1,15 @@
+const configCheck = require("./lib/configCheck");
+const config = require("./config");
+
+// Before anything binds a port: coming up with authentication disabled is worse
+// than not coming up at all.
+if (configCheck.report(config).fatal) {
+  process.exit(1);
+}
+
 const app = require("./app");
 const debug = require("debug")("imagehog:server");
 const http = require("http");
-const config = require("./config");
 
 let port = normalizePort(config.port);
 console.log(`Normalized port: ${port}`);

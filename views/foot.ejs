@@ -11,13 +11,18 @@
 <script async type="text/javascript" src="/js/dist/main.js"></script>
 
 
-<script src="https://cdn.jsdelivr.net/gh/TeamMacLean/tsl-bioinformatics-fab/dist/support.fab.js"></script>
-<script>
-    SupportFab.init({
-        url: 'https://hooks.slack.com/services/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',
-        email: 'bioinformatics@tsl.ac.uk'
-    });
-</script>
+<% if (locals.config && locals.config.supportEnabled) { %>
+    <script src="https://cdn.jsdelivr.net/gh/TeamMacLean/tsl-bioinformatics-fab/dist/support.fab.js"></script>
+    <script>
+        // Posts to our own endpoint, which relays to the chat webhook. The
+        // webhook URL used to sit here in the page source, which handed a
+        // working, unrevocable credential to every visitor.
+        SupportFab.init({
+            url: '/support/feedback',
+            email: 'bioinformatics@tsl.ac.uk'
+        });
+    </script>
+<% } %>
 </body>
 
 </html>

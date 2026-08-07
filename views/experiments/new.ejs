@@ -19,8 +19,8 @@ locals.breadcrumbs = [
                 for a sample. <a onclick="openHelp()" target="_blank">read more.</a></p>
         </section>
         <form method="post"
-              action="/browse/<%= sample.project.group.safeName %>
-            <%-include('../_csrf.ejs') %>/<%= sample.project.safeName %>/<%= sample.safeName %>/new">
+              action="/browse/<%= sample.project.group.safeName %>/<%= sample.project.safeName %>/<%= sample.safeName %>/new">
+            <%-include('../_csrf.ejs') %>
 
 
 

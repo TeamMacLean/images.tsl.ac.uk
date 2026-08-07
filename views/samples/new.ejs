@@ -28,8 +28,8 @@ locals.breadcrumbs = [
             </p>
         </section>
 
-        <form method="post" action="/browse/<%= project.group.safeName %>
-            <%-include('../_csrf.ejs') %>/<%= project.safeName %>/new">
+        <form method="post" action="/browse/<%= project.group.safeName %>/<%= project.safeName %>/new">
+            <%-include('../_csrf.ejs') %>
 
             <div class="columns">
                 <div class="column">
